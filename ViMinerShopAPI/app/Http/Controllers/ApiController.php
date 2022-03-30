@@ -30,10 +30,10 @@ class ApiController extends Controller
         $user = User::create([
         	'FirstName' => $request->firstname,
         	'LastName' => $request->lastname,
-        	'Username' => $request->username,
-        	'Email' => $request->email,
+        	'username' => $request->username,
+        	'email' => $request->email,
         	'RefCode' => $request->refcode,
-        	'Password' => bcrypt($request->password)
+        	'password' => bcrypt($request->password)
         ]);
 
         return response()->json([
@@ -60,20 +60,27 @@ class ApiController extends Controller
             if (! $token = JWTAuth::attempt($credentials)) {
                 return response()->json([
                 	'success' => false,
-                	'message' => 'Thông tin đăng nhập không hợp lệ',
+                	'message' => 'Thông tin đăng nhập không hợp lệ'
                 ], 400);
             }
         } catch (JWTException $e) {
-    	// return $credentials;
             return response()->json([
                 	'success' => false,
                 	'message' => 'Không thể tạo token',
                 ], 500);
         }
+
+        $user = User::where("email", $request->email)->first();
  	
- 		//Token created, return with success response and jwt token
         return response()->json([
             'success' => true,
+            'id' => $user["Id"],
+            'email' => $user->email,
+            'username' => $user->username,
+            'firstname' => $user->FirstName,
+            'lastname' => $user->LastName,
+            'rolevar_id' => $user->RoleVar_Id,
+            'isactive' => true, // Tạm thời
             'token' => $token,
         ]);
     }
