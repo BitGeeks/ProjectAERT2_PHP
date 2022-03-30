@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use JWTAuth;
 use App\Models\User;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
@@ -228,5 +229,19 @@ class ApiController extends Controller
             return "Người dùng này chưa tạo mã giới thiệu!";
         $reflist = User::where("ReferralBy", $user->ReferralCode)->get();
         return response()->json($reflist);
+    }
+
+    public function resend_register_code (Request $request) {
+        // under development
+    }
+
+    public function get_user_stats_points (Request $request) {
+        $user = $request->userData;
+        $numberPoint = OrderDetail::join("PaymentDetail", "PaymentDetail.Id", "=", "OrderDetail.Payment_id")->where("PaymentDetail.Status", "!=", 0).count() * 1024;
+
+        return array(
+            "Balance" => .0,
+            "Point" => $numberPoint
+        );
     }
 }
