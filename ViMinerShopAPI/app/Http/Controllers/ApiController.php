@@ -183,13 +183,8 @@ class ApiController extends Controller
         return $this->update($user);
     }
 
-    // public function get_user_records (Request $request) {
-    //     $results = User::OrderBy("id", "DESC")->where("User_id", $request->id)->skip($skip)->take($limit);
-    //     return _context.UserRecord
-    //                 .OrderByDescending(r => r.Id)
-    //                 .Where(u => u.User_id == user.Id)
-    //                 .Skip((int)paginate.size * (int)paginate.page)
-    //                 .Take((int)paginate.size)
-    //                 .ToList();
-    // }
+    public function get_user_records (Request $request) {
+        $results = User::OrderBy("id", "DESC")->where("User_id", $request->userData->id)->skip($skip)->take($limit)->get();
+        return response()->json($results);
+    }
 }
