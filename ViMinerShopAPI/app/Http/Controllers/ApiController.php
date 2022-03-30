@@ -89,17 +89,14 @@ class ApiController extends Controller
  
     public function logout(Request $request)
     {
-        //valid credential
         $validator = Validator::make($request->only('token'), [
             'token' => 'required'
         ]);
 
-        //Send failed response if request is not valid
         if ($validator->fails()) {
             return response()->json(['error' => $validator->messages()], 200);
         }
 
-		//Request is validated, do logout        
         try {
             JWTAuth::invalidate($request->token);
  
