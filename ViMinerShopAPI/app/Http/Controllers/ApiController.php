@@ -13,12 +13,14 @@ class ApiController extends Controller
 {
     public function register(Request $request)
     {
-    	//Validate data
-        $data = $request->only('name', 'email', 'password');
+        $data = $request->only('firstname', 'lastname', 'username', 'email', 'refcode', 'password');
         $validator = Validator::make($data, [
-            'name' => 'required|string',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'username' => 'required|string',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:6|max:50'
+            'refcode' => 'string',
+            'password' => 'required|string|min:2|max:50'
         ]);
 
         if ($validator->fails()) {
@@ -26,9 +28,12 @@ class ApiController extends Controller
         }
 
         $user = User::create([
-        	'name' => $request->name,
-        	'email' => $request->email,
-        	'password' => bcrypt($request->password)
+        	'FirstName' => $request->firstname,
+        	'LastName' => $request->lastname,
+        	'Username' => $request->username,
+        	'Email' => $request->email,
+        	'RefCode' => $request->refcode,
+        	'Password' => bcrypt($request->password)
         ]);
 
         return response()->json([
