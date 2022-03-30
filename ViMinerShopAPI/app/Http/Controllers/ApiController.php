@@ -74,7 +74,7 @@ class ApiController extends Controller
  	
         return response()->json([
             'success' => true,
-            'id' => $user["Id"],
+            'id' => $user["id"],
             'email' => $user->email,
             'username' => $user->username,
             'firstname' => $user->FirstName,
@@ -114,14 +114,14 @@ class ApiController extends Controller
     }
 
     public function get_user_by_id (Request $request, $id) {
-        $user = User::where("Id", $id)->first();
-
+        $user = $request["userData"];
+        // $user = User::where("id", $id)->first(); ? wassup Vi :))
+ 
         return response()->json($user);
     }
 
     public function update_user (Request $request) {
-        $user = User::where("Id", $request->id)->first();
-        // $userDataUpdate = array();
+        $user = User::where("id", $request->userData->id)->first();
 
         if ($user == null)
             return "Người dùng không tồn tại";
@@ -159,7 +159,7 @@ class ApiController extends Controller
         if (isset($request->password))
             $user->password = bcrypt($request->password);
 
-        User::where("Id", $request->id)->update($user);
+        User::where("id", $request->id)->update($user);
 
         return $this->get_user_by_id($request->id);
     }
@@ -176,10 +176,20 @@ class ApiController extends Controller
     }
 
     public function update_subscription (Request $request) {
-        $user = User::where("Id", $request->id)->first();
+        $user = $request->userData;
 
         $user->isSubscribedToMailing = !$user->isSubscribedToMailing;
 
         return $this->update($user);
     }
+
+    // public function get_user_records (Request $request) {
+    //     $results = User::OrderBy("id", "DESC")->where("User_id", $request->id)->skip($skip)->take($limit);
+    //     return _context.UserRecord
+    //                 .OrderByDescending(r => r.Id)
+    //                 .Where(u => u.User_id == user.Id)
+    //                 .Skip((int)paginate.size * (int)paginate.page)
+    //                 .Take((int)paginate.size)
+    //                 .ToList();
+    // }
 }

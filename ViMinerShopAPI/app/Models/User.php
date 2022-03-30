@@ -11,13 +11,15 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
+    protected $primaryKey = 'email';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'FirstName', 'LastName', 'username', 'SocialID', 'email', 'Telephone', 'UserImage', 'LoginFailedCount', 'password', 'isSubscribedToMailing', 'RoleVar_Id', 'ReferralCode', 'ReferralBy', 'created_at', 'updated_at'
+        'id', 'FirstName', 'LastName', 'username', 'SocialID', 'email', 'Telephone', 'UserImage', 'LoginFailedCount', 'password', 'isSubscribedToMailing', 'RoleVar_Id', 'ReferralCode', 'ReferralBy', 'created_at', 'updated_at'
     ];
 
     /**
@@ -42,10 +44,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->getKey();
     }
+
     public function getJWTCustomClaims()
     {
-        return [];
+        return ['email' => $this->getAttributeValue('Email')];
     }
+
     public function products()
     {
         return $this->hasMany(Product::class);

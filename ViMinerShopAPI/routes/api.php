@@ -26,6 +26,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('users/{id}', [ApiController::class, 'get_user_by_id']);
     Route::put('users/update',  [ApiController::class, 'update_user']);
     Route::put('users/subscription',  [ApiController::class, 'update_subscription']);
+    // Route::get('users/records/all',  [ApiController::class, 'get_user_records']);
     // Route::get('logout', [ApiController::class, 'logout']);
     // Route::get('get_user', [ApiController::class, 'get_user']);
     // Route::get('products', [ProductController::class, 'index']);

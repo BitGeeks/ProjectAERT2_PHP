@@ -20,7 +20,10 @@ class JwtMiddleware extends BaseMiddleware
     public function handle($request, Closure $next)
     {
         try {
-            $user = JWTAuth::parseToken()->authenticate();
+            // JWTAuth::setIdentifier('Id');
+            // $user = JWTAuth::parseToken()->authenticate();
+            $user = JWTAuth::toUser(JWTAuth::getToken());
+            $request->merge(['userData' => $user]);
         } catch (Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
                 return response()->json(['status' => 'Token không hợp lệ']);
@@ -30,6 +33,7 @@ class JwtMiddleware extends BaseMiddleware
                 return response()->json(['status' => 'Token ủy quyền không tồn tại']);
             }
         }
+        
         return $next($request);
     }
 }
