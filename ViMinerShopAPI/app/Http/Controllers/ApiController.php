@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use JWTAuth;
 use App\Models\User;
 use App\Models\OrderDetail;
+use App\Models\ProductSoldOutNotify;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
@@ -243,5 +244,32 @@ class ApiController extends Controller
             "Balance" => .0,
             "Point" => $numberPoint
         );
+    }
+
+    public function set_new_product_notify (Request $request) {
+        $user = $request->userData;
+        $currentTime = Carbon::now();
+        $psoData = ProductSoldOutNotify::where("User_id", $user->id)
+                    ->where("Product_id", $request->productId)
+                    ->whereRaw('DATEDIFF(created_at,'.$currentTime.') < 15')
+                    ->first();
+        
+        if (!$psoData) {
+            $psoNew = [
+                User_id = user.Id,
+                Product_id = product.productId,
+                quantity = product.quantity,
+                created_at = DateTime.Now,
+                updated_at = DateTime.Now
+            ];
+            ProductSoldOutNotify::create($psoNew);
+        } else {
+            $psoData->updated_at = $currentTime;
+            $psoData->quantity = $request->quantity;
+        }
+        ProductSoldOutNotify::where("User_id", $user->id)
+                    ->where("Product_id", $request->productId)
+                    ->whereRaw('DATEDIFF(created_at,'.$currentTime.') < 15')
+                    ->update($psoData);
     }
 }
