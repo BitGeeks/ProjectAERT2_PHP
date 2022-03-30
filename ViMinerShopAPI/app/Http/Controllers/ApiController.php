@@ -187,4 +187,9 @@ class ApiController extends Controller
         $results = User::OrderBy("id", "DESC")->where("User_id", $request->userData->id)->skip($skip)->take($limit)->get();
         return response()->json($results);
     }
+
+    public function get_user_records_count (Request $request) {
+        $results = User::OrderBy("id", "DESC")->where("User_id", $request->userData->id)->skip($skip)->take($limit)->count();
+        return response()->json($results);
+    }
 }
