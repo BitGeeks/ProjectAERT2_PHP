@@ -256,20 +256,21 @@ class ApiController extends Controller
         
         if (!$psoData) {
             $psoNew = [
-                User_id = user.Id,
-                Product_id = product.productId,
-                quantity = product.quantity,
-                created_at = DateTime.Now,
-                updated_at = DateTime.Now
+                "User_id" => $user->id,
+                "Product_id" => $request->productId,
+                "quantity" => $request->quantity,
+                "created_at" => Carbon::now(),
+                "updated_at" => Carbon::now()
             ];
             ProductSoldOutNotify::create($psoNew);
         } else {
             $psoData->updated_at = $currentTime;
             $psoData->quantity = $request->quantity;
         }
+
         ProductSoldOutNotify::where("User_id", $user->id)
                     ->where("Product_id", $request->productId)
-                    ->whereRaw('DATEDIFF(created_at,'.$currentTime.') < 15')
+                    ->whereRaw('DATEDIFF(created_at,'.$currentTime.') < 365')
                     ->update($psoData);
     }
 }
