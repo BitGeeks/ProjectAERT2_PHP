@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserCredentialsVerify extends Model
+class UserPayment extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'Id', 'User_id', 'EmailVerifyCode', 'ResendMailAt'
+        'Id', 'User_id', 'payment_type', 'provider'
     ];
 
     protected $hidden = [
