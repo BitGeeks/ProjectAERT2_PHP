@@ -112,6 +112,57 @@ class ApiController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function get_user_by_id (Request $request, $id) {
+        $user = User::where("Id", $id)->first();
+
+        return response()->json($user);
+    }
+
+    public function update_user (Request $request) {
+        $user = User::where("Id", $request->id)->first();
+        // $userDataUpdate = array();
+
+        if ($user == null)
+            return "Người dùng không tồn tại";
+
+        if (isset($request->Email) && $request->Email != $user->Email)
+        {
+            if (User::where("email", $request->Email)->first() != null)
+                return "Email " . $request->Email . " đã tồn tại";
+
+            $user->Email = $request->Email;
+        }
+
+        if (isset($request->Username) && $request->Username != $user->username)
+        {
+            if (User::where("username", $request->Username)->first() != null)
+                return "Tên người dùng " . uParams.Username . " đã tồn tại";
+
+            $user->username = $request->Username;
+        }
+
+        if (isset($request->FirstName))
+            $user->FirstName = $request->FirstName;
+
+        if (isset($request->LastName))
+            $user->LastName = $request->LastName;
+
+        if (isset($request->Telephone))
+            $user->Telephone = $request->Telephone;
+
+        if (isset($request->UserImage))
+            $user->UserImage = $request->UserImage;
+
+        $user->isSubscribedToMailing = $request->isSubscribedToMailing;
+
+        if (isset($request->password))
+            $user->password = bcrypt($request->password);
+
+        User::where("Id", $request->id)->update($user);
+
+        return $this->get_user_by_id($request->id);
+    }
  
     public function get_user(Request $request)
     {
@@ -122,5 +173,13 @@ class ApiController extends Controller
         $user = JWTAuth::authenticate($request->token);
  
         return response()->json(['user' => $user]);
+    }
+
+    public function update_subscription (Request $request) {
+        $user = User::where("Id", $request->id)->first();
+
+        $user->isSubscribedToMailing = !$user->isSubscribedToMailing;
+
+        return $this->update($user);
     }
 }
