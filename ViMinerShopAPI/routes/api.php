@@ -30,6 +30,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('users/records/count',  [ApiController::class, 'get_user_records_count']);
     Route::post('users/register/validate',  [ApiController::class, 'validate_user']);
     Route::post("/users/referrals/create", [ApiController::class, 'create_referral_code']);
+    Route::get("/users/referrals/all", [ApiController::class, 'list_all_referral']);
     // Route::get('logout', [ApiController::class, 'logout']);
     // Route::get('get_user', [ApiController::class, 'get_user']);
     // Route::get('products', [ProductController::class, 'index']);

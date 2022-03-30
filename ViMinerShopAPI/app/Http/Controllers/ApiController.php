@@ -219,6 +219,14 @@ class ApiController extends Controller
 
         User::where("id", $user->id)->update(["ReferralCode" => $refCode]);
 
-        return refCode;
+        return response()->json($refCode);
+    }
+
+    public function list_all_referral (Request $request) {
+        $user = $request->userData;
+        if ($user->ReferralCode == null)
+            return "Người dùng này chưa tạo mã giới thiệu!";
+        $reflist = User::where("ReferralBy", $user->ReferralCode)->get();
+        return response()->json($reflist);
     }
 }
