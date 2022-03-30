@@ -114,7 +114,7 @@ class ApiController extends Controller
     }
 
     public function get_user_by_id (Request $request, $id) {
-        $user = $request["userData"];
+        $user = User::where("id", $request->userData->id)->first();
         // $user = User::where("id", $id)->first(); ? wassup Vi :))
  
         return response()->json($user);
@@ -191,5 +191,21 @@ class ApiController extends Controller
     public function get_user_records_count (Request $request) {
         $results = User::OrderBy("id", "DESC")->where("User_id", $request->userData->id)->skip($skip)->take($limit)->count();
         return response()->json($results);
+    }
+
+    // verifyEmail
+    public function validate_user (Request $request) {
+        $token = $request->token;
+        $user = $request->userData;
+        $currentTime = Carbon::now();
+        $uvc = UserCredentialsVerify::where("User_id", $user->id)->whereRaw('DATEDIFF(ResendMailAt,'.$currentTime.') < 15')->first();
+
+        if ($uvc == null) return "Mã xác minh không khả dụng! Vui lòng xác minh lại";
+
+        if ($uvc->EmailVerifyCode == $token) $uvc->EmailVerifyCode = null;
+
+        UserCredentialsVerify::where("User_id", $user->id)->update(["EmailVerifyCode" => null]);
+
+        return $this->get_user_by_id($user->id);
     }
 }
