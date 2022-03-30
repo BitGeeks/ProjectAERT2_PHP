@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class CartItem extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'Id', 'name', 'desc', 'image', 'sku', 'price', 'quantity'
+        'Id', 'Session_id', 'Product_id', 'Quantity', 'Created_at', 'Updated_at'
     ];
 
     protected $hidden = [
-        'Id'
+        'Id', 'Created_at', 'Updated_at'
     ];
 }

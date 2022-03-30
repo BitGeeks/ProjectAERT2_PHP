@@ -21,19 +21,16 @@ class ApiController extends Controller
             'password' => 'required|string|min:6|max:50'
         ]);
 
-        //Send failed response if request is not valid
         if ($validator->fails()) {
             return response()->json(['error' => $validator->messages()], 200);
         }
 
-        //Request is valid, create new user
         $user = User::create([
         	'name' => $request->name,
         	'email' => $request->email,
         	'password' => bcrypt($request->password)
         ]);
 
-        //User created, return success response
         return response()->json([
             'success' => true,
             'message' => 'User created successfully',
@@ -45,31 +42,27 @@ class ApiController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        //valid credential
         $validator = Validator::make($credentials, [
-            'email' => 'required|email',
-            'password' => 'required|string|min:6|max:50'
+            'email' => 'required|string',
+            'password' => 'required|string|min:2|max:50'
         ]);
 
-        //Send failed response if request is not valid
         if ($validator->fails()) {
             return response()->json(['error' => $validator->messages()], 200);
         }
 
-        //Request is validated
-        //Crean token
         try {
             if (! $token = JWTAuth::attempt($credentials)) {
                 return response()->json([
                 	'success' => false,
-                	'message' => 'Login credentials are invalid.',
+                	'message' => 'Thông tin đăng nhập không hợp lệ',
                 ], 400);
             }
         } catch (JWTException $e) {
-    	return $credentials;
+    	// return $credentials;
             return response()->json([
                 	'success' => false,
-                	'message' => 'Could not create token.',
+                	'message' => 'Không thể tạo token',
                 ], 500);
         }
  	

@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Activity extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'Id', 'name', 'desc', 'image', 'sku', 'price', 'quantity'
+        'Id', 'ActivityDesc', 'ActivityEn', 'Priority'
     ];
 
     protected $hidden = [
