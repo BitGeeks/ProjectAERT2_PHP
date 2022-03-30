@@ -208,4 +208,17 @@ class ApiController extends Controller
 
         return $this->get_user_by_id($user->id);
     }
+
+    public function create_referral_code (Request $request) {
+        $user = $request->userData;
+
+        if ($user->ReferralCode != null) 
+            return "Người dùng này đã tạo mã giới thiệu!";
+        $refCode = new MiscHelper().randomStr();
+        $checkRef = User::where("id", $user->id);
+
+        User::where("id", $user->id)->update(["ReferralCode" => $refCode]);
+
+        return refCode;
+    }
 }
