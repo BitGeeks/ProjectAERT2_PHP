@@ -141,6 +141,6 @@ class UserAddressController extends Controller {
             ->where("User_id", $user->id)
             ->delete();
 
-        return ""; // gpg test
+        return ""; // pgp test
     }
 }
