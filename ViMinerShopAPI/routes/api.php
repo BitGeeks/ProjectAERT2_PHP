@@ -36,6 +36,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get("useraddresses", [UserAddressController::class, 'get_user_address']);
     Route::get("useraddresses/{id}", [UserAddressController::class, 'get_user_address_by_id']);
+    Route::put("useraddresses/update", [UserAddressController::class, 'update_user_address']);
     Route::get("useraddresses", [UserAddressController::class, 'get_user_address']);
-    Route::get("useraddresses", [UserAddressController::class, 'get_user_address']);
+    Route::post("setdefault", [UserAddressController::class, 'set_default']);
 });

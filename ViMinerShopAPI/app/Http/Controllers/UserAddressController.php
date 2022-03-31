@@ -42,7 +42,7 @@ class UserAddressController extends Controller {
         ->where("User_id", $user->id)
         ->update($check);
 
-        return "";
+        return ""; // không
     }
 
     function checkEmptyValueAddressObj (UserAddress $user) {
@@ -59,5 +59,88 @@ class UserAddressController extends Controller {
         elseif (isset($user->telephone))
             return "Số điện thoại không hợp lệ";
         else return "Số điện thoại cá nhân không hợp lệ";
+    }
+
+    // POST: /useraddresses/add
+    public function user_address_add (Request $request) {
+        $this->checkEmptyValueAddressObj($request);
+
+        $isDefault = false;
+
+        $user = $request->userData;
+
+        $checkEmpty = UserAddress::where("User_id", $user->id)->first();
+
+        $isDefault = $checkEmpty == NULL;
+
+        $check = UserAddress::where("Address", $request->address)
+                            ->where("Street_name", $request->street_name)
+                            ->where("User_id", $user->id)
+                            ->first();
+
+        if ($check == null)
+            return "Địa chỉ này đã tồn tại trong tài khoản của bạn";
+        
+        $address = new UserAddress();
+
+        $address->User_id = $user->id;
+        $address->Address = $request->address;
+        $address->Street_name = $request->street_name;
+        $address->City = $request->city;
+        $address->Postal_code = $request->postal_code;
+        $address->Country = $request->country;
+        $address->Telephone = $request->telephone;
+        $address->Mobile = $request->mobile;
+        $address->isDefault = $isDefault;
+
+        UserAddress::create($address);
+
+        return ""; // không
+    }
+
+    // POST: /useraddresses/setdefault
+    public function set_default (Request $request) {
+        $user = $request->userData;
+
+        $setNoDefault = UserAddress::where("isDefault", true)
+                                ->where("User_id", $user->id)
+                                ->first();
+        
+        if ($setNoDefault != null) {
+            $setNoDefault->isDefault = false;
+            UserAddress::where("isDefault", true)
+            ->where("User_id", $user->id)
+            ->update($setNoDefault);
+        }
+
+        $check = UserAddress::where("User_id", $user->id)
+                        ->where("Id", $request->id)
+                        ->first();
+        if ($check == null)
+            return "Địa chỉ không hợp lệ";
+
+        $check->isDefault = true;
+
+        UserAddress::where("User_id", $user->id)
+                        ->where("Id", $request->id)
+                        ->update($check);
+        
+        return "";
+    }
+
+    public function remove_user_address (Request $request, $id) {
+        $user = $request->userData;
+
+        $userAddress = UserAddress::where("Id", $id)
+                                ->where("User_id", $user->id)
+                                ->first();
+        if ($userAddress == null)
+            return "NotFound";
+        
+        UserAddress::where("Id", $id)
+            ->where("User_id", $user->id)
+            ->delete();
+
+        return "";
     }
 }
