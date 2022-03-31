@@ -33,11 +33,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get("/users/referrals/all", [ApiController::class, 'list_all_referral']);
     Route::get("/users/stats/point", [ApiController::class, 'get_user_stats_points']);
     Route::get("/users/soldoutnotify", [ApiController::class, 'set_new_product_notify']);
-    // Route::get('logout', [ApiController::class, 'logout']);
-    // Route::get('get_user', [ApiController::class, 'get_user']);
-    // Route::get('products', [ProductController::class, 'index']);
-    // Route::get('products/{id}', [ProductController::class, 'show']);
-    // Route::post('create', [ProductController::class, 'store']);
-    // Route::put('update/{product}',  [ProductController::class, 'update']);
-    // Route::delete('delete/{product}',  [ProductController::class, 'destroy']);
+
+    Route::get("useraddresses", [UserAddressController::class, 'get_user_address']);
+    Route::get("useraddresses/{id}", [UserAddressController::class, 'get_user_address_by_id']);
+    Route::get("useraddresses", [UserAddressController::class, 'get_user_address']);
+    Route::get("useraddresses", [UserAddressController::class, 'get_user_address']);
 });
