@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\UserAddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +40,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::put("useraddresses/update", [UserAddressController::class, 'update_user_address']);
     Route::get("useraddresses", [UserAddressController::class, 'get_user_address']);
     Route::post("setdefault", [UserAddressController::class, 'set_default']);
+
+    Route::get("slideimages", [SlideImagesController::class, 'get_slide_images']);
 });
