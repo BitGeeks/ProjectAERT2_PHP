@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Validator;
 
 class ApiController extends Controller
 {
+    public function get_user_info (Request $request) {
+        $user = User::where("id", $request->userData->id)->first();
+
+        return $user;
+    }
+
     public function register(Request $request)
     {
         $data = $request->only('firstname', 'lastname', 'username', 'email', 'refcode', 'password');

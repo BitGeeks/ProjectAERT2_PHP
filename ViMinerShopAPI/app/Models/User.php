@@ -54,4 +54,13 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Product::class);
     }
+
+    public function toArray() {
+        $array = parent::toArray();
+        $newArray = array();
+        foreach($array as $name => $value){
+            $newArray[strtolower($name)] = $value;
+        }
+        return $newArray;
+    }
 }

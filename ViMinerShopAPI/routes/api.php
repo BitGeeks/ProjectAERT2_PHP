@@ -5,6 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\ShippingMethodsController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\HPNoticesController;
+use App\Http\Controllers\SlideImagesController;
+use App\Http\Controllers\ProductCategoriesController;
+use App\Http\Controllers\AlgorithmsController;
+use App\Http\Controllers\CDonateController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +31,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('users/authenticate', [ApiController::class, 'authenticate']);
 Route::post('users/register', [ApiController::class, 'register']);
 
-Route::get("slideimages", [SlideImagesController::class, 'get_slide_images']);
+Route::get("slideimages/all", [SlideImagesController::class, 'get_slide_images']);
+
+Route::get("algorithms/all", [AlgorithmsController::class, 'GetAlgorithms']);
+
+Route::get("hpnotices/all", [HPNoticesController::class, 'GetHPNotice']);
+
+Route::get("productcategories/all", [ProductCategoriesController::class, 'GetProductCategories']);
+
+Route::get("products/all", [ProductsController::class, 'getProducts']);
+Route::get("products/search", [ProductsController::class, 'SearchProduct']);
+Route::get("products/miner/{id}", [ProductsController::class, 'GetProduct']);
+Route::get("products/related/{id}", [ProductsController::class, 'GetProductRelated']);
+Route::get("products/count", [ProductsController::class, 'GetProductsCount']);
+Route::get("products/newminer", [ProductsController::class, 'GetRecentProducts']);
+Route::get("products/bestminer", [ProductsController::class, 'GetBestMiner']);
 
 Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('users', [ApiController::class, 'get_user_info']);
     Route::post('users/{id}', [ApiController::class, 'get_user_by_id']);
     Route::put('users/update',  [ApiController::class, 'update_user']);
     Route::put('users/subscription',  [ApiController::class, 'update_subscription']);
@@ -46,4 +68,16 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get("shippingmethods/all", [ShippingMethodsController::class, 'get_shipping_method_list']);
     Route::get("shippingmethods/flag/{flag}", [ShippingMethodsController::class, 'get_shipping_method_by_flag']);
+
+    Route::get("cdonate/with/{flag}", [CDonateController::class, 'GetCouponDonateBy']);
+    Route::get("cdonate/countWith/{flag}", [CDonateController::class, 'CountCouponDonateBy']);
+    Route::post("cdonate/transaction", [CDonateController::class, 'PostCouponDonate']);
+
+    Route::get("cart/session", [CartController::class, 'GetSession']);
+    Route::get("cart/mc", [CartController::class, 'GetCartItems']);
+    Route::post("cart/increment", [CartController::class, 'IncrementCartItem']);
+    Route::post("cart/setcartnum", [CartController::class, 'setCartNum']);
+    Route::post("cart/confirm", [CartController::class, 'ConfirmCartItem']);
+    Route::get("cart/orders/{id}", [CartController::class, 'GetOrderById']);
+    Route::post("cart/setshippingpos", [CartController::class, 'SetShippingPos']);
 });

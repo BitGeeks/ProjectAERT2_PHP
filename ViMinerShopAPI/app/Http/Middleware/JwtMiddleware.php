@@ -26,11 +26,11 @@ class JwtMiddleware extends BaseMiddleware
             $request->merge(['userData' => $user]);
         } catch (Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
-                return response()->json(['status' => 'Token không hợp lệ']);
+                return response()->json(['status' => 'Token không hợp lệ'], 500);
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
-                return response()->json(['status' => 'Token đã hết hạn']);
+                return response()->json(['status' => 'Token đã hết hạn'], 500);
             }else{
-                return response()->json(['status' => 'Token ủy quyền không tồn tại']);
+                return response()->json(['status' => 'Token ủy quyền không tồn tại'], 500);
             }
         }
         
