@@ -12,6 +12,18 @@ class Product extends Model
         'Id', 'Name', 'Desc', 'NoteDesc', 'DetailDesc', 'PaymentDesc', 'WarrantyDesc', 'SKU', 'Category_id', 'Inventory_id', 'Algorithm_id', 'Price', 'PricePromotion', 'isActive', 'Created_at', 'Updated_at'
     ];
 
+    public function productcategory () {
+        return $this->belongsTo(ProductCategory::class, "Category_id", "Id");
+    }
+
+    public function productinventory () {
+        return $this->hasOne(ProductInventory::class, "Id", "Inventory_id");
+    }
+
+    public function algorithm () {
+        return $this->hasOne(Algorithm::class, "Id", "Algorithm_id");
+    }
+
     public function scopeWithWhereHas($query, $relation, $constraint) {
         return $query->whereHas($relation, $constraint)
         ->with([$relation => $constraint]);

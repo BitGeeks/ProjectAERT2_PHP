@@ -14,6 +14,10 @@ class ProductCategory extends Model
         'Id', 'Name', 'Desc', 'Image', 'Slug', 'Created_at', 'Updated_at'
     ];
 
+    public function product(){
+        return $this->hasMany(Product::class, "Id", "Category_id");
+    }
+
     protected $hidden = [
         'Id'
     ];

@@ -12,6 +12,10 @@ class Algorithm extends Model
         'Id', 'Name', 'Desc', 'Slug', 'Created_at', 'Updated_at'
     ];
 
+    public function product(){
+        return $this->belongsTo(Product::class, "Id", "Algorithm_id");
+    }
+
     protected $hidden = [
         'Id', 'Created_at', 'Updated_at'
     ];
