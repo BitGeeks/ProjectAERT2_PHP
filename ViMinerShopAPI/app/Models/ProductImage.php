@@ -8,9 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class ProductImage extends Model
 {
     use HasFactory;
+    protected $table = "productimages";
+
     protected $fillable = [
         'Id', 'Product_Id', 'Alt_Name', 'ImageUrl', 'Created_at', 'Updated_at'
     ];
+
+    public function product () {
+        return $this->belongsTo(Product::class, "Product_Id", "Id");
+    }
 
     protected $hidden = [
         'Id'

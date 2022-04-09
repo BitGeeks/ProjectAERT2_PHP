@@ -14,16 +14,16 @@
         <h3 translate>Duyệt sản phẩm</h3>
       </div>
       <ul class="clearfix">
-        <li class="_1iymsrV0{{ product.productInventory.quantity === 0 ? ' soldout' : '' }}" *ngFor="let product of products">
+        <li class="_1iymsrV0{{ product.productinventory.quantity === 0 ? ' soldout' : '' }}" *ngFor="let product of products">
           <a routerLink="/detail/{{product.id}}" class="">
-            <div class="avatar"><img src="{{ product.productImages.length !== 0 ? product.productImages[0].imageUrl : '' }}" /></div>
+            <div class="avatar"><img src="{{ product.productimages.length !== 0 ? product.productimages[0].imageUrl : '' }}" /></div>
             <h4>{{product.name}}</h4>
             <p>{{product.desc}}</p>
           </a>
           <div class="appender">
-            <a routerLink="/detail/{{product.id}}" *ngIf="product.productInventory.quantity === 0" translate>Nhận Thông Báo Sản Phẩm</a>
+            <a routerLink="/detail/{{product.id}}" *ngIf="product.productinventory.quantity === 0" translate>Nhận Thông Báo Sản Phẩm</a>
           </div>
-          <div class="clearfix{{ product.productInventory.quantity === 0 ? ' unuse' : ''}}">
+          <div class="clearfix{{ product.productinventory.quantity === 0 ? ' unuse' : ''}}">
             <span class="price{{ product.pricePromotion !== 0 ? ' price-promotion' : ' text-blue' }}">{{ product.price * currencyRate | currency: currency }}</span>
             <span *ngIf="product.pricePromotion !== 0" class="price text-blue">
               {{ product.pricePromotion * currencyRate | currency: currency }}

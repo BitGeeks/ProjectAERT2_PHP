@@ -24,6 +24,10 @@ class Product extends Model
         return $this->hasOne(Algorithm::class, "Id", "Algorithm_id");
     }
 
+    public function productimages () {
+        return $this->hasMany(ProductImage::class, "Product_id", "Id");
+    }
+
     public function scopeWithWhereHas($query, $relation, $constraint) {
         return $query->whereHas($relation, $constraint)
         ->with([$relation => $constraint]);

@@ -12,7 +12,7 @@ class ProductsController extends Controller
     // thêm images
     public function getProducts(Request $request)
     {
-        $product = Product::with(["productcategory", "productinventory", "algorithm"])
+        $product = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
         ->join("productcategories", "products.Category_id", "=", "productcategories.id")
         ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
         ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
@@ -87,7 +87,7 @@ class ProductsController extends Controller
 
     public function SearchProduct (Request $request) {
         if ($request->page != 0 || $request->size != 0) {
-            $result = Product::with(["productcategory", "productinventory", "algorithm"])
+            $result = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
             ->join("productcategories", "products.Category_id", "=", "productcategories.id")
             ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
             ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
@@ -101,7 +101,7 @@ class ProductsController extends Controller
             ->get();
             return response()->json($result);
         }
-        $result = Product::with(["productcategory", "productinventory", "algorithm"])
+        $result = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
             ->join("productcategories", "products.Category_id", "=", "productcategories.id")
             ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
             ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
@@ -111,7 +111,7 @@ class ProductsController extends Controller
     }
 
     public function GetProduct (Request $request, $id) {
-        $product = Product::with(["productcategory", "productinventory", "algorithm"])
+        $product = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
         ->join("productcategories", "products.Category_id", "=", "productcategories.id")
         ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
         ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
@@ -127,7 +127,7 @@ class ProductsController extends Controller
     }
 
     public function GetProductRelated (Request $request, $id) {
-        $productTarget = Product::with(["productcategory", "productinventory", "algorithm"])
+        $productTarget = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
         // ->join("productcategories", "products.Category_id", "=", "productcategories.id")
         ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
         ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
@@ -136,7 +136,7 @@ class ProductsController extends Controller
             ["Id", $id]
         ])->first();
 
-        $results = Product::with(["productcategory", "productinventory", "algorithm"])
+        $results = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
         ->join("productcategories", "products.Category_id", "=", "productcategories.id")
         ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
         ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
@@ -227,7 +227,7 @@ class ProductsController extends Controller
     }
 
     public function GetRecentProducts (Request $request) {
-        $results = Product::with(["productcategory", "productinventory", "algorithm"])
+        $results = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
         // ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
         ->where("isActive", true)
         ->orderBy("Id", "DESC")
@@ -237,7 +237,7 @@ class ProductsController extends Controller
     }
 
     public function GetBestMiner (Request $request) {
-        $results = Product::with(["productcategory", "productinventory", "algorithm"])
+        $results = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
         ->join("productinventories", "productinventories.id", "=", "products.Inventory_id")
         // ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
         ->where("isActive", true)

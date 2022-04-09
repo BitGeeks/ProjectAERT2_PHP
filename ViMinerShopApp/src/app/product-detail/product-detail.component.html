@@ -1,7 +1,7 @@
 <div class="wrapper">
   <div class="property" *ngIf="innerLoading === false">
     <div class="gallery">
-      <div class="avatar{{ currentImage.imageUrl === image.imageUrl ? ' image-active' : ' image-inactive'}}" *ngFor="let image of product.productImages">
+      <div class="avatar{{ currentImage.imageUrl === image.imageUrl ? ' image-active' : ' image-inactive'}}" *ngFor="let image of product.productimages">
         <lib-ngx-image-zoom
           [thumbImage]="image.imageUrl"
           [fullImage]="image.imageUrl"
@@ -9,11 +9,11 @@
           [enableScrollZoom]="true"
         ></lib-ngx-image-zoom>
       </div>
-      <div class="avatar image-active" *ngIf="product.productImages.length === 0">
+      <div class="avatar image-active" *ngIf="product.productimages.length === 0">
         <img src="https://cdn.notevn.com/DzPbjDuoi.png" />
       </div>
       <div class="thumbs clearfix">
-        <ng-container *ngFor="let image of product.productImages">
+        <ng-container *ngFor="let image of product.productimages">
           <a class="{{ currentImage.imageUrl === image.imageUrl ? 'active' : ''}}" (mouseenter)="onImageHover($event, image)">
             <img src="{{ image.imageUrl }}">
           </a>
@@ -26,7 +26,7 @@
         <h1>
           <p>
             <span>{{ product.name}}</span>
-            <span class="futures" *ngIf="product.productInventory.flag !== null">{{ convertFeature(product.productInventory.flag) }}</span>
+            <span class="futures" *ngIf="product.productinventory.flag !== null">{{ convertFeature(product.productinventory.flag) }}</span>
           </p>
         </h1>
         <div class="dimensions">
@@ -34,22 +34,22 @@
             <img src="https://static.maxmines.com/self/lesongvi/viminershop/icon/algorithm.svg" />
             <span>{{ product.algorithm.name }}</span>
           </p>
-          <p class="text" *ngIf="product.productInventory.hps">
+          <p class="text" *ngIf="product.productinventory.hps">
             <img src="https://static.maxmines.com/self/lesongvi/viminershop/icon/power.svg" />
-            <span translate>Hashrate: {{ abbreviateNumber(product.productInventory.hps) }}H/s</span>
+            <span translate>Hashrate: {{ abbreviateNumber(product.productinventory.hps) }}H/s</span>
           </p>
           <p class="text">
             <img src="https://static.maxmines.com/self/lesongvi/viminershop/icon/weight.svg" />
-            <span translate>Trọng lượng: {{ product.productInventory.weight }}kg</span>
+            <span translate>Trọng lượng: {{ product.productinventory.weight }}kg</span>
           </p>
-          <p class="text" *ngIf="product.productInventory.shippingInfo !== null && product.productInventory.shippingInfo.trim() !== ''">
+          <p class="text" *ngIf="product.productinventory.shippingInfo !== null && product.productinventory.shippingInfo.trim() !== ''">
             <img src="https://static.maxmines.com/self/lesongvi/viminershop/icon/truck.svg" />
-            <span>{{ product.productInventory.shippingInfo }}</span>
+            <span>{{ product.productinventory.shippingInfo }}</span>
           </p>
         </div>
       </div>
       <div class="priceAndValue">
-        <p class="price{{ product.productInventory.quantity === 0 ? ' text-gray' : ' text-blue' }}">
+        <p class="price{{ product.productinventory.quantity === 0 ? ' text-gray' : ' text-blue' }}">
           <span class="{{ product.pricePromotion !== 0 ? 'price-promotion' : '' }}">
             {{ product.price * currencyRate | currency: currency }}
           </span>
@@ -60,30 +60,30 @@
         <div class="stepper radio">
           <button type="button" [disabled]="amount <= 1" (click)="onUserClickBtn(-1)"><i class="bt-icon"></i></button>
           <input name="amount" value="{{ amount }}" type="number" placeholder="-" min="1" value="1" (change)="handleInputAmount($event)" />
-          <button type="button" [disabled]="amount >= product.productInventory.quantity" (click)="onUserClickBtn(1)"><i class="bt-icon"></i></button>
+          <button type="button" [disabled]="amount >= product.productinventory.quantity" (click)="onUserClickBtn(1)"><i class="bt-icon"></i></button>
         </div>
       </div>
       <div class="action">
         <div class="buttons">
           <button class="bt-button bt-primary"
-            *ngIf="product.productInventory.quantity > 0"
+            *ngIf="product.productinventory.quantity > 0"
             (click)="addToCart()"
             [disabled]="(cartState | async).loading">
             <span translate>Thêm vào giỏ</span>
           </button>
           <button class="bt-button bt-driving"
-            *ngIf="product.productInventory.quantity > 0"
+            *ngIf="product.productinventory.quantity > 0"
             (click)="buyNow()"
             [disabled]="(cartState | async).loading">
             <span translate>Mua ngay</span>
           </button>
           <button class="bt-button bt-default"
-            *ngIf="product.productInventory.quantity === 0"
+            *ngIf="product.productinventory.quantity === 0"
             disabled="disabled">
             <span translate>Hết hàng</span>
           </button>
           <button class="bt-button bt-driving"
-            *ngIf="product.productInventory.quantity === 0"
+            *ngIf="product.productinventory.quantity === 0"
             (click)="onUserClickShowDialog()">
             <span translate>Nhận Thông Báo Sản Phẩm</span>
           </button>
@@ -104,7 +104,7 @@
           <span class="name">
             {{ product.name }}
           </span>
-          <p class="price{{ product.productInventory.quantity === 0 ? ' text-gray' : ' text-blue' }}{{ product.pricePromotion !== 0 ? ' price-promotion' : '' }}">
+          <p class="price{{ product.productinventory.quantity === 0 ? ' text-gray' : ' text-blue' }}{{ product.pricePromotion !== 0 ? ' price-promotion' : '' }}">
             {{ product.price * currencyRate | currency: currency }}
           </p>
           <p *ngIf="product.pricePromotion !== 0" class="price">
@@ -121,24 +121,24 @@
           <div class="buttons">
             <div class="buttons">
               <button class="bt-button bt-primary"
-                *ngIf="product.productInventory.quantity > 0"
+                *ngIf="product.productinventory.quantity > 0"
                 (click)="addToCart()"
                 [disabled]="(cartState | async).loading">
                 <span translate>Thêm vào giỏ</span>
               </button>
               <button class="bt-button bt-driving"
-                *ngIf="product.productInventory.quantity > 0"
+                *ngIf="product.productinventory.quantity > 0"
                 (click)="buyNow()"
                 [disabled]="(cartState | async).loading">
                 <span translate>Mua ngay</span>
               </button>
               <button class="bt-button bt-default"
-                *ngIf="product.productInventory.quantity === 0"
+                *ngIf="product.productinventory.quantity === 0"
                 disabled="disabled">
                 <span translate>Hết hàng</span>
               </button>
               <button class="bt-button po-button bt-driving"
-                *ngIf="product.productInventory.quantity === 0"
+                *ngIf="product.productinventory.quantity === 0"
                 (click)="onUserClickShowDialog()">
                 <span translate>Nhận thông báo nhập kho</span>
               </button>

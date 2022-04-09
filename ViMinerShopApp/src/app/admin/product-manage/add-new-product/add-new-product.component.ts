@@ -9,7 +9,7 @@ import { AdminService } from 'src/app/services/admin.service';
 import { ImageService } from 'src/app/services/image-service.service';
 import { BrowseState } from 'src/app/store/browse/browse.reducer';
 import { ImageSnippet } from 'src/app/store/ImageSnippet';
-import { Algorithm, processImage, productInventory } from 'src/app/store/model';
+import { Algorithm, processImage, productinventory } from 'src/app/store/model';
 import * as fromApp from '../../../store/app.reducers';
 import * as BrowseActions from '../../../store/browse/browse.actions';
 
@@ -27,7 +27,7 @@ export class AddNewProductComponent implements OnInit {
 
   algorithmList: Array<Algorithm>;
 
-  productImages: Array<processImage> = [];
+  productimages: Array<processImage> = [];
   currentNode = 0;
   isUploading = false;
   selectedFile: ImageSnippet;
@@ -114,7 +114,7 @@ export class AddNewProductComponent implements OnInit {
   FormSubmittedEv() {
     if (!this.addProductForm.valid) { return; }
     const { name, desc, noteDesc, detailDesc, paymentDesc, warrantyDesc, sku, category_id, algorithm_id, price, pricePromotion, quantity, flag, hps, weight, shippingInfo } = this.addProductForm.value;
-    const productImage = this.productImages;
+    const productImage = this.productimages;
     this.adminService.addProduct(
       name,
       desc,
@@ -142,7 +142,7 @@ export class AddNewProductComponent implements OnInit {
   }
 
   removeItemPhoto(value: number) {
-    this.productImages = this.productImages.filter((data) => data !== this.productImages[value]);
+    this.productimages = this.productimages.filter((data) => data !== this.productimages[value]);
     if (this.currentNode === value) {
       if (value >= 1) {
         this.currentNode = this.currentNode - 1;
@@ -165,7 +165,7 @@ export class AddNewProductComponent implements OnInit {
         (res) => {
           this.isUploading = false;
           this.notifierService.notify('success', 'Tải lên thành công!');
-          this.productImages.push({
+          this.productimages.push({
             imageUrl: 'https://cdn.notevn.com/' + res.file_name + '' + res.type,
             alt_Name: file.name
           });

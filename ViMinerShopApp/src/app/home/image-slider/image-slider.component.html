@@ -1,8 +1,8 @@
 <div class="banner banner" *ngIf="slideImage && slideImage.length !== 0">
   <div class="swipe" style="height: 540px;">
     <div class="roller" [style.transition]="'all 300ms ease 0s'" [style.transform]="'translate3d(' + currentSlide * -currentSlideOffset + '%, 0px, 0px)'">
-        <div class="slider" [style.backgroundColor]="'#' + image.fillColor" [style.transform]="'translate3d(' + (idx * currentSlideOffset) + '%, 0px, 0px)'" *ngFor="let image of slideImage; let idx = index" (click)="onUserClickToJump(image.jumpTo)">
-            <div class="frame"><img [src]="image.imgUrl" /></div>
+        <div class="slider" [style.backgroundColor]="'#' + image.fillcolor" [style.transform]="'translate3d(' + (idx * currentSlideOffset) + '%, 0px, 0px)'" *ngFor="let image of slideImage; let idx = index" (click)="onUserClickToJump(image.jumpto)">
+            <div class="frame"><img [src]="image.imgurl" /></div>
         </div>
     </div>
     <ul class="decorators">

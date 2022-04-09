@@ -129,9 +129,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             (data: ProductDetail) => {
               this.titleMeta.setTitle(`${this.translatePipe.transform('Chi tiết')} ${data.name}`);
               this.product = data;
-              this.currentImage = data.productImages.length !== 0 ? data.productImages[0] : this.imageInitial;
+              this.currentImage = data.productimages.length !== 0 ? data.productimages[0] : this.imageInitial;
               this.variant = params.variant ? params.variant : this.product.id;
-              this.maxMiner = data.productInventory.quantity;
+              this.maxMiner = data.productinventory.quantity;
               this.setDefaultActiveTab();
               this.setDefaultWidthSizeTab(data);
               this.innerLoading = false;

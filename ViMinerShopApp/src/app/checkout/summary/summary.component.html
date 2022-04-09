@@ -74,11 +74,11 @@
             <table>
                 <tr *ngFor="let cartItem of (cartState | async).cart.cartItems">
                     <td class="product">
-                        <ng-container *ngIf="cartItem.productImages && cartItem.productImages.length !== 0">
+                        <ng-container *ngIf="cartItem.productimages && cartItem.productimages.length !== 0">
                           <img
                             sizes="240"
-                            data-src="{{ cartItem.productImages[0].imageUrl }}"
-                            src="{{ cartItem.productImages[0].imageUrl }}"
+                            data-src="{{ cartItem.productimages[0].imageUrl }}"
+                            src="{{ cartItem.productimages[0].imageUrl }}"
                             lazy="loaded"
                           />
                         </ng-container>
@@ -87,7 +87,7 @@
                         </span>
                     </td>
                     <td class="price">{{ (cartItem.product.pricePromotion !== 0 ? cartItem.product.pricePromotion : cartItem.product.price) * currencyRate | currency: currency }}</td>
-                    <td class="weight"><span>{{ cartItem.product.productInventory.weight }} kg * {{ cartItem.quantity }}</span></td>
+                    <td class="weight"><span>{{ cartItem.product.productinventory.weight }} kg * {{ cartItem.quantity }}</span></td>
                     <td class="totalPrice">
                         <p>
                             {{ cartItem.quantity * (cartItem.product.pricePromotion !== 0 ? cartItem.product.pricePromotion : cartItem.product.price) * currencyRate | currency: currency }}

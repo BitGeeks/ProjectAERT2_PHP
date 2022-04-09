@@ -9,7 +9,7 @@ import { AdminService } from 'src/app/services/admin.service';
 import { ImageService } from 'src/app/services/image-service.service';
 import { BrowseState } from 'src/app/store/browse/browse.reducer';
 import { ImageSnippet } from 'src/app/store/ImageSnippet';
-import { Algorithm, processImage, productImage, productInventory } from 'src/app/store/model';
+import { Algorithm, processImage, productImage, productinventory } from 'src/app/store/model';
 import * as fromApp from '../../../store/app.reducers';
 import * as BrowseActions from '../../../store/browse/browse.actions';
 
@@ -31,7 +31,7 @@ export class EditProductDialogComponent implements OnInit {
   fileName: string = null;
   currentNode = 0;
 
-  productImages: Array<processImage> = [];
+  productimages: Array<processImage> = [];
 
   @Input()
   public initialState: { [key: string]: any };
@@ -89,11 +89,11 @@ export class EditProductDialogComponent implements OnInit {
       algorithm_id: this.initialState.algorithm_id,
       price: this.initialState.price,
       pricePromotion: this.initialState.pricePromotion,
-      quantity: this.initialState.productInventory.quantity,
-      flag: this.initialState.productInventory.flag,
-      hps: this.initialState.productInventory.hps,
-      weight: this.initialState.productInventory.weight,
-      shippingInfo: this.initialState.productInventory.shippingInfo
+      quantity: this.initialState.productinventory.quantity,
+      flag: this.initialState.productinventory.flag,
+      hps: this.initialState.productinventory.hps,
+      weight: this.initialState.productinventory.weight,
+      shippingInfo: this.initialState.productinventory.shippingInfo
     });
 
     this.browseState.pipe(take(1)).subscribe(data => {
@@ -136,20 +136,20 @@ export class EditProductDialogComponent implements OnInit {
     this.adminService.removeProductImage(this.initialState.id, imageUrl)
       .pipe(take(1), catchError(
         error => {
-          this.productImages = this.productImages.filter(d => d.imageUrl !== imageUrl);
+          this.productimages = this.productimages.filter(d => d.imageUrl !== imageUrl);
           return throwError(error);
         }
       ))
       .subscribe(() => {
-        this.productImages = this.productImages.filter(d => d.imageUrl !== imageUrl);
+        this.productimages = this.productimages.filter(d => d.imageUrl !== imageUrl);
         this.FormSubmittedEv.emit(true);
     });
   }
 
   processImages() {
-    if (this.initialState.productImages.length !== 0) {
-      this.initialState.productImages.map((data, idx) => {
-        this.productImages.push({
+    if (this.initialState.productimages.length !== 0) {
+      this.initialState.productimages.map((data, idx) => {
+        this.productimages.push({
           imageUrl: data.imageUrl,
           alt_Name: data.alt_Name
         });
@@ -160,7 +160,7 @@ export class EditProductDialogComponent implements OnInit {
   onEditSubmitted() {
     if (!this.editProduct.valid) { return; }
     const { id, name, desc, noteDesc, detailDesc, paymentDesc, warrantyDesc, sku, category_id, algorithm_id, price, pricePromotion, quantity, flag, hps, weight, shippingInfo } = this.editProduct.value;
-    const productImage = this.productImages;
+    const productImage = this.productimages;
     this.adminService.editProduct(
       id,
       name,
@@ -203,7 +203,7 @@ export class EditProductDialogComponent implements OnInit {
   }
 
   removeItemPhoto(value: number) {
-    this.productImages = this.productImages.filter((data) => data !== this.productImages[value]);
+    this.productimages = this.productimages.filter((data) => data !== this.productimages[value]);
     if (this.currentNode === value) {
       if (value >= 1) {
         this.currentNode = this.currentNode - 1;
@@ -242,7 +242,7 @@ export class EditProductDialogComponent implements OnInit {
           this.fileName = file.name;
           this.isUploading = false;
           this.notifierService.notify('success', 'Tải lên thành công!');
-          this.productImages.push({
+          this.productimages.push({
             imageUrl: 'https://cdn.notevn.com/' + res.file_name + '' + res.type,
             alt_Name: file.name
           });

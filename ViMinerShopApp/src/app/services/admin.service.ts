@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { config } from '../../config/local';
-import { AdminDashboardData, Algorithm, Orders, PaymentDetail, processImage, ProductCategory, ProductDetail, productInventory, Repair, RepairOrder, RepairSite, RoleVar, ShippingMethod, SlideImage, User } from '../store/model';
+import { AdminDashboardData, Algorithm, Orders, PaymentDetail, processImage, ProductCategory, ProductDetail, productinventory, Repair, RepairOrder, RepairSite, RoleVar, ShippingMethod, SlideImage, User } from '../store/model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class AdminService {
       params = params.set('size', this.defaultSize.toString());
     }
 
-    return this.httpClient.get<Array<productInventory>>(`${this.url}/inventories/list`, {
+    return this.httpClient.get<Array<productinventory>>(`${this.url}/inventories/list`, {
       params
     });
   }
@@ -94,13 +94,13 @@ export class AdminService {
   }
 
   addInventory(quantity: number, flag: string, hps: number, weight: number, shippingInfo: string) {
-    return this.httpClient.post<productInventory>(`${this.url}/inventories/add`, {
+    return this.httpClient.post<productinventory>(`${this.url}/inventories/add`, {
       quantity, flag, hps, weight, shippingInfo
     });
   }
 
   updateInventory(id: number, quantity: number, flag: string, hps: number, weight: number, shippingInfo: string) {
-    return this.httpClient.post<productInventory>(`${this.url}/inventories/edit/${id}`, {
+    return this.httpClient.post<productinventory>(`${this.url}/inventories/edit/${id}`, {
       quantity, flag, hps, weight, shippingInfo
     });
   }

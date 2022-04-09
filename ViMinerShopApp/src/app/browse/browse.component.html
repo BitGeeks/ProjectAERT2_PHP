@@ -93,16 +93,16 @@
         </div>
       </div>
       <ul class="clearfix" *ngIf="selectedView === 'grid'">
-        <li class="vms-browse{{ product.productInventory.quantity === 0 ? ' soldout' : '' }}" *ngFor="let product of ( browseState | async ).products">
+        <li class="vms-browse{{ product.productinventory.quantity === 0 ? ' soldout' : '' }}" *ngFor="let product of ( browseState | async ).products">
           <a routerLink="/detail/{{product.id}}" class="">
-            <div class="avatar"><img src="{{ product.productImages.length !== 0 ? product.productImages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}" width="140" /></div>
+            <div class="avatar"><img src="{{ product.productimages.length !== 0 ? product.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}" width="140" /></div>
             <h4>{{product.name}}</h4>
             <p>{{product.desc}}</p>
           </a>
           <div class="appender">
-            <a routerLink="/detail/{{product.id}}" *ngIf="product.productInventory.quantity === 0" translate>Nhận Thông Báo Sản Phẩm</a>
+            <a routerLink="/detail/{{product.id}}" *ngIf="product.productinventory.quantity === 0" translate>Nhận Thông Báo Sản Phẩm</a>
           </div>
-          <div class="clearfix{{ product.productInventory.quantity === 0 ? ' unuse' : ''}}">
+          <div class="clearfix{{ product.productinventory.quantity === 0 ? ' unuse' : ''}}">
             <span class="price{{ product.pricePromotion !== 0 ? ' price-promotion' : ' text-blue' }}">
               {{ product.price * currencyRate | currency: currency }}
             </span>
@@ -118,13 +118,13 @@
       <ng-container  *ngIf="selectedView === 'bar'">
         <div *ngFor="let n of ( browseState | async ).products" class="component show-type ctype_vms">
           <a routerLink="/detail/{{n.id}}" class="item">
-            <div class="type">{{ n.productCategory.name }} - {{ n.algorithm.name }}</div>
+            <div class="type">{{ n.productcategory.name }} - {{ n.algorithm.name }}</div>
             <div class="avatar">
-              <img src="{{ n.productImages.length !== 0 ? n.productImages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}">
+              <img src="{{ n.productimages.length !== 0 ? n.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}">
             </div>
             <div class="text">
               <h3>{{n.name}}</h3>
-              <p class="describe">{{n.productInventory.shippingInfo}}</p>
+              <p class="describe">{{n.productinventory.shippingInfo}}</p>
               <p class="price text-blue">
                 <span class="{{ n.pricePromotion !== 0 ? 'price-promotion' : '' }}">
                   {{ n.price * currencyRate | currency: currency }}
@@ -137,7 +137,7 @@
                 <i class="bt-icon"></i>
               </button>
             </div>
-            <img src="{{ n.productInventory.flag === 'FLAG_FEATURE_ORDER' ? 'https://static.maxmines.com/self/lesongvi/viminershop/order/img/futureOrder.svg' : '' }}" class="status">
+            <img src="{{ n.productinventory.flag === 'FLAG_FEATURE_ORDER' ? 'https://static.maxmines.com/self/lesongvi/viminershop/order/img/futureOrder.svg' : '' }}" class="status">
           </a>
         </div>
       </ng-container>

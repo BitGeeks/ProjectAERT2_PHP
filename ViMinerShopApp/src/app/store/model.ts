@@ -60,10 +60,10 @@ export interface ProductDetail {
   pricePromotion: number;
   detailDesc: string;
   category_id: number;
-  productCategory: ProductCategory;
+  productcategory: ProductCategory;
   algorithm: Algorithm;
-  productInventory: productInventory;
-  productImages: Array<productImage>;
+  productinventory: productinventory;
+  productimages: Array<productImage>;
   noteDesc: string;
   paymentDesc: string;
   warrantyDesc: string;
@@ -101,7 +101,7 @@ export interface Algorithm {
   updated_at: string;
 }
 
-export interface productInventory {
+export interface productinventory {
   id: number;
   quantity: number;
   created_at: string;

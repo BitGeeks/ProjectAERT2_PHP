@@ -125,7 +125,7 @@ export class CreateRepairTicketComponent implements OnInit {
             data.repairItems.map(data => {
               this.itemForRepair.push({
                 id: this.makeSomeSalt(10),
-                categoryName: data.product.productCategory.name,
+                categoryName: data.product.productcategory.name,
                 categoryId: data.product.category_id,
                 productName: data.product.name,
                 productId: data.product.id,

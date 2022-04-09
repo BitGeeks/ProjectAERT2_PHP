@@ -34,7 +34,7 @@
                                 <li *ngFor="let cartItem of (cartState | async).cart.cartItems" class="row">
                                   <a routerLink="/detail/{{cartItem.product.id}}">
                                     <div class="avatar">
-                                      <img [src]="cartItem.product.productImages.length !== 0 ? cartItem.product.productImages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png'" alt="{{ cartItem.product.productImages.length !== 0 ? cartItem.product.productImages[0].alt_name : 'placeholder' }}" />
+                                      <img [src]="cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png'" alt="{{ cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].alt_name : 'placeholder' }}" />
                                     </div>
                                     <div class="text">
                                       <h4 class="text-ellipsis">
@@ -120,7 +120,7 @@
                   <div class="flex">
                       <div class="group" *ngFor="let product of ( browseState | async ).products.slice(0, 15)">
                           <a routerLink="/detail/{{ product.id }}" (click)="onUserClickTab(0)" class="item">
-                              <div class="avatar"><img [src]="product.productImages.length !== 0 ? product.productImages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png'" /></div>
+                              <div class="avatar"><img [src]="product.productimages.length !== 0 ? product.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png'" /></div>
                               <div class="text">
                                   <h4 title="{{ product.name }}">{{ product.name }}</h4>
                                   <div class="state">

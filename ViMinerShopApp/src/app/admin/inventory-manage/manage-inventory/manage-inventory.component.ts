@@ -4,7 +4,7 @@ import { NotifierService } from 'angular-notifier';
 import { throwError } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 import { AdminService } from 'src/app/services/admin.service';
-import { productInventory } from 'src/app/store/model';
+import { productinventory } from 'src/app/store/model';
 import { EditInventoryDialogComponent } from '../edit-inventory-dialog/edit-inventory-dialog.component';
 import { abbreviateNumber } from 'src/utils/converters/abbr';
 
@@ -14,7 +14,7 @@ import { abbreviateNumber } from 'src/utils/converters/abbr';
   styleUrls: ['./manage-inventory.component.scss']
 })
 export class ManageInventoryComponent implements OnInit {
-  inventoryList: Array<productInventory>;
+  inventoryList: Array<productinventory>;
   currentPage = 0;
 
   constructor(
@@ -53,7 +53,7 @@ export class ManageInventoryComponent implements OnInit {
     }
   }
 
-  editInventory(inventory: productInventory) {
+  editInventory(inventory: productinventory) {
     const EditInventory = this.modalService.open(EditInventoryDialogComponent, {
       backdrop: 'static',
       keyboard: false,

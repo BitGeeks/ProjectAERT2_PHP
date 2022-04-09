@@ -86,7 +86,7 @@
           <div class="product" *ngFor="let orderItem of order.orderItems">
             <div class="commodity-product" routerLink="/detail/{{ orderItem.product_id }}">
               <div class="imgHolder">
-                <img src="{{ orderItem.product.productImages.length !== 0 ? orderItem.product.productImages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}" width="80"/>
+                <img src="{{ orderItem.product.productimages.length !== 0 ? orderItem.product.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}" width="80"/>
               </div>
               <div class="worldsHolder">
                 <p>
