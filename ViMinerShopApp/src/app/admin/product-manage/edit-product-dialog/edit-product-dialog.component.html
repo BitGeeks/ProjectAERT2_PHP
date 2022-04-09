@@ -102,11 +102,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="vms-element-form-item{{editProduct.get('pricePromotion').invalid && editProduct.get('pricePromotion').touched ? ' is-error' : ''}} is-required" style="position: relative;">
-                        <label for="pricePromotion" class="vms-element-form-item__label" style="width: 120px;">Giá sản phẩm (Promotion):</label>
+                    <div class="vms-element-form-item{{editProduct.get('pricepromotion').invalid && editProduct.get('pricepromotion').touched ? ' is-error' : ''}} is-required" style="position: relative;">
+                        <label for="pricepromotion" class="vms-element-form-item__label" style="width: 120px;">Giá sản phẩm (Promotion):</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                             <div class="vms-element-input">
-                                <input autocomplete="off" placeholder="Ví dụ: 17500.92" type="number" min="-1.00" max="999999999.99" step="0.01" class="vms-element-input__inner" formControlName="pricePromotion" value="{{ initialState.pricePromotion }}" />
+                                <input autocomplete="off" placeholder="Ví dụ: 17500.92" type="number" min="-1.00" max="999999999.99" step="0.01" class="vms-element-input__inner" formControlName="pricepromotion" value="{{ initialState.pricepromotion }}" />
                             </div>
                         </div>
                     </div>
@@ -160,10 +160,10 @@
                         </div>
                     </div>
                     <div class="vms-element-form-item" style="position: relative;">
-                        <label for="shippingInfo" class="vms-element-form-item__label" style="width: 120px;">Thông tin ship:</label>
+                        <label for="shippinginfo" class="vms-element-form-item__label" style="width: 120px;">Thông tin ship:</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                             <div class="vms-element-input">
-                                <input autocomplete="off" type="text" rows="5" maxlength="30" class="vms-element-input__inner" formControlName="shippingInfo" value="{{ initialState.shippingInfo }}" />
+                                <input autocomplete="off" type="text" rows="5" maxlength="30" class="vms-element-input__inner" formControlName="shippinginfo" value="{{ initialState.shippinginfo }}" />
                             </div>
                         </div>
                     </div>

@@ -94,13 +94,13 @@
                 </p>
               </div>
               <div class="unitPrice">
-                {{ (orderItem.product.pricePromotion !== 0 ? orderItem.product.pricePromotion : orderItem.product.price) * orderItem.quantity * currencyRate | currency: currency }}
+                {{ (orderItem.product.pricepromotion !== 0 ? orderItem.product.pricepromotion : orderItem.product.price) * orderItem.quantity * currencyRate | currency: currency }}
               </div>
               <div class="quantity">
                 {{ orderItem.quantity }}
               </div>
               <div class="productAmount">
-                {{ (orderItem.product.pricePromotion !== 0 ? orderItem.product.pricePromotion : orderItem.product.price) * currencyRate | currency: currency }}
+                {{ (orderItem.product.pricepromotion !== 0 ? orderItem.product.pricepromotion : orderItem.product.price) * currencyRate | currency: currency }}
               </div>
             </div>
           </div>

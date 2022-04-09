@@ -79,12 +79,12 @@ export class AddNewProductComponent implements OnInit {
       category_id: new FormControl(null, [Validators.required]),
       algorithm_id: new FormControl(null, [Validators.required]),
       price: new FormControl(null, [Validators.required]),
-      pricePromotion: new FormControl(null, [Validators.required]),
+      pricepromotion: new FormControl(null, [Validators.required]),
       quantity: new FormControl(null, [Validators.required]),
       flag: new FormControl(null, []),
       hps: new FormControl(null, [Validators.required]),
       weight: new FormControl(null, [Validators.required]),
-      shippingInfo: new FormControl(null, [])
+      shippinginfo: new FormControl(null, [])
     });
 
     this.browseState.pipe(take(1)).subscribe(data => {
@@ -113,7 +113,7 @@ export class AddNewProductComponent implements OnInit {
 
   FormSubmittedEv() {
     if (!this.addProductForm.valid) { return; }
-    const { name, desc, notedesc, detaildesc, paymentdesc, warrantydesc, sku, category_id, algorithm_id, price, pricePromotion, quantity, flag, hps, weight, shippingInfo } = this.addProductForm.value;
+    const { name, desc, notedesc, detaildesc, paymentdesc, warrantydesc, sku, category_id, algorithm_id, price, pricepromotion, quantity, flag, hps, weight, shippinginfo } = this.addProductForm.value;
     const productImage = this.productimages;
     this.adminService.addProduct(
       name,
@@ -127,8 +127,8 @@ export class AddNewProductComponent implements OnInit {
       algorithm_id,
       price,
       productImage,
-      pricePromotion,
-      quantity, flag, hps, weight, shippingInfo
+      pricepromotion,
+      quantity, flag, hps, weight, shippinginfo
     )
       .pipe(take(1), catchError(
         error => {

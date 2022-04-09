@@ -86,11 +86,11 @@
                           <a routerLink="/detail/{{ cartItem.product.id }}">{{ cartItem.product.name }}</a>
                         </span>
                     </td>
-                    <td class="price">{{ (cartItem.product.pricePromotion !== 0 ? cartItem.product.pricePromotion : cartItem.product.price) * currencyRate | currency: currency }}</td>
+                    <td class="price">{{ (cartItem.product.pricepromotion !== 0 ? cartItem.product.pricepromotion : cartItem.product.price) * currencyRate | currency: currency }}</td>
                     <td class="weight"><span>{{ cartItem.product.productinventory.weight }} kg * {{ cartItem.quantity }}</span></td>
                     <td class="totalPrice">
                         <p>
-                            {{ cartItem.quantity * (cartItem.product.pricePromotion !== 0 ? cartItem.product.pricePromotion : cartItem.product.price) * currencyRate | currency: currency }}
+                            {{ cartItem.quantity * (cartItem.product.pricepromotion !== 0 ? cartItem.product.pricepromotion : cartItem.product.price) * currencyRate | currency: currency }}
                         </p>
                     </td>
                 </tr>

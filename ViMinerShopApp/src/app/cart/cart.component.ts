@@ -79,9 +79,9 @@ export class CartComponent implements OnInit, OnDestroy {
     Object.keys(this.onSelectItem).map(s => {
       const product = this.cartData.cartItems.filter(ci => ci.id === parseInt(s))[0];
       if (!this.onSelectItem[s]) {
-        this.totalDisabledPrice += (product.product.pricePromotion === 0 ? product.product.price : product.product.pricePromotion) * product.quantity;
+        this.totalDisabledPrice += (product.product.pricepromotion === 0 ? product.product.price : product.product.pricepromotion) * product.quantity;
       } else {
-        this.totalDisabledPrice -= (product.product.pricePromotion === 0 ? product.product.price : product.product.pricePromotion) * product.quantity;
+        this.totalDisabledPrice -= (product.product.pricepromotion === 0 ? product.product.price : product.product.pricepromotion) * product.quantity;
       }
       this.onSelectItem[s] = this.allDisabled;
     });
@@ -92,9 +92,9 @@ export class CartComponent implements OnInit, OnDestroy {
     Object.keys(this.onSelectItem).map(s => {
       const product = this.cartData.cartItems.filter(ci => ci.id === parseInt(s))[0];
       if (!this.onSelectItem[s]) {
-        this.totalDisabledPrice += (product.product.pricePromotion === 0 ? product.product.price : product.product.pricePromotion) * product.quantity;
+        this.totalDisabledPrice += (product.product.pricepromotion === 0 ? product.product.price : product.product.pricepromotion) * product.quantity;
       } else {
-        this.totalDisabledPrice -= (product.product.pricePromotion === 0 ? product.product.price : product.product.pricePromotion) * product.quantity;
+        this.totalDisabledPrice -= (product.product.pricepromotion === 0 ? product.product.price : product.product.pricepromotion) * product.quantity;
       }
       this.onSelectItem[s] = false;
     });
@@ -119,9 +119,9 @@ export class CartComponent implements OnInit, OnDestroy {
   onUserClickCheckerIvu(itemId: number) {
     const product = this.cartData.cartItems.filter(ci => ci.id === itemId)[0];
     if (!this.onSelectItem[itemId]) {
-      this.totalDisabledPrice += (product.product.pricePromotion === 0 ? product.product.price : product.product.pricePromotion) * product.quantity;
+      this.totalDisabledPrice += (product.product.pricepromotion === 0 ? product.product.price : product.product.pricepromotion) * product.quantity;
     } else {
-      this.totalDisabledPrice -= (product.product.pricePromotion === 0 ? product.product.price : product.product.pricePromotion) * product.quantity;
+      this.totalDisabledPrice -= (product.product.pricepromotion === 0 ? product.product.price : product.product.pricepromotion) * product.quantity;
     }
     this.onSelectItem[itemId] = !this.onSelectItem[itemId];
     if (Object.keys(this.onSelectItem).filter(s => this.onSelectItem[s]).length === 0) {

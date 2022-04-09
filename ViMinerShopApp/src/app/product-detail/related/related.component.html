@@ -17,13 +17,13 @@
       </div>
       <div class="text">
         <h3>{{n.name}}</h3>
-        <p class="describe">{{n.productinventory.shippingInfo}}</p>
+        <p class="describe">{{n.productinventory.shippinginfo}}</p>
         <p class="price text-blue">
-          <span class="{{ n.pricePromotion !== 0 ? 'price-promotion' : '' }}">
+          <span class="{{ n.pricepromotion !== 0 ? 'price-promotion' : '' }}">
             {{ n.price * currencyRate | currency: currency}}
           </span>
-          <span *ngIf="n.pricePromotion !== 0">
-            {{ n.pricePromotion * currencyRate | currency: currency }}
+          <span *ngIf="n.pricepromotion !== 0">
+            {{ n.pricepromotion * currencyRate | currency: currency }}
           </span>
         </p>
         <button class="bt-button action bt-default" tag="button">

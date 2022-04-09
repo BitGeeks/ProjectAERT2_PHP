@@ -24,9 +24,9 @@
             <a routerLink="/detail/{{product.id}}" *ngIf="product.productinventory.quantity === 0" translate>Nhận Thông Báo Sản Phẩm</a>
           </div>
           <div class="clearfix{{ product.productinventory.quantity === 0 ? ' unuse' : ''}}">
-            <span class="price{{ product.pricePromotion !== 0 ? ' price-promotion' : ' text-blue' }}">{{ product.price * currencyRate | currency: currency }}</span>
-            <span *ngIf="product.pricePromotion !== 0" class="price text-blue">
-              {{ product.pricePromotion * currencyRate | currency: currency }}
+            <span class="price{{ product.pricepromotion !== 0 ? ' price-promotion' : ' text-blue' }}">{{ product.price * currencyRate | currency: currency }}</span>
+            <span *ngIf="product.pricepromotion !== 0" class="price text-blue">
+              {{ product.pricepromotion * currencyRate | currency: currency }}
             </span>
             <button class="bt-button action bt-default">
                 <i class="bt-icon"></i>

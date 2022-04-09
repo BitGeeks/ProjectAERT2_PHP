@@ -69,12 +69,12 @@ export class EditProductDialogComponent implements OnInit {
       category_id: new FormControl(null, [Validators.required]),
       algorithm_id: new FormControl(null, [Validators.required]),
       price: new FormControl(null, [Validators.required]),
-      pricePromotion: new FormControl(null, [Validators.required]),
+      pricepromotion: new FormControl(null, [Validators.required]),
       quantity: new FormControl(null, [Validators.required]),
       flag: new FormControl(null, []),
       hps: new FormControl(null, [Validators.required]),
       weight: new FormControl(null, [Validators.required]),
-      shippingInfo: new FormControl(null, [])
+      shippinginfo: new FormControl(null, [])
     });
     this.editProduct.patchValue({
       id: this.initialState.id,
@@ -88,12 +88,12 @@ export class EditProductDialogComponent implements OnInit {
       category_id: this.initialState.category_id,
       algorithm_id: this.initialState.algorithm_id,
       price: this.initialState.price,
-      pricePromotion: this.initialState.pricePromotion,
+      pricepromotion: this.initialState.pricepromotion,
       quantity: this.initialState.productinventory.quantity,
       flag: this.initialState.productinventory.flag,
       hps: this.initialState.productinventory.hps,
       weight: this.initialState.productinventory.weight,
-      shippingInfo: this.initialState.productinventory.shippingInfo
+      shippinginfo: this.initialState.productinventory.shippinginfo
     });
 
     this.browseState.pipe(take(1)).subscribe(data => {
@@ -159,7 +159,7 @@ export class EditProductDialogComponent implements OnInit {
 
   onEditSubmitted() {
     if (!this.editProduct.valid) { return; }
-    const { id, name, desc, notedesc, detaildesc, paymentdesc, warrantydesc, sku, category_id, algorithm_id, price, pricePromotion, quantity, flag, hps, weight, shippingInfo } = this.editProduct.value;
+    const { id, name, desc, notedesc, detaildesc, paymentdesc, warrantydesc, sku, category_id, algorithm_id, price, pricepromotion, quantity, flag, hps, weight, shippinginfo } = this.editProduct.value;
     const productImage = this.productimages;
     this.adminService.editProduct(
       id,
@@ -174,8 +174,8 @@ export class EditProductDialogComponent implements OnInit {
       algorithm_id,
       price,
       productImage,
-      pricePromotion,
-      quantity, flag, hps, weight, shippingInfo
+      pricepromotion,
+      quantity, flag, hps, weight, shippinginfo
     )
       .pipe(take(1), catchError(
         error => {

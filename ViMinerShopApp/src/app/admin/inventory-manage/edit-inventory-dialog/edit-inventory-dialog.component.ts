@@ -37,7 +37,7 @@ export class EditInventoryDialogComponent implements OnInit {
       flag: new FormControl(null, []),
       hps: new FormControl(null, [Validators.required]),
       weight: new FormControl(null, [Validators.required]),
-      shippingInfo: new FormControl(null, [])
+      shippinginfo: new FormControl(null, [])
     });
     this.editInventory.patchValue({
       id: this.initialState.id,
@@ -45,14 +45,14 @@ export class EditInventoryDialogComponent implements OnInit {
       flag: this.initialState.flag,
       hps: this.initialState.hps,
       weight: this.initialState.weight,
-      shippingInfo: this.initialState.shippingInfo
+      shippinginfo: this.initialState.shippinginfo
     });
   }
 
   onEditSubmitted() {
     if (!this.editInventory.valid) { return; }
-    const { id, quantity, flag, hps, weight, shippingInfo } = this.editInventory.value;
-    this.adminService.updateInventory(id, quantity, flag, hps, weight, shippingInfo).pipe(take(1), catchError(
+    const { id, quantity, flag, hps, weight, shippinginfo } = this.editInventory.value;
+    this.adminService.updateInventory(id, quantity, flag, hps, weight, shippinginfo).pipe(take(1), catchError(
       error => {
         this.FormExceptionOccurEv.emit(error);
         return throwError(error);

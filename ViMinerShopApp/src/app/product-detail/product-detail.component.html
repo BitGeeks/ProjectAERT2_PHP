@@ -42,19 +42,19 @@
             <img src="https://static.maxmines.com/self/lesongvi/viminershop/icon/weight.svg" />
             <span translate>Trọng lượng: {{ product.productinventory.weight }}kg</span>
           </p>
-          <p class="text" *ngIf="product.productinventory.shippingInfo !== null && product.productinventory.shippingInfo.trim() !== ''">
+          <p class="text" *ngIf="product.productinventory.shippinginfo !== null && product.productinventory.shippinginfo.trim() !== ''">
             <img src="https://static.maxmines.com/self/lesongvi/viminershop/icon/truck.svg" />
-            <span>{{ product.productinventory.shippingInfo }}</span>
+            <span>{{ product.productinventory.shippinginfo }}</span>
           </p>
         </div>
       </div>
       <div class="priceAndValue">
         <p class="price{{ product.productinventory.quantity === 0 ? ' text-gray' : ' text-blue' }}">
-          <span class="{{ product.pricePromotion !== 0 ? 'price-promotion' : '' }}">
+          <span class="{{ product.pricepromotion !== 0 ? 'price-promotion' : '' }}">
             {{ product.price * currencyRate | currency: currency }}
           </span>
-          <span *ngIf="product.pricePromotion !== 0">
-            {{ product.pricePromotion * currencyRate | currency: currency }}
+          <span *ngIf="product.pricepromotion !== 0">
+            {{ product.pricepromotion * currencyRate | currency: currency }}
           </span>
         </p>
         <div class="stepper radio">
@@ -104,11 +104,11 @@
           <span class="name">
             {{ product.name }}
           </span>
-          <p class="price{{ product.productinventory.quantity === 0 ? ' text-gray' : ' text-blue' }}{{ product.pricePromotion !== 0 ? ' price-promotion' : '' }}">
+          <p class="price{{ product.productinventory.quantity === 0 ? ' text-gray' : ' text-blue' }}{{ product.pricepromotion !== 0 ? ' price-promotion' : '' }}">
             {{ product.price * currencyRate | currency: currency }}
           </p>
-          <p *ngIf="product.pricePromotion !== 0" class="price">
-            {{ product.pricePromotion * currencyRate | currency: currency }}
+          <p *ngIf="product.pricepromotion !== 0" class="price">
+            {{ product.pricepromotion * currencyRate | currency: currency }}
           </p>
         </div>
         <div class="spansAndButtons">

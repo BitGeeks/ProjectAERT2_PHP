@@ -56,7 +56,7 @@ export class AdminService {
     algorithm_id: number,
     price: number,
     productImage: Array<processImage>,
-    pricePromotion: number, quantity: number, flag: string, hps: number, weight: number, shippingInfo: string
+    pricepromotion: number, quantity: number, flag: string, hps: number, weight: number, shippinginfo: string
   ) {
     return this.httpClient.post<ProductDetail>(`${this.url}/products/add`, {
       name,
@@ -70,12 +70,12 @@ export class AdminService {
       algorithm_id,
       price,
       productImage,
-      pricePromotion,
-      quantity, flag, hps, weight, shippingInfo
+      pricepromotion,
+      quantity, flag, hps, weight, shippinginfo
     });
   }
 
-  editProduct(id: number, name: string, desc: string, notedesc: string, detaildesc: string, paymentdesc: string, warrantydesc: string, sku: string, category_id: number, algorithm_id: number, price: number, productImage: Array<processImage>, pricePromotion: number, quantity: number, flag: string, hps: number, weight: number, shippingInfo: string) {
+  editProduct(id: number, name: string, desc: string, notedesc: string, detaildesc: string, paymentdesc: string, warrantydesc: string, sku: string, category_id: number, algorithm_id: number, price: number, productImage: Array<processImage>, pricepromotion: number, quantity: number, flag: string, hps: number, weight: number, shippinginfo: string) {
     return this.httpClient.post<ProductDetail>(`${this.url}/products/edit/${id}`, {
       name,
       desc,
@@ -88,20 +88,20 @@ export class AdminService {
       algorithm_id,
       price,
       productImage,
-      pricePromotion,
-      quantity, flag, hps, weight, shippingInfo
+      pricepromotion,
+      quantity, flag, hps, weight, shippinginfo
     });
   }
 
-  addInventory(quantity: number, flag: string, hps: number, weight: number, shippingInfo: string) {
+  addInventory(quantity: number, flag: string, hps: number, weight: number, shippinginfo: string) {
     return this.httpClient.post<productinventory>(`${this.url}/inventories/add`, {
-      quantity, flag, hps, weight, shippingInfo
+      quantity, flag, hps, weight, shippinginfo
     });
   }
 
-  updateInventory(id: number, quantity: number, flag: string, hps: number, weight: number, shippingInfo: string) {
+  updateInventory(id: number, quantity: number, flag: string, hps: number, weight: number, shippinginfo: string) {
     return this.httpClient.post<productinventory>(`${this.url}/inventories/edit/${id}`, {
-      quantity, flag, hps, weight, shippingInfo
+      quantity, flag, hps, weight, shippinginfo
     });
   }
 

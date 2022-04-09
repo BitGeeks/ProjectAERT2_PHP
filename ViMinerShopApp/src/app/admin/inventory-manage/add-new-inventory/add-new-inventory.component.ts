@@ -24,14 +24,14 @@ export class AddNewInventoryComponent implements OnInit {
       flag: new FormControl(null, []),
       hps: new FormControl(null, []),
       weight: new FormControl(null, []),
-      shippingInfo: new FormControl(null, [])
+      shippinginfo: new FormControl(null, [])
     });
   }
 
   FormSubmittedEv() {
     if (!this.addInventoryForm.valid) { return; }
-    const { quantity, flag, hps, weight, shippingInfo } = this.addInventoryForm.value;
-    this.adminService.addInventory(quantity, flag, hps, weight, shippingInfo)
+    const { quantity, flag, hps, weight, shippinginfo } = this.addInventoryForm.value;
+    this.adminService.addInventory(quantity, flag, hps, weight, shippinginfo)
       .pipe(take(1), catchError(
         error => {
           return throwError(error);

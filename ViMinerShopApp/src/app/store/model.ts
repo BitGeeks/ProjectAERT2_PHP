@@ -57,7 +57,7 @@ export interface ProductDetail {
   sku: string;
   desc: string;
   price: number;
-  pricePromotion: number;
+  pricepromotion: number;
   detaildesc: string;
   category_id: number;
   productcategory: ProductCategory;

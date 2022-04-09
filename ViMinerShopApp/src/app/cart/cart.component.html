@@ -59,7 +59,7 @@
               <span class="invalidCondition PREP_SALE" *ngIf="cartItem.product.productinventory.flag === 'FLAG_FEATURE_ORDER'" translate>Đặt Trước</span>
             </div>
           </td>
-          <td class="price">{{ (cartItem.product.pricePromotion !== 0 ? cartItem.product.pricePromotion : cartItem.product.price) * currencyRate | currency: currency }}</td>
+          <td class="price">{{ (cartItem.product.pricepromotion !== 0 ? cartItem.product.pricepromotion : cartItem.product.price) * currencyRate | currency: currency }}</td>
           <td class="quantity">
             <div class="disableLayer"></div>
             <button class="reduce" (click)="amountDecrement(cartItem.id)">-</button>
@@ -67,7 +67,7 @@
             <button class="add" (click)="amountIncrement(cartItem.id)">+</button>
           </td>
           <td class="subtotal">
-            <span>{{ cartItem.quantity * (cartItem.product.pricePromotion !== 0 ? cartItem.product.pricePromotion : cartItem.product.price) * currencyRate | currency: currency }}</span>
+            <span>{{ cartItem.quantity * (cartItem.product.pricepromotion !== 0 ? cartItem.product.pricepromotion : cartItem.product.price) * currencyRate | currency: currency }}</span>
           </td>
           <td class="operation">
             <span class="delete" (click)="removeFromCart(cartItem.id)" translate>Xóa</span>

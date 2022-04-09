@@ -142,7 +142,7 @@ export class PaymentComponent implements OnInit {
         category: 'DIGITAL_GOODS',
         unit_amount: {
             currency_code: 'USD',
-            value: (data.product.pricePromotion === 0 ? data.product.price : data.product.pricePromotion).toFixed(2).toString(),
+            value: (data.product.pricepromotion === 0 ? data.product.price : data.product.pricepromotion).toFixed(2).toString(),
         },
       });
     });
