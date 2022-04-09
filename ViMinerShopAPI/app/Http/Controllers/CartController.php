@@ -29,12 +29,13 @@ class CartController extends Controller
             ShoppingSession::insert($session);
         }
         if ($sessionCheck != null) {
-            $ctext = ShoppingSession::join("coupon", "coupon.Id", "=", "shoppingsessions.Coupon_id")
-                ->join("discounts", "discounts.Id", "=", "shoppingsessions.Discount_id")
-                ->join("cartitems", "shoppingsessions.Id", "=", "cartitems.Session_id")
-                ->join("products", "products.Id", "=", "cartitems.Product_id")
-                ->join("productcategories", "productcategories.Id", "=", "products.Category_id")
-                ->join("productinventories", "productinventories.Id", "=", "products.Inventory_id")
+            $ctext = ShoppingSession::with(["cartitems", "cartitems.product", "cartitems.product.productcategory", "cartitems.product.productimages", "cartitems.product.productinventory", "coupon", "discount"])
+                // ->join("coupon", "coupon.Id", "=", "shoppingsessions.Coupon_id")
+                // ->join("discounts", "discounts.Id", "=", "shoppingsessions.Discount_id")
+                // ->join("cartitems", "shoppingsessions.Id", "=", "cartitems.Session_id")
+                // ->join("products", "products.Id", "=", "cartitems.Product_id")
+                // ->join("productcategories", "productcategories.Id", "=", "products.Category_id")
+                // ->join("productinventories", "productinventories.Id", "=", "products.Inventory_id")
                 ->where("shoppingsessions.User_id", $user->id)
                 ->orderBy("shoppingsessions.Id", "DESC")
                 ->get();
@@ -59,9 +60,10 @@ class CartController extends Controller
                 ->first();
 
         if ($sessionCheck != null) {
-            $results = CartItem::join("products", "products.Id", "=", "cartitems.Product_id")
-            ->join("productcategories", "productcategories.Id", "=", "products.Category_id")
-            ->join("productinventories", "productinventories.Id", "=", "products.Inventory_id")
+            $results = CartItem::with(["product", "product.productcategory", "product.productimages", "product.productinventory"])
+            // join("products", "products.Id", "=", "cartitems.Product_id")
+            // ->join("productcategories", "productcategories.Id", "=", "products.Category_id")
+            // ->join("productinventories", "productinventories.Id", "=", "products.Inventory_id")
             ->where("cartitems.Session_id", $sessionCheck->Id)
             ->get();
 
@@ -78,9 +80,10 @@ class CartController extends Controller
                 ->first();
 
         if ($sessionCheck != null) {
-            $updateObj = CartItem::join("products", "products.Id", "=", "cartitems.Product_id")
-            ->join("productcategories", "productcategories.Id", "=", "products.Category_id")
-            ->join("productinventories", "productinventories.Id", "=", "products.Inventory_id")
+            $updateObj = CartItem::with(["product", "product.productcategory", "product.productimages", "product.productinventory"])
+            // join("products", "products.Id", "=", "cartitems.Product_id")
+            // ->join("productcategories", "productcategories.Id", "=", "products.Category_id")
+            // ->join("productinventories", "productinventories.Id", "=", "products.Inventory_id")
             ->where([
                 ["cartitems.Session_id", $sessionCheck->Id],
                 ["cartitems.Id", $request->cartItemId]
@@ -105,9 +108,10 @@ class CartController extends Controller
                 ->first();
 
         if ($sessionCheck != null) {
-            $updateObj = CartItem::join("products", "products.Id", "=", "cartitems.Product_id")
-            ->join("productcategories", "productcategories.Id", "=", "products.Category_id")
-            ->join("productinventories", "productinventories.Id", "=", "products.Inventory_id")
+            $updateObj = CartItem::with(["product", "product.productcategory", "product.productimages", "product.productinventory"])
+            // join("products", "products.Id", "=", "cartitems.Product_id")
+            // ->join("productcategories", "productcategories.Id", "=", "products.Category_id")
+            // ->join("productinventories", "productinventories.Id", "=", "products.Inventory_id")
             ->where([
                 ["cartitems.Session_id", $sessionCheck->Id],
                 ["cartitems.Id", $request->cartItemId]
@@ -130,7 +134,8 @@ class CartController extends Controller
 
     public function ConfirmCartItem (Request $request) {
         $user = $request->userData;
-        $sessionCheck = ShoppingSession::join("coupon", "coupon.Id", "=", "shoppingsessions.Coupon_id")
+        $sessionCheck = ShoppingSession::with("coupon")
+        // join("coupon", "coupon.Id", "=", "shoppingsessions.Coupon_id")
                 ->where("User_id", $user->id)
                 ->orderBy("Id", "DESC")
                 ->first();
@@ -142,15 +147,15 @@ class CartController extends Controller
             $couponAmount = 0;
             $discountAmount = 0;
 
-            if ($sessionCheck->Coupon_id != null && (
-                $sessionCheck->Expired_at > date() &&
-                $sessionCheck->Active &&
-                $sessionCheck->MinPrice < $request->Total
+            if ($sessionCheck->coupon->Coupon_id != null && (
+                $sessionCheck->coupon->Expired_at > date() &&
+                $sessionCheck->coupon->Active &&
+                $sessionCheck->coupon->MinPrice < $request->Total
             )) {
-                $cptick = Coupon::where("Id", "=", $sessionCheck->Coupon_id)->first();
-                $couponAmount = $total * (floatval($sessionCheck->CouponPercent) / 100);
-                $total -= $total * (floatval($sessionCheck->CouponPercent) / 100);
-                $cptick->CouponLeft -= 1;
+                $cptick = Coupon::where("Id", $sessionCheck->coupon->Coupon_id)->first();
+                $couponAmount = $total * (floatval($sessionCheck->coupon->CouponPercent) / 100);
+                $total -= $total * (floatval($sessionCheck->coupon->CouponPercent) / 100);
+                $cptick->coupon->CouponLeft -= 1;
                 Coupon::update($cptick);
             }
 
@@ -217,7 +222,8 @@ class CartController extends Controller
         $user = $request->userData;
         $total = 0;
 
-        $sessionCheck = ShoppingSession::join("coupon", "coupon.Id", "=", "shoppingsessions.Coupon_id")
+        $sessionCheck = ShoppingSession::with("coupon")
+        // join("coupon", "coupon.Id", "=", "shoppingsessions.Coupon_id")
                 ->where("User_id", $user->id)
                 ->orderBy("Id", "DESC")
                 ->first();
@@ -228,6 +234,6 @@ class CartController extends Controller
     }
 
     public function SetShippingPos (Request $request) {
-        
+        // Under development
     }
 }

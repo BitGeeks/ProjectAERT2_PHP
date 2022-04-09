@@ -12,6 +12,18 @@ class ShoppingSession extends Model
         'Id', 'User_id', 'Total', 'Coupon_id', 'Discount_id', 'Created_at', 'Updated_at'
     ];
 
+    public function cartitems () {
+        return $this->hasMany(CartItem::class, "Session_id", "Id");
+    }
+
+    public function coupon () {
+        return $this->hasOne(Coupon::class, "Coupon_id", "Id");
+    }
+
+    public function discount () {
+        return $this->hasOne(Discount::class, "Discount_id", "Id");
+    }
+
     protected $hidden = [
         'Id'
     ];
