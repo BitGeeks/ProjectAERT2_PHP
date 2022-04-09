@@ -33,9 +33,7 @@ class Product extends Model
         ->with([$relation => $constraint]);
     }
 
-    protected $hidden = [
-        'Id'
-    ];
+    protected $hidden = [];
 
     public function toArray() {
         $array = parent::toArray();

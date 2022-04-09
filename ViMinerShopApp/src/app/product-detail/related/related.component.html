@@ -9,7 +9,7 @@
 </section>
 <section>
   <div *ngIf="!innerLoading" class="scroll-left" (click)="scrollLeft()"></div>
-  <div *ngIf="!innerLoading" class="component show-type ctype_vms">
+  <div *ngIf="!innerLoading && relatedProducts" class="component show-type ctype_vms">
     <a (click)="changeRoute(n.id)" *ngFor="let n of relatedProducts.slice(0, 2)" class="item">
       <div class="type">{{ n.productcategory.name }} - {{ n.algorithm.name }}</div>
       <div class="avatar">

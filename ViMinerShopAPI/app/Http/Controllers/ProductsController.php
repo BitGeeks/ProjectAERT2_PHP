@@ -15,7 +15,7 @@ class ProductsController extends Controller
         $product = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
         ->join("productcategories", "products.Category_id", "=", "productcategories.id")
         ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
-        ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
+        // ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
         ->where("isActive", true);
 
         if ($request->page != 0 || $request->size != 0) {
@@ -88,9 +88,9 @@ class ProductsController extends Controller
     public function SearchProduct (Request $request) {
         if ($request->page != 0 || $request->size != 0) {
             $result = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
-            ->join("productcategories", "products.Category_id", "=", "productcategories.id")
-            ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
-            ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
+            // ->join("productcategories", "products.Category_id", "=", "productcategories.id")
+            // ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
+            // ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
             ->where([
                 ["isActive", true],
                 ["Name", "%".strtolower($request->keyword)."%"]
@@ -102,9 +102,9 @@ class ProductsController extends Controller
             return response()->json($result);
         }
         $result = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
-            ->join("productcategories", "products.Category_id", "=", "productcategories.id")
-            ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
-            ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
+            // ->join("productcategories", "products.Category_id", "=", "productcategories.id")
+            // ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
+            // ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
             ->where("Name", "%".strtolower($request->keyword)."%")
             ->get();
             return response()->json($result);
@@ -112,9 +112,9 @@ class ProductsController extends Controller
 
     public function GetProduct (Request $request, $id) {
         $product = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
-        ->join("productcategories", "products.Category_id", "=", "productcategories.id")
-        ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
-        ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
+        // ->join("productcategories", "products.Category_id", "=", "productcategories.id")
+        // ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
+        // ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
         ->where([
             ["isActive", true],
             ["products.Id", $id]
@@ -128,18 +128,18 @@ class ProductsController extends Controller
 
     public function GetProductRelated (Request $request, $id) {
         $productTarget = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
-        ->join("productcategories", "products.Category_id", "=", "productcategories.id")
-        ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
-        ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
+        // ->join("productcategories", "products.Category_id", "=", "productcategories.id")
+        // ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
+        // ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
         ->where([
             ["isActive", true],
             ["products.Id", $id]
         ])->first();
 
         $results = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
-        ->join("productcategories", "products.Category_id", "=", "productcategories.id")
-        ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
-        ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
+        // ->join("productcategories", "products.Category_id", "=", "productcategories.id")
+        // ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
+        // ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
         ->where([
             ["isActive", true],
             ["products.Id", "!=", $id]
@@ -156,7 +156,7 @@ class ProductsController extends Controller
     public function GetProductsCount (Request $request) {
         $product = Product::join("productcategories", "products.Category_id", "=", "productcategories.id")
         ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
-        ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
+        // ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
         ->where("isActive", true);
 
         if ($request->page != 0 || $request->size != 0) {
