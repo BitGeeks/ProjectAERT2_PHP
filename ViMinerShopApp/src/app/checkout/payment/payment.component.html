@@ -42,7 +42,7 @@
           <div class="title">
               <span translate>Hướng dẫn thanh toán đơn hàng số {{ orderData.id }}</span>
           </div>
-          <div style="padding: 20px;" *ngIf="paymentDesc !== null && !isMaxMinesAuthenticate && !paypalPayment" [innerHTML]="elementRepair(paymentDesc, orderData.id)">
+          <div style="padding: 20px;" *ngIf="paymentdesc !== null && !isMaxMinesAuthenticate && !paypalPayment" [innerHTML]="elementRepair(paymentdesc, orderData.id)">
           </div>
           <div style="padding: 20px;" *ngIf="isMaxMinesAuthenticate" translate>
             Đăng nhập tài khoản MaxMines của bạn và chấp nhận chuyển hashes cho Vĩ Miner Shop!

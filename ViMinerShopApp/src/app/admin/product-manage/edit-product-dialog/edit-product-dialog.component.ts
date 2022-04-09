@@ -61,10 +61,10 @@ export class EditProductDialogComponent implements OnInit {
       id: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       desc: new FormControl(null, []),
-      noteDesc: new FormControl(null, []),
-      detailDesc: new FormControl(null, []),
-      paymentDesc: new FormControl(null, []),
-      warrantyDesc: new FormControl(null, []),
+      notedesc: new FormControl(null, []),
+      detaildesc: new FormControl(null, []),
+      paymentdesc: new FormControl(null, []),
+      warrantydesc: new FormControl(null, []),
       sku: new FormControl(null, [Validators.required]),
       category_id: new FormControl(null, [Validators.required]),
       algorithm_id: new FormControl(null, [Validators.required]),
@@ -80,10 +80,10 @@ export class EditProductDialogComponent implements OnInit {
       id: this.initialState.id,
       name: this.initialState.name,
       desc: this.initialState.desc,
-      noteDesc: this.initialState.noteDesc,
-      detailDesc: this.initialState.detailDesc,
-      paymentDesc: this.initialState.paymentDesc,
-      warrantyDesc: this.initialState.warrantyDesc,
+      notedesc: this.initialState.notedesc,
+      detaildesc: this.initialState.detaildesc,
+      paymentdesc: this.initialState.paymentdesc,
+      warrantydesc: this.initialState.warrantydesc,
       sku: this.initialState.sku,
       category_id: this.initialState.category_id,
       algorithm_id: this.initialState.algorithm_id,
@@ -159,16 +159,16 @@ export class EditProductDialogComponent implements OnInit {
 
   onEditSubmitted() {
     if (!this.editProduct.valid) { return; }
-    const { id, name, desc, noteDesc, detailDesc, paymentDesc, warrantyDesc, sku, category_id, algorithm_id, price, pricePromotion, quantity, flag, hps, weight, shippingInfo } = this.editProduct.value;
+    const { id, name, desc, notedesc, detaildesc, paymentdesc, warrantydesc, sku, category_id, algorithm_id, price, pricePromotion, quantity, flag, hps, weight, shippingInfo } = this.editProduct.value;
     const productImage = this.productimages;
     this.adminService.editProduct(
       id,
       name,
       desc,
-      noteDesc,
-      detailDesc,
-      paymentDesc,
-      warrantyDesc,
+      notedesc,
+      detaildesc,
+      paymentdesc,
+      warrantydesc,
       sku,
       category_id,
       algorithm_id,

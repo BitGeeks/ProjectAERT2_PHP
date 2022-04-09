@@ -117,7 +117,7 @@ class ProductsController extends Controller
         ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
         ->where([
             ["isActive", true],
-            ["Id", $id]
+            ["products.Id", $id]
         ])->first();
 
         if ($product == null)
@@ -128,12 +128,12 @@ class ProductsController extends Controller
 
     public function GetProductRelated (Request $request, $id) {
         $productTarget = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
-        // ->join("productcategories", "products.Category_id", "=", "productcategories.id")
+        ->join("productcategories", "products.Category_id", "=", "productcategories.id")
         ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
         ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
         ->where([
             ["isActive", true],
-            ["Id", $id]
+            ["products.Id", $id]
         ])->first();
 
         $results = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
@@ -142,10 +142,10 @@ class ProductsController extends Controller
         ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
         ->where([
             ["isActive", true],
-            ["Id", "!=", $id]
-        ])->where(function($query) {
-            $query->where("productcategories.id", "=", $productTarget->Category_id)
-            ->orWhere("algorithms.id", "=", $productTarget->Algorithm_id)
+            ["products.Id", "!=", $id]
+        ])->where(function($query) use($productTarget) {
+            $query->where("Category_id", "=", $productTarget->Category_id)
+            ->orWhere("Algorithm_id", "=", $productTarget->Algorithm_id)
             ->get();
         })
         ->get();

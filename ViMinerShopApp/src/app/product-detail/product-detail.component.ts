@@ -152,7 +152,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   setDefaultWidthSizeTab(data) {
-    const a = ['noteDesc', 'detailDesc', 'paymentDesc', 'warrantyDesc'];
+    const a = ['notedesc', 'detaildesc', 'paymentdesc', 'warrantydesc'];
     const b = 4 - a.filter(a => {
       return data[a] === null || data[a].trim().length === 0;
     }).length;
@@ -160,10 +160,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   setDefaultActiveTab() {
-    if (this.product.noteDesc !== null) { this.activeTab = 0; }
-    else if (this.product.detailDesc !== null) { this.activeTab = 1; }
-    else if (this.product.paymentDesc !== null) { this.activeTab = 2; }
-    else if (this.product.warrantyDesc !== null) { this.activeTab = 3; }
+    if (this.product.notedesc !== null) { this.activeTab = 0; }
+    else if (this.product.detaildesc !== null) { this.activeTab = 1; }
+    else if (this.product.paymentdesc !== null) { this.activeTab = 2; }
+    else if (this.product.warrantydesc !== null) { this.activeTab = 3; }
   }
 
   onUserClickShowDialog() {

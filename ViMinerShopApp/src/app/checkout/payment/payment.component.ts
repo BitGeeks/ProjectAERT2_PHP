@@ -50,7 +50,7 @@ export class PaymentComponent implements OnInit {
   maxminesBillCode = null;
 
   isMaxMinesAuthenticate = false;
-  paymentDesc = null;
+  paymentdesc = null;
   paypalPayment = false;
 
   isLoading = false;
@@ -199,7 +199,7 @@ export class PaymentComponent implements OnInit {
         this.paypalPayment = true;
         break;
       default:
-        this.paymentDesc = selectedPayment.desc;
+        this.paymentdesc = selectedPayment.desc;
         break;
     }
   }

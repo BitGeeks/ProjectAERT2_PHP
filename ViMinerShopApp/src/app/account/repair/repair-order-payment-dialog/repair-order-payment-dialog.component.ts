@@ -19,7 +19,7 @@ export class RepairOrderPaymentDialogComponent implements OnInit {
 
   isMaxMinesAuthenticate = false;
   paypalPayment = false;
-  paymentDesc: string;
+  paymentdesc: string;
 
   @Input()
   public initialState: { [key: string]: any };
@@ -62,7 +62,7 @@ export class RepairOrderPaymentDialogComponent implements OnInit {
         this.paypalPayment = true;
         break;
       default:
-        this.paymentDesc = selectedPayment.desc;
+        this.paymentdesc = selectedPayment.desc;
         break;
     }
   }

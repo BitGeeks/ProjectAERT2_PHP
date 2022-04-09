@@ -94,10 +94,10 @@
     <div class="pin" id="pin"></div>
     <div class="productDetail" *ngIf="innerLoading === false">
       <div class="controllers" *ngIf="!showActiveController">
-        <span *ngIf="product.noteDesc !== null" class="descTab{{activeTab === 0 ? ' active': ''}}" [style.width.%]="tabWidthPercent" (click)="setActiveTab(0)" translate>Ghi chú</span>
-        <span *ngIf="product.detailDesc !== null" class="descTab{{activeTab === 1 ? ' active': ''}}" [style.width.%]="tabWidthPercent" (click)="setActiveTab(1)" translate>Tổng quan</span>
-        <span *ngIf="product.paymentDesc !== null" class="descTab{{activeTab === 2 ? ' active': ''}}" [style.width.%]="tabWidthPercent" (click)="setActiveTab(2)" translate>Thanh toán</span>
-        <span *ngIf="product.warrantyDesc !== null" class="descTab{{activeTab === 3 ? ' active': ''}}" [style.width.%]="tabWidthPercent" (click)="setActiveTab(3)" translate>Bảo hành</span>
+        <span *ngIf="product.notedesc !== null" class="descTab{{activeTab === 0 ? ' active': ''}}" [style.width.%]="tabWidthPercent" (click)="setActiveTab(0)" translate>Ghi chú</span>
+        <span *ngIf="product.detaildesc !== null" class="descTab{{activeTab === 1 ? ' active': ''}}" [style.width.%]="tabWidthPercent" (click)="setActiveTab(1)" translate>Tổng quan</span>
+        <span *ngIf="product.paymentdesc !== null" class="descTab{{activeTab === 2 ? ' active': ''}}" [style.width.%]="tabWidthPercent" (click)="setActiveTab(2)" translate>Thanh toán</span>
+        <span *ngIf="product.warrantydesc !== null" class="descTab{{activeTab === 3 ? ' active': ''}}" [style.width.%]="tabWidthPercent" (click)="setActiveTab(3)" translate>Bảo hành</span>
       </div>
       <div class="controllers new fixed" *ngIf="showActiveController">
         <div class="nameAndPrice">
@@ -113,10 +113,10 @@
         </div>
         <div class="spansAndButtons">
           <div class="spans">
-            <span *ngIf="product.noteDesc !== null" class="{{activeTab === 0 ? 'active': ''}}" [style.width.%]="tabWidthPercent" [style.cursor]="'pointer'" (click)="setActiveTab(0)" translate>Ghi chú</span>
-            <span *ngIf="product.detailDesc !== null" class="{{activeTab === 1 ? 'active': ''}}" [style.width.%]="tabWidthPercent" [style.cursor]="'pointer'" (click)="setActiveTab(1)" translate>Tổng quan</span>
-            <span *ngIf="product.paymentDesc !== null" class="{{activeTab === 2 ? 'active': ''}}" [style.width.%]="tabWidthPercent" [style.cursor]="'pointer'" (click)="setActiveTab(2)" translate>Thanh toán</span>
-            <span *ngIf="product.warrantyDesc !== null" class="{{activeTab === 3 ? 'active': ''}}" [style.width.%]="tabWidthPercent" [style.cursor]="'pointer'" (click)="setActiveTab(3)" translate>Bảo hành</span>
+            <span *ngIf="product.notedesc !== null" class="{{activeTab === 0 ? 'active': ''}}" [style.width.%]="tabWidthPercent" [style.cursor]="'pointer'" (click)="setActiveTab(0)" translate>Ghi chú</span>
+            <span *ngIf="product.detaildesc !== null" class="{{activeTab === 1 ? 'active': ''}}" [style.width.%]="tabWidthPercent" [style.cursor]="'pointer'" (click)="setActiveTab(1)" translate>Tổng quan</span>
+            <span *ngIf="product.paymentdesc !== null" class="{{activeTab === 2 ? 'active': ''}}" [style.width.%]="tabWidthPercent" [style.cursor]="'pointer'" (click)="setActiveTab(2)" translate>Thanh toán</span>
+            <span *ngIf="product.warrantydesc !== null" class="{{activeTab === 3 ? 'active': ''}}" [style.width.%]="tabWidthPercent" [style.cursor]="'pointer'" (click)="setActiveTab(3)" translate>Bảo hành</span>
           </div>
           <div class="buttons">
             <div class="buttons">
@@ -148,10 +148,10 @@
       </div>
       <div class="article{{ showActiveController ? ' fixed' : ''}}">
         <div class="tuple">
-          <div class="info" *ngIf="activeTab === 0 && product.noteDesc !== null && product.noteDesc.trim().length !== 0" [innerHTML]="product.noteDesc"></div>
-          <div class="info" *ngIf="activeTab === 1 && product.detailDesc !== null && product.detailDesc.trim().length !== 0" [innerHTML]="product.detailDesc"></div>
-          <div class="info" *ngIf="activeTab === 2 && product.paymentDesc !== null && product.paymentDesc.trim().length !== 0" [innerHTML]="product.paymentDesc"></div>
-          <div class="info" *ngIf="activeTab === 3 && product.warrantyDesc !== null && product.warrantyDesc.trim().length !== 0" [innerHTML]="product.warrantyDesc"></div>
+          <div class="info" *ngIf="activeTab === 0 && product.notedesc !== null && product.notedesc.trim().length !== 0" [innerHTML]="product.notedesc"></div>
+          <div class="info" *ngIf="activeTab === 1 && product.detaildesc !== null && product.detaildesc.trim().length !== 0" [innerHTML]="product.detaildesc"></div>
+          <div class="info" *ngIf="activeTab === 2 && product.paymentdesc !== null && product.paymentdesc.trim().length !== 0" [innerHTML]="product.paymentdesc"></div>
+          <div class="info" *ngIf="activeTab === 3 && product.warrantydesc !== null && product.warrantydesc.trim().length !== 0" [innerHTML]="product.warrantydesc"></div>
         </div>
       </div>
     </div>

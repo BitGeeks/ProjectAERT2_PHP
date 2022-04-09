@@ -47,10 +47,10 @@ export class AdminService {
   addProduct(
     name: string,
     desc: string,
-    noteDesc: string,
-    detailDesc: string,
-    paymentDesc: string,
-    warrantyDesc: string,
+    notedesc: string,
+    detaildesc: string,
+    paymentdesc: string,
+    warrantydesc: string,
     sku: string,
     category_id: number,
     algorithm_id: number,
@@ -61,10 +61,10 @@ export class AdminService {
     return this.httpClient.post<ProductDetail>(`${this.url}/products/add`, {
       name,
       desc,
-      noteDesc,
-      detailDesc,
-      paymentDesc,
-      warrantyDesc,
+      notedesc,
+      detaildesc,
+      paymentdesc,
+      warrantydesc,
       sku,
       category_id,
       algorithm_id,
@@ -75,14 +75,14 @@ export class AdminService {
     });
   }
 
-  editProduct(id: number, name: string, desc: string, noteDesc: string, detailDesc: string, paymentDesc: string, warrantyDesc: string, sku: string, category_id: number, algorithm_id: number, price: number, productImage: Array<processImage>, pricePromotion: number, quantity: number, flag: string, hps: number, weight: number, shippingInfo: string) {
+  editProduct(id: number, name: string, desc: string, notedesc: string, detaildesc: string, paymentdesc: string, warrantydesc: string, sku: string, category_id: number, algorithm_id: number, price: number, productImage: Array<processImage>, pricePromotion: number, quantity: number, flag: string, hps: number, weight: number, shippingInfo: string) {
     return this.httpClient.post<ProductDetail>(`${this.url}/products/edit/${id}`, {
       name,
       desc,
-      noteDesc,
-      detailDesc,
-      paymentDesc,
-      warrantyDesc,
+      notedesc,
+      detaildesc,
+      paymentdesc,
+      warrantydesc,
       sku,
       category_id,
       algorithm_id,

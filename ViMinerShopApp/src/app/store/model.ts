@@ -58,15 +58,15 @@ export interface ProductDetail {
   desc: string;
   price: number;
   pricePromotion: number;
-  detailDesc: string;
+  detaildesc: string;
   category_id: number;
   productcategory: ProductCategory;
   algorithm: Algorithm;
   productinventory: productinventory;
   productimages: Array<productImage>;
-  noteDesc: string;
-  paymentDesc: string;
-  warrantyDesc: string;
+  notedesc: string;
+  paymentdesc: string;
+  warrantydesc: string;
   isActive: boolean;
 }
 
