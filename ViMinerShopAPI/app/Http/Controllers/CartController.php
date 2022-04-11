@@ -242,26 +242,136 @@ class CartController extends Controller
     }
 
     public function GetOrders (Request $request) {
-        // Under development
+        $user = $request->userData;
+
+        $sessionCheck = OrderDetail::with(["paymentdetail", "shippingmethod", "user"])
+            ->where("User_id", $user->id)->get();
+            
+            if (sessionCheck == null)
+                return "NotFound";
+            return response()->json($sessionCheck);
     }
 
     public function DecrementCartItem (Request $request) {
-        // Under development
+        $user = $request->userData;
+
+        $sessionCheck = ShoppingSession::
+        where("User_id", $user->id)
+        ->orderBy("Id", "DESC")->first();
+
+        if (!$sessionCheck)
+        {
+            $session = [
+                "User_id" => $user->id,
+                "Total" => 0,
+                "Updated_at" => \Carbon\Cartbon::now(),
+                "Created_at" => \Carbon\Cartbon::now()
+            ];
+            ShoppingSession.insert($session);
+            $sessionCheck = ShoppingSession::
+                where("User_id", $user->id)
+                ->orderBy("Id", "DESC")->first();
+        }
+        if ($sessionCheck)
+        {
+            $updateObj = CartItem::where(["Session_id" => $sessionCheck->Id, "Id" => $request->cartItemId])->first();
+            if ($updateObj)
+            {
+                if ($updateObj->Quantity - $request->amount <= 0) {
+                    CartItem::where("Id", $updateObj->Id)->delete();
+                }
+                else {
+                    $updateObj->Quantity -= $request->amount;
+                    CartItem::where("Id", $updateObj->Id)->update($updateObj);
+                }
+                return $this->GetSession();
+            }
+        }
+
+        return "NotFound";
     }
 
     public function GetCartItem (Request $request, $id) {
-        // Under development
+        $cartItem = CartItem::where("Id", $id)->first();
+
+        if (!$cartItem)
+        {
+            return "NotFound";
+        }
+
+        return $cartItem;
     }
 
     public function PostCartItem (Request $request) {
-        // Under development
+        $user = $request->userData;
+
+        $sessionCheck = ShoppingSession::
+        where("User_id", $user->id)
+        ->orderBy("Id", "DESC")->first();
+
+        if (!$sessionCheck)
+        {
+            $session = [
+                "User_id" => $user->id,
+                "Total" => 0,
+                "Updated_at" => \Carbon\Cartbon::now(),
+                "Created_at" => \Carbon\Cartbon::now()
+            ];
+            ShoppingSession::insert($session);
+            $sessionCheck = ShoppingSession::
+                where("User_id", $user->id)
+                ->orderBy("Id", "DESC")->first();
+        }
+        if ($sessionCheck)
+        {
+            $checkCart = CartItem::where(["Session_id" => $sessionCheck->Id, "Product_id" => $request->ProductId])->first();
+            if (!$checkCart)
+            {
+                $cart = [
+                    "Product_id" => $request->ProductId,
+                    "Session_id" => $sessionCheck->Id,
+                    "Quantity" => $request->Amount,
+                    "Updated_at" => \Cartbon\Carbon::now(),
+                    "Created_at" => \Cartbon\Carbon::now()
+                ];
+                CartItem::insert($cart);
+            } else {
+                $checkCart->Quantity += $request->Amount;
+                CartItem::where("Id", $checkCart->Id)->update($checkCart);
+            }
+        }
+
+        return $this->GetSession();
     }
 
-    public function DeleteCartItem (Request $request) {
-        // Under development
+    public function DeleteCartItem (Request $request, $id) {
+        $cartItem = CartItem::where("Id", $id)->delete();
+
+        return $this->GetSession();
     }
 
     public function ToggleCoupon (Request $request) {
-        // Under development
+        $user = $request->userData;
+
+        $check = Coupon::where([
+            "User_id" => $user->id,
+            "CouponCode" => $request->code
+        ])->where("Expired_at", ">", \Carbon\Carbon::now())->first();
+
+        $sessionCheck = ShoppingSession::where("User_id", $user->id)->orderBy("Id", "DESC")->first();
+
+        if (!$check)
+        {
+            $sessionCheck->Coupon_id = null;
+        }
+        else
+        {
+            if ($sessionCheck->Coupon_id == $check->Id) $sessionCheck->Coupon_id = null;
+            else $sessionCheck->Coupon_id = $check->Id;
+        }
+
+        ShoppingSession::where("Id", $sessionCheck->Id)->update($sessionCheck);
+
+        return GetSession();
     }
 }

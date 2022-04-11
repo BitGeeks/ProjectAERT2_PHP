@@ -21,10 +21,6 @@ class AdminController extends Controller
         // under development
     }
 
-    public function PutRoleVar (Request $request, $id) {
-        // under development
-    }
-
     public function PostRoleVar (Request $request) {
         // under development
     }
@@ -181,10 +177,6 @@ class AdminController extends Controller
         // under development
     }
 
-    public function GetRepairSite (Request $request) {
-        // under development
-    }
-
     public function AddShipping (Request $request) {
         // under development
     }
@@ -218,10 +210,6 @@ class AdminController extends Controller
     }
 
     public function GetAllTransactionCount (Request $request) {
-        // under development
-    }
-
-    public function GetShippingMethodCount (Request $request) {
         // under development
     }
 

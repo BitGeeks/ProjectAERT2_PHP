@@ -16,12 +16,20 @@ class OrderDetail extends Model
         // 'Id'
     ];
 
+    public function user () {
+        return $this->belongsTo(User::class);
+    }
+
     public function orderitems () {
         return $this->hasMany(OrderItem::class);
     }
 
     public function paymentdetail () {
         return $this->hasOne(PaymentDetail::class);
+    }
+
+    public function shippingmethod () {
+        return $this->belongsTo(ShippingMethod::class);
     }
 
     public function toArray() {
