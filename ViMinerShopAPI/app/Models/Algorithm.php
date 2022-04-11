@@ -17,7 +17,7 @@ class Algorithm extends Model
     }
 
     protected $hidden = [
-        'Id', 'Created_at', 'Updated_at'
+        'Created_at', 'Updated_at'
     ];
 
     public function toArray() {

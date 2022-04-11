@@ -18,14 +18,15 @@ class ProductsController extends Controller
         // ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
         ->where("isActive", true);
 
-        if ($request->page != 0 || $request->size != 0) {
-            if ($request->category != null) {
-                $category = ProductCategory::where("Name", "=", $request->category)->first();
-                $product = $product->where("Category_id", $category->id);
+
+        if (isset($request->page) && isset($request->size) && ($request->page != 0 || $request->size != 0)) {
+            if (isset($request->category)) {
+                $category = ProductCategory::where("Name", $request->category)->first();
+                $product = $product->where("Category_id", $category->Id);
             }
-            if ($request->algorithm != null) {
+            if (isset($request->algorithm)) {
                 $algorithm = Algorithm::where("Name", "=", $request->algorithm)->first();
-                $product = $product->where("Algorithm_id", $algorithm->id);
+                $product = $product->where("Algorithm_id", $algorithm->Id);
             }
             if (isset($request->minPrice) && floatval($request->minPrice) != 0) {
                 $product = $product->where(function ($query) {

@@ -19,7 +19,7 @@ class ProductImage extends Model
     }
 
     protected $hidden = [
-        'Id'
+        // 'Id'
     ];
 
     public function toArray() {

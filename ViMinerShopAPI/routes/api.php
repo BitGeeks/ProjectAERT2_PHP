@@ -12,6 +12,14 @@ use App\Http\Controllers\ProductCategoriesController;
 use App\Http\Controllers\AlgorithmsController;
 use App\Http\Controllers\CDonateController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\VMSConvertController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentProviderController;
+use App\Http\Controllers\ProductInventoriesController;
+use App\Http\Controllers\RecoverController;
+use App\Http\Controllers\RepairOrderController;
+use App\Http\Controllers\RepairsController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,8 +74,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get("useraddresses", [UserAddressController::class, 'get_user_address']);
     Route::post("useraddresses/setdefault", [UserAddressController::class, 'set_default']);
 
-    Route::get("shippingmethods/all", [ShippingMethodsController::class, 'get_shipping_method_list']);
-    Route::get("shippingmethods/flag/{flag}", [ShippingMethodsController::class, 'get_shipping_method_by_flag']);
+    Route::get("shippingmethods/all", [ShippingMethodsController::class, 'GetShippingMethod']);
+    Route::get("shippingmethods/flag/{flag}", [ShippingMethodsController::class, 'GetShippingMethodByFlag']);
 
     Route::get("cdonate/with/{flag}", [CDonateController::class, 'GetCouponDonateBy']);
     Route::get("cdonate/countWith/{flag}", [CDonateController::class, 'CountCouponDonateBy']);
@@ -80,4 +88,103 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post("cart/confirm", [CartController::class, 'ConfirmCartItem']);
     Route::get("cart/orders/{id}", [CartController::class, 'GetOrderById']);
     Route::post("cart/setshippingpos", [CartController::class, 'SetShippingPos']);
+    Route::get("cart/orders", [CartController::class, 'GetOrders']);
+    Route::post("cart/decrement", [CartController::class, 'DecrementCartItem']);
+    Route::post("cart/get/{id}", [CartController::class, 'GetCartItem']);
+    Route::post("cart/create", [CartController::class, 'PostCartItem']);
+    Route::delete("cart/remove/{id}", [CartController::class, 'DeleteCartItem']);
+    Route::post("cart/coupon", [CartController::class, 'ToggleCoupon']);
+
+    Route::get("order/all/{type}", [OrderController::class, 'GetAllOrderByType']);
+    Route::get("order", [OrderController::class, 'GetOrderDetails']);
+    Route::get("order/unpaid", [OrderController::class, 'GetUnpaidOrder']);
+    Route::get("order/pending", [OrderController::class, 'GetPendingOrder']);
+    Route::get("order/unshipped", [OrderController::class, 'GetUnshippedOrder']);
+    Route::get("order/shipping", [OrderController::class, 'GetShippingOrder']);
+    Route::get("order/shipped", [OrderController::class, 'GetShippedOrder']);
+    Route::get("order/expired", [OrderController::class, 'GetExpiredOrder']);
+    Route::get("order/count", [OrderController::class, 'GetAllOrderCount']);
+    Route::get("order/countType/{type}", [OrderController::class, 'GetAllOrderCountByType']);
+    Route::post("order/userPaymentPaypal", [OrderController::class, 'OnUserPaymentPaypal']);
+    Route::post("order/userPaymentMaxMines", [OrderController::class, 'OnUserPaymentMaxMines']);
+    Route::put("order/paymentsetup", [OrderController::class, 'PutOrderDetail']);
+    Route::get("order/couponCount/{type}", [OrderController::class, 'GetCouponCount']);
+    Route::get("order/availableCoupon", [OrderController::class, 'GetAvailableCoupon']);
+    Route::post("order/usedCoupon", [OrderController::class, 'GetUsedCoupon']);
+    Route::post("order/expiredCoupon", [OrderController::class, 'GetExpiredCoupon']);
+    
+    Route::get("paymentproviders/providers", [PaymentProviderController::class, 'GetPaymentProvider']);
+    Route::get("paymentproviders/{id}", [PaymentProviderController::class, 'GetPaymentProviderID']);
+    
+    Route::get("productinventories/all", [ProductInventoriesController::class, 'GetProductInventories']);
+    Route::get("productinventories/info/{id}", [ProductInventoriesController::class, 'GetProductInventory']);
+    
+    Route::post("recovery/request", [RecoverController::class, 'GetUserRecoveryCode']);
+    Route::post("recovery/verify", [RecoverController::class, 'PostUserRecovery']);
+    Route::post("recovery/change", [RecoverController::class, 'PostUserRecovery2']);
+
+    Route::get("repairorder/all", [RepairOrderController::class, 'GetRepairOrders']);
+    Route::post("repairorder/onpaymentpaypal", [RepairOrderController::class, 'OnPaymentPaypal']);
+    Route::get("repairorder/count/{type}", [RepairOrderController::class, 'GetRepairOrderCount']);
+    Route::post("repairorder/{id}", [RepairOrderController::class, 'GetRepairOrder']);
+
+    Route::get("repairs/all", [RepairsController::class, 'GetRepairs']);
+    Route::get("repairs/search/{queryString}", [RepairsController::class, 'GetRepair']);
+    Route::get("repairs/type", [RepairsController::class, 'GetRepairByType']);
+    Route::get("repairs/site/all", [RepairsController::class, 'GetAllRepairSites']);
+    Route::get("repairs/ticket/{id}", [RepairsController::class, 'GetAllRepairTicket']);
+    Route::post("repairs/updateTicket/{id}", [RepairsController::class, 'updateTicket']);
+    Route::post("repairs/submitTicket", [RepairsController::class, 'submitTicket']);
+    Route::delete("repairs/remove/{type}", [RepairsController::class, 'DeleteRepair']);
+    
+    Route::get("admin", [AdminController::class, 'GetRoleVars']);
+    Route::get("admin/{id}", [AdminController::class, 'GetRoleVar']);
+    Route::put("admin/{id}", [AdminController::class, 'PutRoleVar']);
+    Route::post("admin", [AdminController::class, 'PostRoleVar']);
+    Route::get("admin/users/list", [AdminController::class, 'GetUserList']);
+    Route::get("admin/users/count", [AdminController::class, 'GetUserListCount']);
+    Route::get("admin/roles/list", [AdminController::class, 'GetRoleList']);
+    Route::get("admin/homeslide/all", [AdminController::class, 'GetAllHomeSlide']);
+    Route::post("admin/homeslide/add", [AdminController::class, 'AddHomeSlideImage']);
+    Route::post("admin/homeslide/edit/{id}", [AdminController::class, 'EditHomeSlideImage']);
+    Route::post("admin/homeslide/remove/{id}", [AdminController::class, 'RemoveHomeSlideImage']);
+    Route::post("admin/3notify/edit", [AdminController::class, 'EditHPNotice']);
+    Route::post("admin/users/editPermission/{id}", [AdminController::class, 'UpdateUserRole']);
+    Route::get("admin/inventories/list", [AdminController::class, 'GetListInventories']);
+    Route::get("admin/repairs/count", [AdminController::class, 'GetRepairCount']);
+    Route::get("admin/repairs/list", [AdminController::class, 'GetListRepairs']);
+    Route::get("admin/repairs/type/{type}", [AdminController::class, 'GetListRepairsByType']);
+    Route::post("admin/repairs/edit/{id}", [AdminController::class, 'UpdateRepairTicketStatus']);
+    Route::post("admin/repairorder/update/{id}", [AdminController::class, 'UpdateRepairOrder']);
+    Route::get("admin/inventories/edit/{id}", [AdminController::class, 'EditInventory']);
+    Route::get("admin/algorithms/count", [AdminController::class, 'GetListAlgorithmsCount']);
+    Route::get("admin/algorithms/list", [AdminController::class, 'GetListAlgorithms']);
+    Route::post("admin/productimage/remove", [AdminController::class, 'RemoveProductImage']);
+    Route::post("admin/products/edit/{id}", [AdminController::class, 'EditProduct']);
+    Route::post("admin/products/toggleActive/{id}", [AdminController::class, 'ToggleActiveProduct']);
+    Route::get("admin/products/count", [AdminController::class, 'GetProductCount']);
+    Route::get("admin/products/all", [AdminController::class, 'GetProductList']);
+    Route::post("admin/products/add", [AdminController::class, 'AddProduct']);
+    Route::post("admin/inventories/add", [AdminController::class, 'AddInventory']);
+    Route::post("admin/categories/add", [AdminController::class, 'AddCategory']);
+    Route::post("admin/categories/edit/{id}", [AdminController::class, 'EditCategory']);
+    Route::post("admin/algorithms/add", [AdminController::class, 'AddAlgorithm']);
+    Route::post("admin/algorithms/edit/{id}", [AdminController::class, 'EditAlgorithm']);
+    Route::post("admin/repairsites/add", [AdminController::class, 'AddRepairSite']);
+    Route::get("admin/repairsites/count", [AdminController::class, 'GetAllRepairSiteCount']);
+    Route::get("admin/repairsites/list", [AdminController::class, 'GetRepairSite']);
+    Route::post("admin/repairsites/toggleActive/{code}", [AdminController::class, 'ToggleRepairSiteActive']);
+    Route::post("admin/repairsites/edit/{code}", [AdminController::class, 'EditRepairSite']);
+    Route::post("admin/shipping/add", [AdminController::class, 'AddShipping']);
+    Route::post("admin/shipping/edit/{id}", [AdminController::class, 'EditShipping']);
+    Route::get("admin/orders/{type}", [AdminController::class, 'GetOrdersByType']);
+    Route::get("admin/orders/count/{type}", [AdminController::class, 'GetOrderCount']);
+    Route::post("admin/orders/edit/{id}", [AdminController::class, 'EditOrderStatus']);
+    Route::get("admin/orders/chart", [AdminController::class, 'GetAllChartData']);
+    Route::get("admin/transaction/list", [AdminController::class, 'GetAllTransaction']);
+    Route::get("admin/transaction/count", [AdminController::class, 'GetAllTransactionCount']);
+    Route::get("admin/shippingmethods/count", [AdminController::class, 'GetShippingMethodCount']);
+    Route::get("admin/shippingmethods/list", [AdminController::class, 'GetShippingMethodList']);
 });
+
+Route::get("vms/convert", [VMSConvertController::class, 'convertFunc']);

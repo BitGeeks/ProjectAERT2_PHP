@@ -12,8 +12,16 @@ class OrderItem extends Model
         'Id', 'Order_id', 'Product_id', 'Quantity', 'Created_at', 'Updated_at'
     ];
 
+    public function orderdetail () {
+        return $this->belongsTo(OrderDetail::class);
+    }
+
+    public function product () {
+        return $this->belongsTo(Product::class);
+    }
+
     protected $hidden = [
-        'Id'
+        // 'Id'
     ];
 
     public function toArray() {

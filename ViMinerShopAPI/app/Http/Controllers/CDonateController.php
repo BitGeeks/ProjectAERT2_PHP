@@ -43,7 +43,7 @@ class CDonateController extends Controller
 
         $couponCheck = Coupon::where("Id", $request->couponId)
                     ->where("User_id", $user->id)
-                    ->where("Expired_at", ">", date())
+                    ->where("Expired_at", ">", \Carbon\Carbon::now())
                     ->get();
 
         $backCoupon = $couponCheck;
@@ -62,7 +62,7 @@ class CDonateController extends Controller
                 $couponRCheck->CouponLeft += $request->couponNumber;
                 Coupon::where("Id", $request->couponId)
                     ->where("User_id", $user->id)
-                    ->where("Expired_at", ">", date())
+                    ->where("Expired_at", ">", \Carbon\Carbon::now())
                     ->delete();
             } else {
                 $couponCheck->User_id = $receiver->id;
@@ -80,15 +80,15 @@ class CDonateController extends Controller
                     "Active" => $couponCheck->Active,
                     "CouponLeft" => $request->couponNumber,
                     "Expired_at" => $couponCheck->Expired_at,
-                    "Created_at" => date(),
-                    "Updated_at" => date()
+                    "Created_at" => \Carbon\Carbon::now(),
+                    "Updated_at" => \Carbon\Carbon::now()
                 ];
                 Coupon::insert($newCoupon);
             } else {
                 $couponRCheck->CouponLeft += $request->couponNumber;
             }
         }
-        $couponRCheck->Updated_at = date();
+        $couponRCheck->Updated_at = \Carbon\Carbon::now();
 
         $donate = [
             "TransactionId" => new MiscHelper().randomStr(20),
@@ -98,8 +98,8 @@ class CDonateController extends Controller
             "CouponName" => $backCoupon->CouponCode,
             "CouponPercent" => $backCoupon->CouponPercent,
             "Quantity" => $request->couponNumber,
-            "Created_at" => date(),
-            "Updated_at" => date()
+            "Created_at" => \Carbon\Carbon::now(),
+            "Updated_at" => \Carbon\Carbon::now()
         ];
         CouponDonate::insert($donate);
         Coupon::update($couponRCheck);

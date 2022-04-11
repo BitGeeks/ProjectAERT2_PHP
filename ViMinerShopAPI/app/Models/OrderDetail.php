@@ -13,8 +13,16 @@ class OrderDetail extends Model
     ];
 
     protected $hidden = [
-        'Id'
+        // 'Id'
     ];
+
+    public function orderitems () {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function paymentdetail () {
+        return $this->hasOne(PaymentDetail::class);
+    }
 
     public function toArray() {
         $array = parent::toArray();

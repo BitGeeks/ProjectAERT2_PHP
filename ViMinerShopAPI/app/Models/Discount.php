@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Discount extends Model
 {
     use HasFactory;
+    protected $table = "discounts";
+
     protected $fillable = [
         'Id', 'Name', 'Desc', 'Discount_percent', 'Discount_type', 'Active', 'Created_at', 'Updated_at'
     ];
 
     protected $hidden = [
-        'Id'
+        // 'Id'
     ];
 
     public function toArray() {

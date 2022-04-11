@@ -15,7 +15,7 @@ class SlideImage extends Model
     ];
 
     protected $hidden = [
-        'Id'
+        // 'Id'
     ];
 
     public function toArray() {

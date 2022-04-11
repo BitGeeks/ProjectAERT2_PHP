@@ -15,7 +15,7 @@ class Hpnotice extends Model
     ];
 
     protected $hidden = [
-        'Id'
+        // 'Id'
     ];
 
     public function toArray() {

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShoppingSession extends Model
 {
     use HasFactory;
+    protected $table = "shoppingsessions";
     protected $fillable = [
         'Id', 'User_id', 'Total', 'Coupon_id', 'Discount_id', 'Created_at', 'Updated_at'
     ];
@@ -17,15 +18,15 @@ class ShoppingSession extends Model
     }
 
     public function coupon () {
-        return $this->hasOne(Coupon::class, "Coupon_id", "Id");
+        return $this->hasOne(Coupon::class, "Id", "Coupon_id");
     }
 
     public function discount () {
-        return $this->hasOne(Discount::class, "Discount_id", "Id");
+        return $this->hasOne(Discount::class, "Id", "Discount_id");
     }
 
     protected $hidden = [
-        'Id'
+        // 'Id'
     ];
 
     public function toArray() {

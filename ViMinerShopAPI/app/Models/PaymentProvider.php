@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentProvider extends Model
 {
     use HasFactory;
+    protected $table = "paymentprovider";
+
     protected $fillable = [
         'Id', 'Name', 'Desc', 'Created_at', 'Updated_at'
     ];
 
     protected $hidden = [
-        'Id'
+        // 'Id'
     ];
 
     public function toArray() {

@@ -40,13 +40,14 @@ class ApiController extends Controller
         	'LastName' => $request->lastname,
         	'username' => $request->username,
         	'email' => $request->email,
+            'RoleVar_Id' => 1,
         	'RefCode' => $request->refcode,
         	'password' => bcrypt($request->password)
         ]);
 
         return response()->json([
             'success' => true,
-            'message' => 'User created successfully',
+            'message' => 'Tài khoản đã được tạo thành công',
             'data' => $user
         ], Response::HTTP_OK);
     }
@@ -79,9 +80,8 @@ class ApiController extends Controller
         }
 
         $user = User::where("email", $request->email)->first();
- 	
+
         return response()->json([
-            'success' => true,
             'id' => $user["id"],
             'email' => $user->email,
             'username' => $user->username,

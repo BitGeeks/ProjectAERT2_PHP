@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class CartItem extends Model
 {
     use HasFactory;
+    protected $table = "cartitems";
+
     protected $fillable = [
         'Id', 'Session_id', 'Product_id', 'Quantity', 'Created_at', 'Updated_at'
     ];
@@ -21,7 +23,7 @@ class CartItem extends Model
     }
 
     protected $hidden = [
-        'Id', 'Created_at', 'Updated_at'
+        'Created_at', 'Updated_at'
     ];
 
     public function toArray() {

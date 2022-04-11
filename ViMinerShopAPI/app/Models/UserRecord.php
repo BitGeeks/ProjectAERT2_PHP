@@ -13,7 +13,7 @@ class UserRecord extends Model
     ];
 
     protected $hidden = [
-        'Id'
+        // 'Id'
     ];
 
     public function toArray() {

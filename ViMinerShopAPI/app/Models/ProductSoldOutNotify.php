@@ -13,7 +13,7 @@ class ProductSoldOutNotify extends Model
     ];
 
     protected $hidden = [
-        'Id'
+        // 'Id'
     ];
 
     public function toArray() {

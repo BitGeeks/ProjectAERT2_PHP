@@ -13,7 +13,7 @@ class RepairItem extends Model
     ];
 
     protected $hidden = [
-        'Id'
+        // 'Id'
     ];
 
     public function toArray() {

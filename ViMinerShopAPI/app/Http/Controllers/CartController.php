@@ -23,10 +23,14 @@ class CartController extends Controller
             $session = [
                 "User_id" => $user->id,
                 "Total" => 0,
-                "Updated_at" => date(),
-                "Created_at" => date()
+                "Updated_at" => \Carbon\Carbon::now(),
+                "Created_at" => \Carbon\Carbon::now()
             ];
             ShoppingSession::insert($session);
+
+            $sessionCheck = ShoppingSession::where("User_id", $user->id)
+                ->orderBy("Id", "DESC")
+                ->first();
         }
         if ($sessionCheck != null) {
             $ctext = ShoppingSession::with(["cartitems", "cartitems.product", "cartitems.product.productcategory", "cartitems.product.productimages", "cartitems.product.productinventory", "coupon", "discount"])
@@ -38,10 +42,10 @@ class CartController extends Controller
                 // ->join("productinventories", "productinventories.Id", "=", "products.Inventory_id")
                 ->where("shoppingsessions.User_id", $user->id)
                 ->orderBy("shoppingsessions.Id", "DESC")
-                ->get();
+                ->first();
 
-            foreach ($ctext as $c) {
-                if ($c->PricePromotion == null || $c->Price == null || $c->Quantity == null) return "NotFound";
+            foreach ($ctext->cartitems as $c) {
+                if ($c->product->PricePromotion == null || $c->product->Price == null || $c->product->Quantity == null) return "NotFound";
                 $cartPrice = $c->PricePromotion != 0 ? $c->PricePromotion : $c->Price;
                 $total += $c->Quantity * $cartPrice;
             }
@@ -148,7 +152,7 @@ class CartController extends Controller
             $discountAmount = 0;
 
             if ($sessionCheck->coupon->Coupon_id != null && (
-                $sessionCheck->coupon->Expired_at > date() &&
+                $sessionCheck->coupon->Expired_at > \Carbon\Carbon::now() &&
                 $sessionCheck->coupon->Active &&
                 $sessionCheck->coupon->MinPrice < $request->Total
             )) {
@@ -164,8 +168,8 @@ class CartController extends Controller
                 "Provider" => 0,
                 "Status" => 0,
                 "ReferralBy" => $user->ReferralBy,
-                "Created_at" => date(),
-                "Updated_at" => date()
+                "Created_at" => \Carbon\Carbon::now(),
+                "Updated_at" => \Carbon\Carbon::now()
             ];
             PaymentDetail::insert($PaymentDetail);
 
@@ -184,8 +188,8 @@ class CartController extends Controller
                 "LocationName" => $request->LocationName,
                 "Latitute" => $request->Latitute,
                 "Longitute" => $request->Longitute,
-                "Created_at" => date(),
-                "Updated_at" => date()
+                "Created_at" => \Carbon\Carbon::now(),
+                "Updated_at" => \Carbon\Carbon::now()
             ];
 
             OrderDetail::insert($orderDetail);
@@ -195,8 +199,8 @@ class CartController extends Controller
                     "Order_id" => $orderDetail->Id,
                     "Product_id" => $item->Product_id,
                     "Quantity" => $item->Quantity,
-                    "Created_at" => date(),
-                    "Updated_at" => date()
+                    "Created_at" => \Carbon\Carbon::now(),
+                    "Updated_at" => \Carbon\Carbon::now()
                 ];
                 OrderItem::insert($orderItem);
                 CartItem::where([
@@ -234,6 +238,30 @@ class CartController extends Controller
     }
 
     public function SetShippingPos (Request $request) {
+        // Under development
+    }
+
+    public function GetOrders (Request $request) {
+        // Under development
+    }
+
+    public function DecrementCartItem (Request $request) {
+        // Under development
+    }
+
+    public function GetCartItem (Request $request, $id) {
+        // Under development
+    }
+
+    public function PostCartItem (Request $request) {
+        // Under development
+    }
+
+    public function DeleteCartItem (Request $request) {
+        // Under development
+    }
+
+    public function ToggleCoupon (Request $request) {
         // Under development
     }
 }

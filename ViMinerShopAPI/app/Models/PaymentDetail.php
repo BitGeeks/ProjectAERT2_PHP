@@ -12,8 +12,12 @@ class PaymentDetail extends Model
         'Id', 'Amount', 'Provider', 'Status', 'MaxMinesBillID', 'PaypalID', 'ReferralBy', 'Created_at', 'Updated_at'
     ];
 
+    public function orderdetail () {
+        return $this->belongsTo(OrderDetail::class);
+    }
+
     protected $hidden = [
-        'Id'
+        // 'Id'
     ];
 
     public function toArray() {
