@@ -12,6 +12,18 @@ class Repair extends Model
         'Id', 'User_id', 'Status', 'TicketReason', 'TrackingNo', 'ShippingLogisticsId', 'CustomerAddress', 'RepairSiteId', 'ReturnLogisticsId', 'Remark', 'Created_at', 'Updated_at'
     ];
 
+    public function repairorder () {
+        return $this->hasMany(RepairOrder::class);
+    }
+
+    public function repairitem () {
+        return $this->hasMany(RepairItem::class);
+    }
+
+    public function repairsite () {
+        return $this->belongsTo(RepairSite::class);
+    }
+
     protected $hidden = [
         // 'Id'
     ];

@@ -12,6 +12,10 @@ class RepairItem extends Model
         'Id', 'RepairId', 'Product_id', 'Quantity', 'Remark'
     ];
 
+    public function repair () {
+        return $this->belongsTo(Repair::class);
+    }
+
     protected $hidden = [
         // 'Id'
     ];

@@ -299,7 +299,7 @@ class CartController extends Controller
             return "NotFound";
         }
 
-        return $cartItem;
+        return response()->json($cartItem);
     }
 
     public function PostCartItem (Request $request) {
@@ -372,6 +372,6 @@ class CartController extends Controller
 
         ShoppingSession::where("Id", $sessionCheck->Id)->update($sessionCheck);
 
-        return GetSession();
+        return $this->GetSession();
     }
 }

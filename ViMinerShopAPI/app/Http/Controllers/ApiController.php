@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Helpers\MiscHelper;
 
 class ApiController extends Controller
 {
@@ -164,9 +165,9 @@ class ApiController extends Controller
         if (isset($request->password))
             $user->password = bcrypt($request->password);
 
-        User::where("id", $request->id)->update($user);
+        User::where("id", $user->id)->update($user);
 
-        return $this->get_user_by_id($request->id);
+        return $this->get_user_by_id($user->id);
     }
  
     public function get_user(Request $request)

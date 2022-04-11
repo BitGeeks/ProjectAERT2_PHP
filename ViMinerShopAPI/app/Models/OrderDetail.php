@@ -32,6 +32,10 @@ class OrderDetail extends Model
         return $this->belongsTo(ShippingMethod::class);
     }
 
+    public function coupon() {
+        return $this->belongsTo(Coupon::class);
+    }
+
     public function toArray() {
         $array = parent::toArray();
         $newArray = array();

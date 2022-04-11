@@ -6,6 +6,9 @@ use App\Models\OrderDetail;
 use App\Models\ProductCategory;
 use App\Models\Algorithm;
 use Illuminate\Http\Request;
+use App\Models\PaymentProvider;
+use App\Models\PaymentDetail;
+use App\Http\Helpers\MiscHelper;
 
 class OrderController extends Controller
 {
@@ -164,7 +167,48 @@ class OrderController extends Controller
     }
 
     public function userPaymentPaypal (Request $request) {
-        // under development
+        $user = $request->userData;
+
+        $paymentProvider = PaymentProvider::where("Name", "LIKE", "%MaxMines%")->first();
+
+        $orderDetails = OrderDetail::where([
+            "Id" => $request->orderId,
+            "User_id" => $user->id
+        ])->first();
+
+        if (!$orderDetails) return "NotFound";
+
+        $paymentDetail = PaymentDetail::where("Id", $orderDetails->Payment_id)->first();
+
+        if (!$paymentDetail) return "NotFound";
+
+        $paymentDetail->PaypalID = $request->idPayment;
+        $paymentDetail->Status = 1;
+        $paymentDetail->Updated_at = \Carbon\Carbon::now();
+        $paymentDetail->Provider = $paymentProvider->Id;
+
+        $nineteenth = \Carbon\Carbon::now();
+        $nineteenth->addDays(5);
+
+        $coupon = [
+            "CouponCode" => new MiscHelper().randomStr(8),
+            "User_id" => user.Id,
+            "Desc" => "Cảm ơn bạn đã tin tưởng Vĩ Miner Shop!!",
+            "CouponPercent" => $this->calculateCouponPercenByBill($paymentDetail->Amount),
+            "CouponType" => "sales",
+            "MinPrice" => 1000,
+            "Active" => true,
+            "CouponLeft" => 1,
+            "Expired_at" => $nineteenth,
+            "Created_at" => \Carbon\Carbon::now(),
+            "Updated_at" => \Carbon\Carbon::now()
+        ];
+        Coupon::insert($coupon);
+        PaymentDetail::where("Id", $paymentDetail->Id)->update($paymentDetail);
+
+        $this->afterPaymentSuccessful($user, $orderDetails, "thanh toán Paypal");
+
+        return "";
     }
 
     private function afterPaymentSuccessful ($user, $order, $providerName) {
@@ -182,26 +226,150 @@ class OrderController extends Controller
     }
 
     public function OnUserPaymentMaxMines (Request $request) {
-        // under development
+        $user = $request->userData;
+
+        $paymentProvider = PaymentProvider::where("Name", "LIKE", "%MaxMines%")->first();
+
+        $orderDetails = OrderDetail::where([
+            "Id" => $request->orderId,
+            "User_id" => $user->id
+        ])->first();
+
+        if (!$orderDetails) return "NotFound";
+
+        $paymentDetail = PaymentDetail::where("Id", $orderDetails->Payment_id)->first();
+
+        if (!$paymentDetail) return "NotFound";
+
+        $paymentDetail->MaxMinesBillID = $request->maxMinesBillCode;
+        $paymentDetail->Status = 1;
+        $paymentDetail->Updated_at = \Carbon\Carbon::now();
+        $paymentDetail->Provider = $paymentProvider->Id;
+
+        $nineteenth = \Carbon\Carbon::now();
+        $nineteenth->addDays(19);
+
+        $coupon = [
+            "CouponCode" => new MiscHelper().randomStr(8),
+            "User_id" => user.Id,
+            "Desc" => "Cảm ơn bạn đã tin tưởng Vĩ Miner Shop!!",
+            "CouponPercent" => $this->calculateCouponPercenByBill($paymentDetail->Amount),
+            "CouponType" => "sales",
+            "MinPrice" => 1000,
+            "Active" => true,
+            "CouponLeft" => 1,
+            "Expired_at" => $nineteenth,
+            "Created_at" => \Carbon\Carbon::now(),
+            "Updated_at" => \Carbon\Carbon::now()
+        ];
+        Coupon::insert($coupon);
+        PaymentDetail::where("Id", $paymentDetail->Id)->update($paymentDetail);
+
+        $this->afterPaymentSuccessful($user, $orderDetails, "thanh toán MaxMines 0Pay");
+
+        return "";
     }
 
     public function PutOrderDetail (Request $request) {
-        // under development
+        $user = $request->userData;
+        
+        $order = OrderDetail::where([
+            "User_id" => $user->id,
+            "Id" => $request->orderId
+        ])->first();
+
+        if ($order) {
+            PaymentDetail::where("Id", $order->Payment_id)->update(["Provider" => $orderDetail->paymentId]);
+        }
+
+        $order = OrderDetail::with("paymentdetail")->where([
+            "User_id" => $user->id,
+            "Id" => $request->orderId
+        ])->first();
+
+        return response()->json($order);
     }
 
     public function GetCouponCount (Request $request, $type) {
-        // under development
+        $user = $request->userData;
+        
+        $couponCount = Coupon::where("User_id", $user->Id);
+        
+        $od = OrderDetail::with("coupon")
+            ->where([
+                "User_id" => $user->id
+            ])
+            ->where("Coupon_id", "!=", null)
+            ->get();
+
+        if ($type == 0) {
+            $couponCount = $couponCount
+                ->where("CouponLeft", "!=", 0)
+                ->where("Active", true)
+                ->where("Expired_at", ">=", \Carbon\Carbon::now());
+        }
+        elseif ($type == 1) {
+            return OrderDetails::where("User_id", $user->id)->where("Coupon_id", "!=", null)->count();
+        }
+        elseif ($type == 2) {
+            $couponCount = $couponCount
+                    ->where("Expired_at", "<=", \Carbon\Carbon::now());
+        }
+        else return "NotFound";
+
+        return response()->json($couponCount->count());
     }
 
     public function GetAvailableCoupon (Request $request) {
-        // under development
+        $user = $request->userData;
+
+        $coupon = Coupon::where("User_id", $user->id)
+                    ->where("CouponLeft", "!=", 0)
+                    ->where("Active", true)
+                    ->where("Expired_at", ">=", \Carbon\Carbon::now())
+                    ->orderBy("Id", "DESC");
+
+        if (isset($request->size) && $request->size != null)
+        {
+            $coupon = $coupon
+                        ->skip($request->size * $request->page)
+                        ->take($request->size);
+        }
+
+        return response()->json($coupon->get());
     }
 
     public function GetUsedCoupon (Request $request) {
-        // under development
+        $user = $request->userData;
+
+        $coupon = OrderDetail::select("coupon")->with("coupon")
+                ->where("User_id", $user->id)
+                ->where("Coupon_id", "!=", null);
+
+        if (isset($request->size) && $request->size != null)
+        {
+            $coupon = $coupon
+                        ->skip($request->size * $request->page)
+                        ->take($request->size);
+        }
+
+        return response()->json($coupon->get());
     }
 
     public function GetExpiredCoupon (Request $request) {
-        // under development
+        $user = $request->userData;
+
+        $coupon = Coupon::where("User_id", $user->id)
+                    ->where("Expired_at", "<=", \Carbon\Carbon::now())
+                    ->orderBy("Id", "DESC");
+
+        if (isset($request->size) && $request->size != null)
+        {
+            $coupon = $coupon
+                        ->skip($request->size * $request->page)
+                        ->take($request->size);
+        }
+
+        return response()->json($coupon->get());
     }
 }

@@ -54,6 +54,10 @@ Route::get("products/related/{id}", [ProductsController::class, 'GetProductRelat
 Route::get("products/count", [ProductsController::class, 'GetProductsCount']);
 Route::get("products/newminer", [ProductsController::class, 'GetRecentProducts']);
 Route::get("products/bestminer", [ProductsController::class, 'GetBestMiner']);
+    
+Route::post("recovery/request", [RecoverController::class, 'GetUserRecoveryCode']);
+Route::post("recovery/verify", [RecoverController::class, 'PostUserRecovery']);
+Route::post("recovery/change", [RecoverController::class, 'PostUserRecovery2']);
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('users', [ApiController::class, 'get_user_info']);
@@ -118,10 +122,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     
     Route::get("productinventories/all", [ProductInventoriesController::class, 'GetProductInventories']);
     Route::get("productinventories/info/{id}", [ProductInventoriesController::class, 'GetProductInventory']);
-    
-    Route::post("recovery/request", [RecoverController::class, 'GetUserRecoveryCode']);
-    Route::post("recovery/verify", [RecoverController::class, 'PostUserRecovery']);
-    Route::post("recovery/change", [RecoverController::class, 'PostUserRecovery2']);
 
     Route::get("repairorder/all", [RepairOrderController::class, 'GetRepairOrders']);
     Route::post("repairorder/onpaymentpaypal", [RepairOrderController::class, 'OnPaymentPaypal']);
