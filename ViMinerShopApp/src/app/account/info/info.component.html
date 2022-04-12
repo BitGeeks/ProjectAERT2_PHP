@@ -45,7 +45,7 @@
           <span translate>Mật khẩu: </span>
           <input formControlName="password" type="password" />
         </p>
-        <p *ngIf="!isInfoChanging"><span translate>Địa chỉ ship: </span> <span class="securityStrength{{ userData.userAddresss.length !== 0 ? '' : ' bad' }}">{{ userData.userAddresss.length !== 0 ? ('đã đặt' | translate) : ('chưa đặt' | translate) }}</span></p>
+        <p *ngIf="!isInfoChanging"><span translate>Địa chỉ ship: </span> <span class="securityStrength{{ userData.useraddresss.length !== 0 ? '' : ' bad' }}">{{ userData.useraddresss.length !== 0 ? ('đã đặt' | translate) : ('chưa đặt' | translate) }}</span></p>
         <p *ngIf="!isInfoChanging"><span translate>Session: </span> <span>{{ userData.shoppingSessions.length }}</span></p>
         <p *ngIf="!isInfoChanging"><span translate>Xác minh email: </span> <span class="text-success" translate>đã xác minh</span></p>
         <p *ngIf="!isInfoChanging"><span translate>Phương thức ủy quyền：</span> <span class="text-primary" translate>Bearer ViMiner</span></p>

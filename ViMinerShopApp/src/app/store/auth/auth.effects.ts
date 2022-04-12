@@ -48,17 +48,17 @@ export class AuthEffects {
           .pipe(switchMap((res: UserAuthenticate) => {
             this.tokenService.saveToken(res.token);
             this.router.navigate(['/']);
-            if (res.isActive) { localStorage.setItem('verificationStatus', 'true'); }
+            if (res.isactive) { localStorage.setItem('verificationStatus', 'true'); }
             else if (localStorage.getItem('verificationStatus')) { localStorage.removeItem('verificationStatus'); }
-            localStorage.setItem('adminRole', res.roleVar_id.toString());
+            localStorage.setItem('adminRole', res.rolevar_id.toString());
             return [
               {
-                type: AuthActions.VERIFICATION_STATUS_SUCCESS, payload: res.isActive
+                type: AuthActions.VERIFICATION_STATUS_SUCCESS, payload: res.isactive
               },
               {
-                type: AuthActions.CHECK_ADMIN_ROLE_SUCCESS, payload: res.roleVar_id === 2
+                type: AuthActions.CHECK_ADMIN_ROLE_SUCCESS, payload: res.rolevar_id === 2
               },
-              { type: AuthActions.SIGN_IN_SUCCESS, payload: { effect: AuthActions.SIGN_IN, isAdmin: res.roleVar_id === 2 } }
+              { type: AuthActions.SIGN_IN_SUCCESS, payload: { effect: AuthActions.SIGN_IN, isAdmin: res.rolevar_id === 2 } }
             ];
           }), catchError(error => of(new AuthActions.AuthError({ error, errorEffect: AuthActions.SIGN_IN }))));
       }));
@@ -74,17 +74,17 @@ export class AuthEffects {
           .pipe(switchMap((res: UserAuthenticate) => {
             this.tokenService.saveToken(res.token);
             this.router.navigate(['/']);
-            if (res.isActive) { localStorage.setItem('verificationStatus', 'true'); }
+            if (res.isactive) { localStorage.setItem('verificationStatus', 'true'); }
             else if (localStorage.getItem('verificationStatus')) { localStorage.removeItem('verificationStatus'); }
-            localStorage.setItem('adminRole', res.roleVar_id.toString());
+            localStorage.setItem('adminRole', res.rolevar_id.toString());
             return [
               {
-                type: AuthActions.VERIFICATION_STATUS_SUCCESS, payload: res.isActive
+                type: AuthActions.VERIFICATION_STATUS_SUCCESS, payload: res.isactive
               },
               {
-                type: AuthActions.CHECK_ADMIN_ROLE_SUCCESS, payload: res.roleVar_id === 2
+                type: AuthActions.CHECK_ADMIN_ROLE_SUCCESS, payload: res.rolevar_id === 2
               },
-              { type: AuthActions.SOCIAL_SIGN_IN_SUCCESS, payload: { effect: AuthActions.SOCIAL_SIGN_IN, isAdmin: res.roleVar_id === 2 } }
+              { type: AuthActions.SOCIAL_SIGN_IN_SUCCESS, payload: { effect: AuthActions.SOCIAL_SIGN_IN, isAdmin: res.rolevar_id === 2 } }
             ];
           }), catchError(error => of(new AuthActions.AuthError({ error, errorEffect: AuthActions.SOCIAL_SIGN_IN }))));
       }));
@@ -140,7 +140,7 @@ export class AuthEffects {
       switchMap((action: AuthActions.RequestAdminRole) => {
         return this.accountService.getUser()
         .pipe(switchMap(data => {
-          localStorage.setItem('adminRole', data["roleVar_Id"]);
+          localStorage.setItem('adminRole', data["rolevar_id"]);
           return [
             {
               type: AuthActions.VERIFICATION_STATUS_SUCCESS, payload: localStorage.getItem('verificationStatus') !== null

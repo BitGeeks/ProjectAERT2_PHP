@@ -33,8 +33,8 @@
             <div class="add-new-addr"><button (click)="userClickAddNewAddress()" translate>+ Thêm địa chỉ</button></div>
         </div>
         <div class="content" *ngIf="userData">
-            <table *ngIf="userData.userAddresss.length !== 0">
-              <tr class="addr-item" *ngFor="let uaddress of userData.userAddresss">
+            <table *ngIf="userData.useraddresss.length !== 0">
+              <tr class="addr-item" *ngFor="let uaddress of userData.useraddresss">
                 <td title="{{ uaddress.telephone }}" class="td1{{ shippingAddressSelected === uaddress.id ? ' active' : ''}}" (click)="onUserSelectAddressForShip(uaddress.id)"><span class="username">{{ uaddress.telephone }}</span></td>
                 <td title='{{ uaddress.address + ", " + uaddress.street_name + ", " + uaddress.city + ", " + uaddress.country + ", " + uaddress.postal_code + ", " + uaddress.telephone + ", " + uaddress.mobile }}'
                     class="td2">
@@ -43,14 +43,14 @@
                     </span>
                 </td>
                 <td class="td3">
-                    <div class="td2-default" *ngIf="uaddress.isDefault" translate><span>Mặc định</span></div>
-                    <span class="operating" *ngIf="!uaddress.isDefault" (click)="onUserClickDefault(uaddress.id)" translate>Mặc định</span>
+                    <div class="td2-default" *ngIf="uaddress.isdefault" translate><span>Mặc định</span></div>
+                    <span class="operating" *ngIf="!uaddress.isdefault" (click)="onUserClickDefault(uaddress.id)" translate>Mặc định</span>
                     <span class="operating" (click)="onUserClickAddrEdit(uaddress)" translate>Sửa</span>
-                    <span class="operating" (click)="onUserClickAddrDelete(uaddress)" *ngIf="!uaddress.isDefault" translate>Xóa</span>
+                    <span class="operating" (click)="onUserClickAddrDelete(uaddress)" *ngIf="!uaddress.isdefault" translate>Xóa</span>
                 </td>
               </tr>
             </table>
-            <div *ngIf="userData.userAddresss.length === 0" class="bt-space text-center text-gray" style="margin-bottom: 20px;" translate>Không có địa chỉ nào</div>
+            <div *ngIf="userData.useraddresss.length === 0" class="bt-space text-center text-gray" style="margin-bottom: 20px;" translate>Không có địa chỉ nào</div>
         </div>
       </div>
       <div class="shopping-method item">
@@ -59,7 +59,7 @@
         </div>
         <div class="content">
           <span class="item{{ shippingMethodSelected === method.id ? ' active' : '' }}" *ngFor="let method of shippingMethods" (click)="onUserClickShippingMethod(method.id)">
-            {{ method.shortName }}
+            {{ method.shortname }}
           </span>
         </div>
       </div>
@@ -72,13 +72,13 @@
         </div>
         <div class="content" style="overflow-x: auto;">
             <table>
-                <tr *ngFor="let cartItem of (cartState | async).cart.cartItems">
+                <tr *ngFor="let cartItem of (cartState | async).cart.cartitems">
                     <td class="product">
                         <ng-container *ngIf="cartItem.productimages && cartItem.productimages.length !== 0">
                           <img
                             sizes="240"
-                            data-src="{{ cartItem.productimages[0].imageUrl }}"
-                            src="{{ cartItem.productimages[0].imageUrl }}"
+                            data-src="{{ cartItem.productimages[0].imageurl }}"
+                            src="{{ cartItem.productimages[0].imageurl }}"
                             lazy="loaded"
                           />
                         </ng-container>

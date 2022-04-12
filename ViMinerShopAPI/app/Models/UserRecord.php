@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserRecord extends Model
 {
     use HasFactory;
+    protected $table = "userrecord";
     protected $fillable = [
         'Id', 'User_id', 'ActivityName', 'UserAgent', 'loglevel', 'ip', 'Created_at'
     ];

@@ -29,12 +29,12 @@
 
                       <div class="glance" *ngIf="onShowingTab[2]">
                           <div class="aux">
-                            <div *ngIf="(cartState | async).cart && (cartState | async).cart.cartItems.length">
+                            <div *ngIf="(cartState | async).cart && (cartState | async).cart.cartitems.length">
                               <ul>
-                                <li *ngFor="let cartItem of (cartState | async).cart.cartItems" class="row">
+                                <li *ngFor="let cartItem of (cartState | async).cart.cartitems" class="row">
                                   <a routerLink="/detail/{{cartItem.product.id}}">
                                     <div class="avatar">
-                                      <img [src]="cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png'" alt="{{ cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].alt_name : 'placeholder' }}" />
+                                      <img [src]="cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].imageurl : 'https://cdn.notevn.com/DzPbjDuoi.png'" alt="{{ cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].alt_name : 'placeholder' }}" />
                                     </div>
                                     <div class="text">
                                       <h4 class="text-ellipsis">
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                           </div>
-                            <div *ngIf="!(cartState | async).cart || !(cartState | async).cart.cartItems.length" class="blank text-center text-gray">
+                            <div *ngIf="!(cartState | async).cart || !(cartState | async).cart.cartitems.length" class="blank text-center text-gray">
                               <p><i class="bt-icon"></i></p>
                               <div class="text-xs">
                                 <p translate>Bạn chưa chọn máy đào nào.</p>
@@ -82,9 +82,9 @@
                       <img width="30" src="https://static.maxmines.com/self/lesongvi/viminershop/icon/account_ic.svg" /> <span translate>Tài khoản</span>
                     </div>
                     <ul class="menus" *ngIf="onShowingTab[1]">
-                      <li *ngIf="userData && (authState | async).isActive"><a routerLink="/account/info" (click)="onUserClickTab(1)" class="text-ellipsis">{{ userData.email }}</a></li>
+                      <li *ngIf="userData && (authState | async).isactive"><a routerLink="/account/info" (click)="onUserClickTab(1)" class="text-ellipsis">{{ userData.email }}</a></li>
                       <li *ngIf="(authState | async).isAdmin"><a routerLink="/admin" (click)="onUserClickTab(1)" translate>Quản trị viên</a></li>
-                      <li *ngIf="(authState | async).isActive"><a routerLink="/account/info" (click)="onUserClickTab(1)" translate>Tài khoản</a></li>
+                      <li *ngIf="(authState | async).isactive"><a routerLink="/account/info" (click)="onUserClickTab(1)" translate>Tài khoản</a></li>
                       <li><a (click)="userSignOut()" translate>Đăng xuất</a></li>
                     </ul>
                   </ng-container>
@@ -120,7 +120,7 @@
                   <div class="flex">
                       <div class="group" *ngFor="let product of ( browseState | async ).products.slice(0, 15)">
                           <a routerLink="/detail/{{ product.id }}" (click)="onUserClickTab(0)" class="item">
-                              <div class="avatar"><img [src]="product.productimages.length !== 0 ? product.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png'" /></div>
+                              <div class="avatar"><img [src]="product.productimages.length !== 0 ? product.productimages[0].imageurl : 'https://cdn.notevn.com/DzPbjDuoi.png'" /></div>
                               <div class="text">
                                   <h4 title="{{ product.name }}">{{ product.name }}</h4>
                                   <div class="state">

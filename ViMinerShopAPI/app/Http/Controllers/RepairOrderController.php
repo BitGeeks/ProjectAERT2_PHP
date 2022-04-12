@@ -65,13 +65,14 @@ class RepairOrderController extends Controller
         $user = $request->userData;
 
         $orderList = Repair::with("repairorder")
-            ->select("repairorder")
+            ->join("repairorder", "repairorder.repair_id", "=", "repair.id")
+            ->select("repairorder.*")
             ->where("User_id", $user->Id)
-            ->where("repairorder", "!=", null);
+            ->where("repairorder.id", "!=", null);
 
         if ($type != -1)
             $orderList = $orderList
-                ->where("Status", $type);
+                ->where("repairorder.status", $type);
 
         return response()->json($orderList->count());
     }

@@ -4,7 +4,7 @@ import { HttpError } from '../app.reducers';
 
 export interface AuthState {
   authenticated: boolean;
-  isActive: boolean;
+  isactive: boolean;
   errors: Array<HttpError>;
   loading: boolean;
   isAdmin: boolean;
@@ -12,7 +12,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
   authenticated: false,
-  isActive: null,
+  isactive: null,
   errors: [],
   loading: false,
   isAdmin: false
@@ -38,7 +38,7 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
     case (AuthActions.SOCIAL_SIGN_IN_SUCCESS):
       return {
         ...state,
-        isActive: state.isActive,
+        isactive: state.isactive,
         isAdmin: action.payload.isAdmin,
         authenticated: true,
         errors: [...state.errors.filter(error => error.errorEffect !== action.payload.effect)],
@@ -62,7 +62,7 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
     case (AuthActions.VERIFICATION_STATUS_SUCCESS):
       return {
         ...state,
-        isActive: action.payload
+        isactive: action.payload
       };
 
     case (AuthActions.CHECK_ADMIN_ROLE_SUCCESS):

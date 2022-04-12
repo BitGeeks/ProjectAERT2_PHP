@@ -26,7 +26,7 @@
           <p translate>Hoàn thành</p>
       </div>
     </div>
-    <ng-container *ngIf="(cartState | async).cart && (cartState | async).cart.cartItems.length > 0">
+    <ng-container *ngIf="(cartState | async).cart && (cartState | async).cart.cartitems.length > 0">
     <table class="orderDetailsTable">
       <thead>
         <tr>
@@ -43,7 +43,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let cartItem of (cartState | async).cart.cartItems">
+        <tr *ngFor="let cartItem of (cartState | async).cart.cartitems">
           <td class="check">
             <label class="vms-iv-checkbox-wrapper{{ onSelectItem[cartItem.id] ? ' vms-iv-checkbox-wrapper-checked' : ''}}" (click)="onUserClickCheckerIvu(cartItem.id)">
               <span class="vms-iv-checkbox{{ onSelectItem[cartItem.id] ? ' vms-iv-checkbox-checked' : ''}}">
@@ -53,7 +53,7 @@
             </label>
           </td>
           <td class="commodity">
-            <img [src]="cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png'" alt="{{ cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].alt_name : 'placeholder' }}" class="productImg" />
+            <img [src]="cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].imageurl : 'https://cdn.notevn.com/DzPbjDuoi.png'" alt="{{ cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].alt_name : 'placeholder' }}" class="productImg" />
             <div>
               <a routerLink="/detail/{{ cartItem.product.id }}" title="{{ cartItem.product.name }}" class="productLink">{{ cartItem.product.name }}</a>
               <span class="invalidCondition PREP_SALE" *ngIf="cartItem.product.productinventory.flag === 'FLAG_FEATURE_ORDER'" translate>Đặt Trước</span>
@@ -110,6 +110,6 @@
     </div>
     </ng-container>
   </div>
-  <app-empty-cart *ngIf="!(cartState | async).cart || (cartState | async).cart && (cartState | async).cart.cartItems.length === 0"></app-empty-cart>
+  <app-empty-cart *ngIf="!(cartState | async).cart || (cartState | async).cart && (cartState | async).cart.cartitems.length === 0"></app-empty-cart>
 </div>
 

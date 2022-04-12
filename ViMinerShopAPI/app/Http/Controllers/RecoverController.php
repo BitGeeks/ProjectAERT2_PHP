@@ -15,9 +15,10 @@ class RecoverController extends Controller
         $user = User::where("Email", $request->email)->first();
         
         if (!$user) return "NotFound";
+        $mischelper = new MiscHelper();
 
         $recovery = [
-            "recoveryCode" => new MiscHelper().randomStr(11),
+            "recoveryCode" => $mischelper->randomStr(11),
             "User_id" => $user->id,
             "IsUsed" => false,
             "Created_at" => \Carbon\Carbon::now(),

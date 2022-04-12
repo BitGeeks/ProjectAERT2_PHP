@@ -13,7 +13,7 @@ import * as BrowseActions from '../store/browse/browse.actions';
 })
 export class FooterComponent implements OnInit {
   browseState: Observable<BrowseState>;
-  authState: Observable<{ authenticated: boolean, isActive: boolean }>;
+  authState: Observable<{ authenticated: boolean, isactive: boolean }>;
 
   isCurrencyListAvailable = false;
 

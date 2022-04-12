@@ -57,9 +57,9 @@ export class OrderInfoComponent implements OnInit {
         )).subscribe((res: Checkout) => {
           this.titleMeta.setTitle(`${this.translatePipe.transform('Đơn hàng số')} ${this.orderId}`);
           this.orderData = res;
-          res.orderItems.map((data, idx) => {
+          res.orderitems.map((data, idx) => {
             this.orderLine = this.orderLine + data.product.name;
-            if (idx < res.orderItems.length - 1) { this.orderLine += ', '; }
+            if (idx < res.orderitems.length - 1) { this.orderLine += ', '; }
           });
         });
     });

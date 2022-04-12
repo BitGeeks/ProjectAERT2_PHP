@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CouponDonate extends Model
 {
     use HasFactory;
+    protected $table = "coupondonate";
     protected $fillable = [
         'Id', 'TransactionId', 'User_id', 'ReceiverId', 'CouponId', 'CouponName', 'CouponPercent', 'Quantity', 'Created_at', 'Updated_at'
     ];

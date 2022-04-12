@@ -18,7 +18,7 @@ class ShoppingSession extends Model
     }
 
     public function coupon () {
-        return $this->hasOne(Coupon::class, "Id", "Coupon_id");
+        return $this->belongsTo(Coupon::class, "Coupon_id", "Id");
     }
 
     public function discount () {

@@ -18,7 +18,7 @@ export class AddNewHomePageSlideComponent implements OnInit {
   dragAreaClass: string;
 
   isUploading = false;
-  imageUrl = false;
+  imageurl = false;
 
   constructor(
     private adminService: AdminService,
@@ -92,12 +92,12 @@ export class AddNewHomePageSlideComponent implements OnInit {
           this.addNewHomepageSlide.patchValue({
             imgUrl: 'https://cdn.notevn.com/' + res.file_name + '' + res.type
           });
-          this.imageUrl = true;
+          this.imageurl = true;
         },
         (err) => {
           this.isUploading = false;
           this.notifierService.notify('error', 'Tải lên thất bại!');
-          this.imageUrl = false;
+          this.imageurl = false;
         }
       );
     });

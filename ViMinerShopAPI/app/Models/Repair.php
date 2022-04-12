@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Repair extends Model
 {
     use HasFactory;
+    protected $table = "repair";
     protected $fillable = [
         'Id', 'User_id', 'Status', 'TicketReason', 'TrackingNo', 'ShippingLogisticsId', 'CustomerAddress', 'RepairSiteId', 'ReturnLogisticsId', 'Remark', 'Created_at', 'Updated_at'
     ];

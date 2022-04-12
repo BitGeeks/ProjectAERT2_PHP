@@ -6,7 +6,7 @@ export interface User {
   mobile: string;
   username: string;
   userImage: string;
-  userAddresss: Array<UserAddresss>;
+  useraddresss: Array<UserAddresss>;
   shoppingSessions: Array<ShoppingSession>;
   isSubscribedToMailing: boolean;
   referralBy: string;
@@ -16,7 +16,7 @@ export interface User {
 export interface ShippingMethod {
   id: number;
   name: string;
-  shortName: string;
+  shortname: string;
 }
 
 export interface UserAddresss {
@@ -29,7 +29,7 @@ export interface UserAddresss {
   street_name: string;
   telephone: string;
   user_id: number;
-  isDefault: boolean;
+  isdefault: boolean;
 }
 
 export interface ProductCategory {
@@ -67,7 +67,7 @@ export interface ProductDetail {
   notedesc: string;
   paymentdesc: string;
   warrantydesc: string;
-  isActive: boolean;
+  isactive: boolean;
 }
 
 export interface SlideImage {
@@ -87,7 +87,7 @@ export interface HPNotice {
 export interface productImage {
   id: number;
   alt_Name: string;
-  imageUrl: string;
+  imageurl: string;
   created_at: string;
   updated_at: string;
 }
@@ -146,7 +146,7 @@ export interface Cart {
 export interface ShoppingSession {
   id: number;
   total: number;
-  cartItems: Array<Cart>;
+  cartitems: Array<Cart>;
   coupon_id: number;
   coupon: Coupon;
   created_at: string;
@@ -178,17 +178,17 @@ export interface Checkout {
   user_id: string;
   total: string;
   payment_id: string;
-  paymentDetail: PaymentDetail;
+  paymentdetail: PaymentDetail;
   shippingMethod_id: number;
   shippingMethod: ShippingMethod;
   shippingAddress: string;
   created_at: string;
   updated_at: string;
-  orderItems: Array<OrderItem>;
-  shippingAmount: number;
+  orderitems: Array<OrderItem>;
+  shippingamount: number;
   discountAmount: number;
   couponAmount: number;
-  subTotal: number;
+  subtotal: number;
 }
 
 export interface PaymentProvider {
@@ -232,8 +232,8 @@ export interface Orders {
   totalPrice: number;
   date: number;
   discount: Discount;
-  orderItems: Array<OrderItems>;
-  paymentDetail: PaymentDetail;
+  orderitems: Array<OrderItems>;
+  paymentdetail: PaymentDetail;
   locationName: string;
   latitute: string;
   logitute: string;
@@ -510,7 +510,7 @@ export class MaxMinesSuccessPayment {
 }
 
 export class processImage {
-  imageUrl: string;
+  imageurl: string;
   alt_Name: string;
 }
 
@@ -539,7 +539,7 @@ export class UserAuthenticate {
   username: string;
   firstName: string;
   lastName: string;
-  roleVar_id: number;
-  isActive: boolean;
+  rolevar_id: number;
+  isactive: boolean;
   token: string;
 }

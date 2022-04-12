@@ -74,8 +74,8 @@ export class InfoComponent implements OnInit {
         }
       ))
       .subscribe(data => {
-        this.unpaidOrderNum = data.filter(d => d.paymentDetail.status === 0).length;
-        this.unshippedOrderNum = data.filter(d => d.paymentDetail.status === 2).length;
+        this.unpaidOrderNum = data.filter(d => d.paymentdetail.status === 0).length;
+        this.unshippedOrderNum = data.filter(d => d.paymentdetail.status === 2).length;
       });
     this.userInfo = new FormGroup({
       fname: new FormControl(null, [Validators.required]),

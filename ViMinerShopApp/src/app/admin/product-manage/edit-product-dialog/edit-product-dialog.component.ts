@@ -132,16 +132,16 @@ export class EditProductDialogComponent implements OnInit {
     }
   }
 
-  onAdminClickRemoveImage(imageUrl) {
-    this.adminService.removeProductImage(this.initialState.id, imageUrl)
+  onAdminClickRemoveImage(imageurl) {
+    this.adminService.removeProductImage(this.initialState.id, imageurl)
       .pipe(take(1), catchError(
         error => {
-          this.productimages = this.productimages.filter(d => d.imageUrl !== imageUrl);
+          this.productimages = this.productimages.filter(d => d.imageurl !== imageurl);
           return throwError(error);
         }
       ))
       .subscribe(() => {
-        this.productimages = this.productimages.filter(d => d.imageUrl !== imageUrl);
+        this.productimages = this.productimages.filter(d => d.imageurl !== imageurl);
         this.FormSubmittedEv.emit(true);
     });
   }
@@ -150,7 +150,7 @@ export class EditProductDialogComponent implements OnInit {
     if (this.initialState.productimages.length !== 0) {
       this.initialState.productimages.map((data, idx) => {
         this.productimages.push({
-          imageUrl: data.imageUrl,
+          imageurl: data.imageurl,
           alt_Name: data.alt_Name
         });
       });
@@ -222,7 +222,7 @@ export class EditProductDialogComponent implements OnInit {
       ))
       .subscribe(() => {
         this.FormSubmittedEv.emit(true);
-        this.notifierService.notify('success', this.initialState.isActive ? 'Vô hiệu hóa sản phẩm thành công' : 'Kích hoạt sản phẩm thành công');
+        this.notifierService.notify('success', this.initialState.isactive ? 'Vô hiệu hóa sản phẩm thành công' : 'Kích hoạt sản phẩm thành công');
         this.onUserClickClose();
     });
   }
@@ -243,7 +243,7 @@ export class EditProductDialogComponent implements OnInit {
           this.isUploading = false;
           this.notifierService.notify('success', 'Tải lên thành công!');
           this.productimages.push({
-            imageUrl: 'https://cdn.notevn.com/' + res.file_name + '' + res.type,
+            imageurl: 'https://cdn.notevn.com/' + res.file_name + '' + res.type,
             alt_Name: file.name
           });
         },

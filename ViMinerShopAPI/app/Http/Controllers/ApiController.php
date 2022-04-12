@@ -15,7 +15,8 @@ use App\Http\Helpers\MiscHelper;
 class ApiController extends Controller
 {
     public function get_user_info (Request $request) {
-        $user = User::where("id", $request->userData->id)->first();
+        $user = User::with(["useraddresss"])
+        ->where("id", $request->userData->id)->first();
 
         return $user;
     }
@@ -220,7 +221,8 @@ class ApiController extends Controller
 
         if ($user->ReferralCode != null) 
             return "Người dùng này đã tạo mã giới thiệu!";
-        $refCode = new MiscHelper().randomStr();
+        $mischelper = new MiscHelper();
+        $refCode = $mischelper->randomStr();
         $checkRef = User::where("id", $user->id);
 
         User::where("id", $user->id)->update(["ReferralCode" => $refCode]);
@@ -242,7 +244,7 @@ class ApiController extends Controller
 
     public function get_user_stats_points (Request $request) {
         $user = $request->userData;
-        $numberPoint = OrderDetail::join("PaymentDetail", "PaymentDetail.Id", "=", "OrderDetail.Payment_id")->where("PaymentDetail.Status", "!=", 0).count() * 1024;
+        $numberPoint = OrderDetail::join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")->where("paymentdetails.status", "!=", 0)->count() * 1024;
 
         return array(
             "Balance" => .0,
@@ -266,7 +268,7 @@ class ApiController extends Controller
                 "created_at" => Carbon::now(),
                 "updated_at" => Carbon::now()
             ];
-            ProductSoldOutNotify::create($psoNew);
+            ProductSoldOutNotify::insert($psoNew);
         } else {
             $psoData->updated_at = $currentTime;
             $psoData->quantity = $request->quantity;

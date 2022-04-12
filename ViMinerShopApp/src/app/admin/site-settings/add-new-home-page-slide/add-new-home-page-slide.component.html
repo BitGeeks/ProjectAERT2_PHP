@@ -40,11 +40,11 @@
                         <font class="required">*</font> Hình ảnh slide
                     </div>
                     <div class="item-value">
-                        <div class="vms-radio-group vms-radio-group-outline" *ngIf="imageUrl">
+                        <div class="vms-radio-group vms-radio-group-outline" *ngIf="imageurl">
                             <input placeholder="Hình ảnh slide" type="text" readonly class="vms-input" value="" formControlName="imgUrl" />
                             <div class="input-error" *ngIf="addNewHomepageSlide.get('imgUrl').invalid && addNewHomepageSlide.get('imgUrl').touched">Hình ảnh slide là bắt buộc</div>
                         </div>
-                        <div class="uploadbox" ngClass="{{dragAreaClass}}" draggable="true" *ngIf="!imageUrl" (click)="processFileInput.click();">
+                        <div class="uploadbox" ngClass="{{dragAreaClass}}" draggable="true" *ngIf="!imageurl" (click)="processFileInput.click();">
                             <input
                                 #imageInput
                                 type="file"

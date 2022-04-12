@@ -20,7 +20,7 @@ export class EditHomePageSlideComponent implements OnInit {
   dragAreaClass: string;
 
   isUploading = false;
-  imageUrl = false;
+  imageurl = false;
 
   @Input()
   public initialState: { [key: string]: any };
@@ -82,7 +82,7 @@ export class EditHomePageSlideComponent implements OnInit {
       imgUrl: this.initialState.imgUrl,
       jumpTo: this.initialState.jumpTo
     });
-    this.imageUrl = this.initialState.imgUrl !== null;
+    this.imageurl = this.initialState.imgUrl !== null;
   }
 
   onEditSubmitted() {
@@ -118,12 +118,12 @@ export class EditHomePageSlideComponent implements OnInit {
           this.editHomepageSlide.patchValue({
             imgUrl: 'https://cdn.notevn.com/' + res.file_name + '' + res.type
           });
-          this.imageUrl = true;
+          this.imageurl = true;
         },
         (err) => {
           this.isUploading = false;
           this.notifierService.notify('error', 'Tải lên thất bại!');
-          this.imageUrl = false;
+          this.imageurl = false;
         }
       );
     });
@@ -132,7 +132,7 @@ export class EditHomePageSlideComponent implements OnInit {
   }
 
   onAdminClickRemoveImage() {
-    this.imageUrl = false;
+    this.imageurl = false;
   }
 
   onUserClickClose() {

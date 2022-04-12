@@ -36,7 +36,7 @@ export class EditShippingMethodDialogComponent implements OnInit {
     this.editShippingMethod = new FormGroup({
       id: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
-      shortName: new FormControl(null, [Validators.required]),
+      shortname: new FormControl(null, [Validators.required]),
       repairFlag: new FormControl(null, [Validators.required]),
       salesFlag: new FormControl(null, [Validators.required]),
       supportFreeShip: new FormControl(null, [Validators.required]),
@@ -47,7 +47,7 @@ export class EditShippingMethodDialogComponent implements OnInit {
     this.editShippingMethod.patchValue({
       id: this.initialState.id,
       name: this.initialState.name,
-      shortName: this.initialState.shortName,
+      shortname: this.initialState.shortname,
       repairFlag: this.initialState.repairFlag,
       salesFlag: this.initialState.salesFlag,
       supportFreeShip: this.initialState.supportFreeShip,
@@ -59,8 +59,8 @@ export class EditShippingMethodDialogComponent implements OnInit {
 
   onEditSubmitted() {
     if (!this.editShippingMethod.valid) { return; }
-    const { id, name, shortName, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm } = this.editShippingMethod.value;
-    this.adminService.editShippingMethod(id, name, shortName, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm)
+    const { id, name, shortname, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm } = this.editShippingMethod.value;
+    this.adminService.editShippingMethod(id, name, shortname, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm)
       .pipe(take(1), catchError(
         error => {
           this.FormExceptionOccurEv.emit(error);

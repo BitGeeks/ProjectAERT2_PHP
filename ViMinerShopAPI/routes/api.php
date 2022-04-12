@@ -77,6 +77,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::put("useraddresses/update", [UserAddressController::class, 'update_user_address']);
     Route::get("useraddresses", [UserAddressController::class, 'get_user_address']);
     Route::post("useraddresses/setdefault", [UserAddressController::class, 'set_default']);
+    Route::post("useraddresses/add", [UserAddressController::class, 'user_address_add']);
 
     Route::get("shippingmethods/all", [ShippingMethodsController::class, 'GetShippingMethod']);
     Route::get("shippingmethods/flag/{flag}", [ShippingMethodsController::class, 'GetShippingMethodByFlag']);
@@ -130,6 +131,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get("repairs/all", [RepairsController::class, 'GetRepairs']);
     Route::get("repairs/search/{queryString}", [RepairsController::class, 'GetRepair']);
+    Route::get("repairs/count/{type}", [RepairsController::class, 'GetRepairCount']);
     Route::get("repairs/type", [RepairsController::class, 'GetRepairByType']);
     Route::get("repairs/site/all", [RepairsController::class, 'GetAllRepairSites']);
     Route::get("repairs/ticket/{id}", [RepairsController::class, 'GetAllRepairTicket']);

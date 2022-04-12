@@ -8,7 +8,7 @@
     <a routerLink="/detail/{{n.id}}" *ngFor="let n of (showcaseState | async).bestMiner.slice(0, 2)" class="item">
       <div class="type">{{ n.productcategory.name }} - {{ n.algorithm.name }}</div>
       <div class="avatar">
-        <img src="{{ n.productimages.length !== 0 ? n.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}">
+        <img src="{{ n.productimages.length !== 0 ? n.productimages[0].imageurl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}">
       </div>
       <div class="text">
         <h3>{{n.name}}</h3>

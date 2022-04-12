@@ -90,7 +90,7 @@
                         <div class="item">
                             <label><span class="text-warning">*</span> <span translate>Đơn vị chuyển phát</span></label>
                             <select class="" [(ngModel)]="shippingMethodSelected">
-                                <option value="{{ method.id }}" *ngFor="let method of shippingMethods">{{ method.shortName }}</option>
+                                <option value="{{ method.id }}" *ngFor="let method of shippingMethods">{{ method.shortname }}</option>
                             </select>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                 </div>
                 <div class="content">
                     <div class="address clearfix" *ngIf="userData">
-                        <div class="item{{ shippingAddressSelected === uaddress.id ? ' selected' : ''}}" *ngFor="let uaddress of userData.userAddresss" (click)="shippingAddressSelected = uaddress.id">
+                        <div class="item{{ shippingAddressSelected === uaddress.id ? ' selected' : ''}}" *ngFor="let uaddress of userData.useraddresss" (click)="shippingAddressSelected = uaddress.id">
                             <div class="wrap">
                                 <span alt="{{ uaddress.telephone }}" class="name">{{ uaddress.telephone }}</span>
                                 <div class="wrap-r">
@@ -186,11 +186,11 @@
                                     >
                                     {{ uaddress.address + ", " + uaddress.street_name + ", " + uaddress.city + ", " + uaddress.country + ", " + uaddress.postal_code + ", " + uaddress.telephone + ", " + uaddress.mobile }}
                                     </span>
-                                    <span class="dftag" *ngIf="uaddress.isDefault" translate>Mặc định</span>
+                                    <span class="dftag" *ngIf="uaddress.isdefault" translate>Mặc định</span>
                                     <div class="operation">
-                                        <span *ngIf="!uaddress.isDefault" (click)="onUserClickDefault(uaddress.id)" translate>Đặt là mặc định</span>
+                                        <span *ngIf="!uaddress.isdefault" (click)="onUserClickDefault(uaddress.id)" translate>Đặt là mặc định</span>
                                         <span (click)="onUserClickAddrEdit(uaddress)" translate>Sửa</span>
-                                        <span (click)="onUserClickAddrDelete(uaddress)" *ngIf="!uaddress.isDefault" translate>Xóa</span>
+                                        <span (click)="onUserClickAddrDelete(uaddress)" *ngIf="!uaddress.isdefault" translate>Xóa</span>
                                     </div>
                                 </div>
                             </div>
@@ -231,7 +231,7 @@
                 <div class="content">
                     <div class="channels clearfix">
                         <div class="item{{ returnShippingAddressSelected === method.id ? ' selected' : '' }}" *ngFor="let method of returnShippingMethods" (click)="onUserClickReturnShippingMethod(method.id)">
-                            {{ method.shortName }}
+                            {{ method.shortname }}
                         </div>
                     </div>
                     <div class="bt-space text-gray text-center" style="margin: 0px;" *ngIf="returnShippingMethods && returnShippingMethods.length === 0" translate>- Vui lòng chọn đại lý sửa chữa trước -</div>

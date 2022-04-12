@@ -20,15 +20,15 @@
                         </ng-container>
                         </div>
                     </div>
-                    <div class="vms-element-form-item{{editShippingMethod.get('shortName').invalid && editShippingMethod.get('shortName').touched ? ' is-error' : ''}} is-required" style="position: relative;">
-                        <label for="shortName" class="vms-element-form-item__label" style="width: 120px;">Tên ngắn của đơn vị:</label>
+                    <div class="vms-element-form-item{{editShippingMethod.get('shortname').invalid && editShippingMethod.get('shortname').touched ? ' is-error' : ''}} is-required" style="position: relative;">
+                        <label for="shortname" class="vms-element-form-item__label" style="width: 120px;">Tên ngắn của đơn vị:</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                             <div class="vms-element-input">
-                                <input autocomplete="off" type="text" maxlength="30" class="vms-element-input__inner" formControlName="shortName" value="{{ initialState.shortName }}" />
+                                <input autocomplete="off" type="text" maxlength="30" class="vms-element-input__inner" formControlName="shortname" value="{{ initialState.shortname }}" />
                             </div>
                             <p class="err-info" style="display: none;"></p>
-                            <ng-container *ngIf="editShippingMethod.get('shortName').invalid && editShippingMethod.get('shortName').touched">
-                                <div class="vms-element-form-item__error" *ngIf="editShippingMethod.get('shortName').errors['required']">Tên ngắn của đơn vị không được để trống</div>
+                            <ng-container *ngIf="editShippingMethod.get('shortname').invalid && editShippingMethod.get('shortname').touched">
+                                <div class="vms-element-form-item__error" *ngIf="editShippingMethod.get('shortname').errors['required']">Tên ngắn của đơn vị không được để trống</div>
                             </ng-container>
                         </div>
                     </div>

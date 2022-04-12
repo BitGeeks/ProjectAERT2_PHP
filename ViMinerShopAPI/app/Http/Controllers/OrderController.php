@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\PaymentProvider;
 use App\Models\PaymentDetail;
 use App\Http\Helpers\MiscHelper;
+use App\Models\Coupon;
 
 class OrderController extends Controller
 {
@@ -56,8 +57,8 @@ class OrderController extends Controller
         $user = $request->userData;
 
         $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
-                    ->join("paymentdetail", "paymentdetail.id", "=", "orderdetail.payment_id")
-                    ->orderBy("orderdetail.id", "DESC")
+                    ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
+                    ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
                     ->where(["User_id" => $user->id])
@@ -70,8 +71,8 @@ class OrderController extends Controller
         $user = $request->userData;
 
         $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
-                    ->join("paymentdetail", "paymentdetail.id", "=", "orderdetail.payment_id")
-                    ->orderBy("orderdetail.id", "DESC")
+                    ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
+                    ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
                     ->where(["User_id" => $user->id])
@@ -84,8 +85,8 @@ class OrderController extends Controller
         $user = $request->userData;
 
         $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
-                    ->join("paymentdetail", "paymentdetail.id", "=", "orderdetail.payment_id")
-                    ->orderBy("orderdetail.id", "DESC")
+                    ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
+                    ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
                     ->where(["User_id" => $user->id, "paymentdetail.status" => 0])
@@ -98,8 +99,8 @@ class OrderController extends Controller
         $user = $request->userData;
 
         $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
-                    ->join("paymentdetail", "paymentdetail.id", "=", "orderdetail.payment_id")
-                    ->orderBy("orderdetail.id", "DESC")
+                    ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
+                    ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
                     ->where(["User_id" => $user->id, "paymentdetail.status" => 1])
@@ -112,8 +113,8 @@ class OrderController extends Controller
         $user = $request->userData;
 
         $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
-                    ->join("paymentdetail", "paymentdetail.id", "=", "orderdetail.payment_id")
-                    ->orderBy("orderdetail.id", "DESC")
+                    ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
+                    ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
                     ->where(["User_id" => $user->id, "paymentdetail.status" => 2])
@@ -126,8 +127,8 @@ class OrderController extends Controller
         $user = $request->userData;
 
         $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
-                    ->join("paymentdetail", "paymentdetail.id", "=", "orderdetail.payment_id")
-                    ->orderBy("orderdetail.id", "DESC")
+                    ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
+                    ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
                     ->where(["User_id" => $user->id, "paymentdetail.status" => 3])
@@ -140,8 +141,8 @@ class OrderController extends Controller
         $user = $request->userData;
 
         $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
-                    ->join("paymentdetail", "paymentdetail.id", "=", "orderdetail.payment_id")
-                    ->orderBy("orderdetail.id", "DESC")
+                    ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
+                    ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
                     ->where(["User_id" => $user->id, "paymentdetail.status" => 4])
@@ -155,8 +156,8 @@ class OrderController extends Controller
         $expDate = Carbon::now()->subDays(30);
 
         $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
-                    ->join("paymentdetail", "paymentdetail.id", "=", "orderdetail.payment_id")
-                    ->orderBy("orderdetail.id", "DESC")
+                    ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
+                    ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
                     ->where(["User_id" => $user->id])
@@ -189,9 +190,10 @@ class OrderController extends Controller
 
         $nineteenth = \Carbon\Carbon::now();
         $nineteenth->addDays(5);
+        $mischelper = new MiscHelper();
 
         $coupon = [
-            "CouponCode" => new MiscHelper().randomStr(8),
+            "CouponCode" => $mischelper->randomStr(8),
             "User_id" => user.Id,
             "Desc" => "Cảm ơn bạn đã tin tưởng Vĩ Miner Shop!!",
             "CouponPercent" => $this->calculateCouponPercenByBill($paymentDetail->Amount),
@@ -248,10 +250,11 @@ class OrderController extends Controller
 
         $nineteenth = \Carbon\Carbon::now();
         $nineteenth->addDays(19);
+        $mischelper = new MiscHelper();
 
         $coupon = [
-            "CouponCode" => new MiscHelper().randomStr(8),
-            "User_id" => user.Id,
+            "CouponCode" => $mischelper->randomStr(8),
+            "User_id" => $user->id,
             "Desc" => "Cảm ơn bạn đã tin tưởng Vĩ Miner Shop!!",
             "CouponPercent" => $this->calculateCouponPercenByBill($paymentDetail->Amount),
             "CouponType" => "sales",
@@ -263,7 +266,7 @@ class OrderController extends Controller
             "Updated_at" => \Carbon\Carbon::now()
         ];
         Coupon::insert($coupon);
-        PaymentDetail::where("Id", $paymentDetail->Id)->update($paymentDetail);
+        $paymentDetail->save();
 
         $this->afterPaymentSuccessful($user, $orderDetails, "thanh toán MaxMines 0Pay");
 

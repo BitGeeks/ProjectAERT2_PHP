@@ -157,15 +157,15 @@ export class AdminService {
     });
   }
 
-  addShippingMethod(name: string, shortName: string, repairFlag: number, salesFlag: number, supportFreeShip: number, erpCode: string, logoUrl: string, avgfeeperkm: number) {
+  addShippingMethod(name: string, shortname: string, repairFlag: number, salesFlag: number, supportFreeShip: number, erpCode: string, logoUrl: string, avgfeeperkm: number) {
     return this.httpClient.post<ShippingMethod>(`${this.url}/shipping/add`, {
-      name, shortName, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm
+      name, shortname, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm
     });
   }
 
-  editShippingMethod(id: number, name: string, shortName: string, repairFlag: number, salesFlag: number, supportFreeShip: number, erpCode: string, logoUrl: string, avgfeeperkm: number) {
+  editShippingMethod(id: number, name: string, shortname: string, repairFlag: number, salesFlag: number, supportFreeShip: number, erpCode: string, logoUrl: string, avgfeeperkm: number) {
     return this.httpClient.post<ShippingMethod>(`${this.url}/shipping/edit/${id}`, {
-      name, shortName, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm
+      name, shortname, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm
     });
   }
 

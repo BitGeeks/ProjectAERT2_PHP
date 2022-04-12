@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class OrderItem extends Model
 {
     use HasFactory;
+    protected $table = "orderitems";
+
     protected $fillable = [
         'Id', 'Order_id', 'Product_id', 'Quantity', 'Created_at', 'Updated_at'
     ];
@@ -17,7 +19,7 @@ class OrderItem extends Model
     }
 
     public function product () {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, "Product_id", "Id");
     }
 
     protected $hidden = [

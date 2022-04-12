@@ -79,14 +79,14 @@
         #{{ order.id }}
       </p>
       <div>
-        <p class="total">{{ order.total * currencyRate | currency: currency }}</p>&nbsp;<p class="amount">x {{ order.orderItems.length }}</p>
+        <p class="total">{{ order.total * currencyRate | currency: currency }}</p>&nbsp;<p class="amount">x {{ order.orderitems.length }}</p>
       </div>
       <div class="products_ope">
         <div class="products">
-          <div class="product" *ngFor="let orderItem of order.orderItems">
+          <div class="product" *ngFor="let orderItem of order.orderitems">
             <div class="commodity-product" routerLink="/detail/{{ orderItem.product_id }}">
               <div class="imgHolder">
-                <img src="{{ orderItem.product.productimages.length !== 0 ? orderItem.product.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}" width="80"/>
+                <img src="{{ orderItem.product.productimages.length !== 0 ? orderItem.product.productimages[0].imageurl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}" width="80"/>
               </div>
               <div class="worldsHolder">
                 <p>
@@ -107,18 +107,18 @@
         </div>
         <div class="ope">
           <div class="paymentMethod" *ngIf="providerList">
-            {{ getPaymentProvider(order.paymentDetail.provider) }}
+            {{ getPaymentProvider(order.paymentdetail.provider) }}
           </div>
           <div class="status">
             <p>
-              {{ renderStatus(order.paymentDetail.status) }}
+              {{ renderStatus(order.paymentdetail.status) }}
             </p>
           </div>
           <div class="operation">
-            <div class="pay" (click)="handlePaybtnType(order.id)" *ngIf="order.paymentDetail.status === 0" translate>
+            <div class="pay" (click)="handlePaybtnType(order.id)" *ngIf="order.paymentdetail.status === 0" translate>
               Thanh toán
             </div>
-            <p *ngIf="order.paymentDetail.status !== 0" translate>Đã thanh toán</p>
+            <p *ngIf="order.paymentdetail.status !== 0" translate>Đã thanh toán</p>
           </div>
         </div>
       </div>

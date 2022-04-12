@@ -25,7 +25,11 @@ class Product extends Model
     }
 
     public function productimages () {
-        return $this->hasMany(ProductImage::class, "Product_id", "Id");
+        return $this->hasMany(ProductImage::class, "Product_Id", "Id");
+    }
+
+    public function cartitems(){
+        return $this->hasMany(CartItem::class, "Id", "Product_id");
     }
 
     public function scopeWithWhereHas($query, $relation, $constraint) {

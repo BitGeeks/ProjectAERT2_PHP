@@ -23,7 +23,7 @@ export class AddShippingMethodComponent implements OnInit {
   ngOnInit(): void {
     this.addShippingForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
-      shortName: new FormControl(null, [Validators.required]),
+      shortname: new FormControl(null, [Validators.required]),
       repairFlag: new FormControl(null, []),
       salesFlag: new FormControl(null, []),
       supportFreeShip: new FormControl(null, []),
@@ -35,8 +35,8 @@ export class AddShippingMethodComponent implements OnInit {
 
   FormSubmittedEv() {
     if (!this.addShippingForm.valid) { return; }
-    const { name, shortName, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm } = this.addShippingForm.value;
-    this.adminService.addShippingMethod(name, shortName, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm)
+    const { name, shortname, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm } = this.addShippingForm.value;
+    this.adminService.addShippingMethod(name, shortname, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm)
       .pipe(take(1), catchError(
         error => {
           return throwError(error);

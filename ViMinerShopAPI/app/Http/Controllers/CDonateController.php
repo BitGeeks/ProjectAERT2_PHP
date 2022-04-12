@@ -89,9 +89,10 @@ class CDonateController extends Controller
             }
         }
         $couponRCheck->Updated_at = \Carbon\Carbon::now();
+        $mischelper = new MiscHelper();
 
         $donate = [
-            "TransactionId" => new MiscHelper().randomStr(20),
+            "TransactionId" => $mischelper->randomStr(20),
             "User_id" => $user->id,
             "ReceiverId" => $receiver->id,
             "CouponId" => $backCoupon->id,

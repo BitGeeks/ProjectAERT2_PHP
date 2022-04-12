@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductInventory;
 use Illuminate\Http\Request;
+use App\Models\Repair;
 
 class RepairsController extends Controller
 {
