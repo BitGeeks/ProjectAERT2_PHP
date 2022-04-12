@@ -145,16 +145,16 @@ class ApiController extends Controller
         if (isset($request->Username) && $request->Username != $user->username)
         {
             if (User::where("username", $request->Username)->first() != null)
-                return "Tên người dùng " . uParams.Username . " đã tồn tại";
+                return "Tên người dùng " . $request->Username . " đã tồn tại";
 
             $user->username = $request->Username;
         }
 
-        if (isset($request->FirstName))
-            $user->FirstName = $request->FirstName;
+        if (isset($request->firstname))
+            $user->FirstName = $request->firstname;
 
-        if (isset($request->LastName))
-            $user->LastName = $request->LastName;
+        if (isset($request->lastname))
+            $user->LastName = $request->lastname;
 
         if (isset($request->Telephone))
             $user->Telephone = $request->Telephone;
@@ -167,9 +167,9 @@ class ApiController extends Controller
         if (isset($request->password))
             $user->password = bcrypt($request->password);
 
-        User::where("id", $user->id)->update($user);
+        $user->save();
 
-        return $this->get_user_by_id($user->id);
+        return $this->get_user_by_id($request, $user->id);
     }
  
     public function get_user(Request $request)
@@ -216,7 +216,7 @@ class ApiController extends Controller
 
         UserCredentialsVerify::where("User_id", $user->id)->update(["EmailVerifyCode" => null]);
 
-        return $this->get_user_by_id($user->id);
+        return $this->get_user_by_id($request, $user->id);
     }
 
     public function create_referral_code (Request $request) {
