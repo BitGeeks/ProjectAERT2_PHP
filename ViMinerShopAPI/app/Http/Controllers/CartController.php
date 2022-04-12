@@ -257,6 +257,7 @@ class CartController extends Controller
         $user = $request->userData;
 
         $sessionCheck = OrderDetail::with(["paymentdetail", "shippingmethod", "user"])
+
             ->where("User_id", $user->id)->get();
             
             if (sessionCheck == null)

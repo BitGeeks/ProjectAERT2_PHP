@@ -197,8 +197,8 @@ export class InfoComponent implements OnInit {
 
   onUserClickSaveInformation() {
     this.accountService.updateUser({
-      FirstName: this.userInfo.value.fname,
-      LastName: this.userInfo.value.lname,
+      firstname: this.userInfo.value.fname,
+      lastname: this.userInfo.value.lname,
       Username: this.userInfo.value.username,
       Telephone: this.userInfo.value.telephone,
       Password: this.userInfo.value.password,
