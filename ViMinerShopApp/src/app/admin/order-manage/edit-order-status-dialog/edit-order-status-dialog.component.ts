@@ -47,7 +47,7 @@ export class EditOrderStatusDialogComponent implements OnInit {
     });
     this.editOrderStatus.patchValue({
       id: this.initialState.id,
-      orderStatus: this.initialState.paymentDetail.status.toString()
+      orderStatus: this.initialState.paymentdetail.status.toString()
     });
     this.getShippingMethods();
     this.getPaymentMethod();
@@ -80,7 +80,7 @@ export class EditOrderStatusDialogComponent implements OnInit {
       return this.shippingMethods.filter(data => data.id === unitId)[0];
     }
     return {
-      shortName: 'Chưa xác định',
+      shortname: 'Chưa xác định',
       name: 'Chưa xác định'
     };
   }

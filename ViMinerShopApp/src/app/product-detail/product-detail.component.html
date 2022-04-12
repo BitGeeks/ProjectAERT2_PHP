@@ -1,10 +1,10 @@
 <div class="wrapper">
   <div class="property" *ngIf="innerLoading === false">
     <div class="gallery">
-      <div class="avatar{{ currentImage.imageUrl === image.imageUrl ? ' image-active' : ' image-inactive'}}" *ngFor="let image of product.productimages">
+      <div class="avatar{{ currentImage.imageurl === image.imageurl ? ' image-active' : ' image-inactive'}}" *ngFor="let image of product.productimages">
         <lib-ngx-image-zoom
-          [thumbImage]="image.imageUrl"
-          [fullImage]="image.imageUrl"
+          [thumbImage]="image.imageurl"
+          [fullImage]="image.imageurl"
           [lensWidth]="450"
           [enableScrollZoom]="true"
         ></lib-ngx-image-zoom>
@@ -14,8 +14,8 @@
       </div>
       <div class="thumbs clearfix">
         <ng-container *ngFor="let image of product.productimages">
-          <a class="{{ currentImage.imageUrl === image.imageUrl ? 'active' : ''}}" (mouseenter)="onImageHover($event, image)">
-            <img src="{{ image.imageUrl }}">
+          <a class="{{ currentImage.imageurl === image.imageurl ? 'active' : ''}}" (mouseenter)="onImageHover($event, image)">
+            <img src="{{ image.imageurl }}">
           </a>
         </ng-container>
         

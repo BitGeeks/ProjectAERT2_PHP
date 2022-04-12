@@ -49,15 +49,15 @@ export class CartService {
     return this.httpClient.delete<Cart>(this.url + '/remove/' + id);
   }
 
-  confirmCart(cart: ShoppingSession, ShippingMethodId: number, shippingAddress: string, shippingAmount: number, locationName: string, logitute: number, latitute: number) {
+  confirmCart(cart: ShoppingSession, ShippingMethodId: number, shippingAddress: string, shippingamount: number, locationname: string, logitute: number, latitute: number) {
     return this.httpClient.post(this.url + '/confirm', {
       Id: cart.id,
       ShippingMethod_Id: ShippingMethodId,
       Total: cart.total,
       cartitems: cart.cartitems,
       shippingAddress,
-      shippingAmount,
-      locationName,
+      shippingamount,
+      locationname,
       logitute: logitute.toString(),
       latitute: latitute.toString()
     });

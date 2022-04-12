@@ -30,11 +30,13 @@ class CDonateController extends Controller
         $couponDonate = CouponDonate::orderBy("Id", "DESC");
 
         if ($flag == "transfered")
-            $couponDonate = $couponDonate->where("User_id", $user->id);
-        else $couponDonate = $couponDonate->where("ReceiverId", $user->id);
+            $couponDonate = CouponDonate::where("User_id", $user->id);
+        else $couponDonate = CouponDonate::where("ReceiverId", $user->id);
 
-        $results = $couponDonate->skip($request->page * $request->size)
+        if (isset($request->size) && isset($request->page))
+            $results = $couponDonate->orderBy("Id", "DESC")->skip($request->page * $request->size)
                 ->take($request->size)->count();
+        $results = $couponDonate->orderBy("Id", "DESC")->count();
         return response()->json($results);
     }
 
@@ -89,9 +91,10 @@ class CDonateController extends Controller
             }
         }
         $couponRCheck->Updated_at = \Carbon\Carbon::now();
+        $mischelper = new MiscHelper();
 
         $donate = [
-            "TransactionId" => new MiscHelper().randomStr(20),
+            "TransactionId" => $mischelper->randomStr(20),
             "User_id" => $user->id,
             "ReceiverId" => $receiver->id,
             "CouponId" => $backCoupon->id,

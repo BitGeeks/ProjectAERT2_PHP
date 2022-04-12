@@ -16,7 +16,7 @@
   </div>
 
   <div class="user-addr" *ngIf="!innerLoading && userData">
-    <div class="addr-item" *ngFor="let uaddress of userData.userAddresss">
+    <div class="addr-item" *ngFor="let uaddress of userData.useraddresss">
       <div class="td1 active"><span class="username">{{ uaddress.telephone }}</span></div>
       <div class="td2">
           <div><span class="mobile">{{ uaddress.mobile }}</span></div>
@@ -26,14 +26,14 @@
           </div>
       </div>
       <div class="td3">
-          <div class="td2-default" [style.display]="uaddress.isDefault ? 'display' : 'none'"><span translate>Địa Chỉ Mặc Định</span></div>
-          <span class="operating" [style.display]="!uaddress.isDefault ? 'display' : 'none'" (click)="onUserClickDefault(uaddress.id)" translate>Đặt Là Mặc Định</span>
-          <div [class]="!uaddress.isDefault ? 'op_3' : 'op'">
+          <div class="td2-default" [style.display]="uaddress.isdefault ? 'display' : 'none'"><span translate>Địa Chỉ Mặc Định</span></div>
+          <span class="operating" [style.display]="!uaddress.isdefault ? 'display' : 'none'" (click)="onUserClickDefault(uaddress.id)" translate>Đặt Là Mặc Định</span>
+          <div [class]="!uaddress.isdefault ? 'op_3' : 'op'">
               <span class="operating"  (click)="onUserClickAddrEdit(uaddress)">
                   <img src="https://static.maxmines.com/self/lesongvi/viminershop/icon/addr-edit.ic.svg"
                   />
               </span>
-              <span class="operating" (click)="onUserClickAddrDelete(uaddress)" *ngIf="!uaddress.isDefault">
+              <span class="operating" (click)="onUserClickAddrDelete(uaddress)" *ngIf="!uaddress.isdefault">
                   <img src="https://static.maxmines.com/self/lesongvi/viminershop/icon/addr-delete-ic.svg"
                   />
               </span>

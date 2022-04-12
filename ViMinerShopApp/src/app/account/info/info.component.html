@@ -12,7 +12,7 @@
             <img
                 [style.cursor]="isInfoChanging ? 'pointer' : 'auto'"
                 style="border-radius: 75px"
-                [src]="userData.userImage === null ? 'https://static.maxmines.com/self/lesongvi/viminershop/icon/unknown-user.svg' : userData.userImage"
+                [src]="userData.userimage === null ? 'https://static.maxmines.com/self/lesongvi/viminershop/icon/unknown-user.svg' : userData.userimage"
                 (click)="onUserClickChangeAvatar()"
                 width="92"
                 height="92"
@@ -23,9 +23,9 @@
                     <span translate>Tên tài khoản: </span> <span *ngIf="!isInfoChanging" style="margin-right: 124px;">{{ userData.username }}</span>
                     <input *ngIf="isInfoChanging" value="{{ userData.username }}" disabled="disabled" class="disabled" formControlName="username" />
                 </p>
-                <p class="name" *ngIf="userData.username === null && userData.socialID !== null">
-                    <span translate>ID mạng: </span> <span *ngIf="!isInfoChanging" style="margin-right: 124px;">{{ userData.socialID }}</span>
-                    <input *ngIf="isInfoChanging" value="{{ userData.socialID }}" disabled="disabled" class="disabled" formControlName="username" />
+                <p class="name" *ngIf="userData.username === null && userData.socialid !== null">
+                    <span translate>ID mạng: </span> <span *ngIf="!isInfoChanging" style="margin-right: 124px;">{{ userData.socialid }}</span>
+                    <input *ngIf="isInfoChanging" value="{{ userData.socialid }}" disabled="disabled" class="disabled" formControlName="username" />
                 </p>
                 <p class="contactMail">
                     <span translate>Địa chỉ mail: </span> <span *ngIf="!isInfoChanging">{{ userData.email }}</span>
@@ -45,8 +45,8 @@
           <span translate>Mật khẩu: </span>
           <input formControlName="password" type="password" />
         </p>
-        <p *ngIf="!isInfoChanging"><span translate>Địa chỉ ship: </span> <span class="securityStrength{{ userData.userAddresss.length !== 0 ? '' : ' bad' }}">{{ userData.userAddresss.length !== 0 ? ('đã đặt' | translate) : ('chưa đặt' | translate) }}</span></p>
-        <p *ngIf="!isInfoChanging"><span translate>Session: </span> <span>{{ userData.shoppingSessions.length }}</span></p>
+        <p *ngIf="!isInfoChanging"><span translate>Địa chỉ ship: </span> <span class="securityStrength{{ userData.useraddresss.length !== 0 ? '' : ' bad' }}">{{ userData.useraddresss.length !== 0 ? ('đã đặt' | translate) : ('chưa đặt' | translate) }}</span></p>
+        <p *ngIf="!isInfoChanging"><span translate>Session: </span> <span>{{ userData.shoppingsessions.length }}</span></p>
         <p *ngIf="!isInfoChanging"><span translate>Xác minh email: </span> <span class="text-success" translate>đã xác minh</span></p>
         <p *ngIf="!isInfoChanging"><span translate>Phương thức ủy quyền：</span> <span class="text-primary" translate>Bearer ViMiner</span></p>
         <button (click)="onUserClickSetInformation()" *ngIf="isInfoChanging" type="button" class="vms-iv-btn vms-iv-btn-ghost" style="width: 100px; height: 30px; font-size: 16px; line-height: 16px; margin-right:5px;">

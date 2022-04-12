@@ -53,7 +53,7 @@
             </label>
           </td>
           <td class="commodity">
-            <img [src]="cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png'" alt="{{ cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].alt_name : 'placeholder' }}" class="productImg" />
+            <img [src]="cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].imageurl : 'https://cdn.notevn.com/DzPbjDuoi.png'" alt="{{ cartItem.product.productimages.length !== 0 ? cartItem.product.productimages[0].alt_name : 'placeholder' }}" class="productImg" />
             <div>
               <a routerLink="/detail/{{ cartItem.product.id }}" title="{{ cartItem.product.name }}" class="productLink">{{ cartItem.product.name }}</a>
               <span class="invalidCondition PREP_SALE" *ngIf="cartItem.product.productinventory.flag === 'FLAG_FEATURE_ORDER'" translate>Đặt Trước</span>

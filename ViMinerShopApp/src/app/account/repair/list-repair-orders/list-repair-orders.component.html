@@ -106,8 +106,8 @@
                             <ng-container *ngIf="rOrders && rOrders.length !== 0">
                                 <tr *ngFor="let order of rOrders">
                                     <td><span>{{ order.repair_id }}</span></td>
-                                    <td><span>{{ order.repair.trackingNo }}</span></td>
-                                    <td><span>{{ order.repair.repairItems.length }}</span></td>
+                                    <td><span>{{ order.repair.trackingno }}</span></td>
+                                    <td><span>{{ order.repair.repairitem.length }}</span></td>
                                     <td><span>{{ renderProviderName(order.provider) }}</span></td>
                                     <td><span>{{ order.price * currencyRate | currency: currency }}</span></td>
                                     <td><span>{{ renderStatus(order.status) }}</span></td>

@@ -13,10 +13,10 @@
                     ID người dùng: {{ initialState.user_id }}
                 </p>
                 <p class="vms-element-dialog__paragraph">
-                    Trạng thái đơn: {{ renderOrderStatus(initialState.paymentDetail.status) }}
+                    Trạng thái đơn: {{ renderOrderStatus(initialState.paymentdetail.status) }}
                 </p>
                 <p class="vms-element-dialog__paragraph">
-                    Tổng phụ: ${{ initialState.subTotal.toFixed(2) }}
+                    Tổng phụ: ${{ initialState.subtotal.toFixed(2) }}
                 </p>
                 <p class="vms-element-dialog__paragraph">
                     Coupon giảm giá: ${{ initialState.couponAmount.toFixed(2) }}
@@ -25,19 +25,19 @@
                     Discount giảm giá: ${{ initialState.discountAmount.toFixed(2) }}
                 </p>
                 <p class="vms-element-dialog__paragraph">
-                    Chi phí vận chuyển: ${{ initialState.shippingAmount.toFixed(2) }}
+                    Chi phí vận chuyển: ${{ initialState.shippingamount.toFixed(2) }}
                 </p>
                 <p class="vms-element-dialog__paragraph">
                     Tổng giá trị đơn hàng: ${{ initialState.total.toFixed(2) }}
                 </p>
                 <!--START Payment section-->
                 <p class="vms-element-dialog__paragraph" *ngIf="paymentProviderList && paymentProviderList.length !== 0">
-                    Phương thức thanh toán: {{ renderPaymentProvider(initialState.paymentDetail.provider).name }}
+                    Phương thức thanh toán: {{ renderPaymentProvider(initialState.paymentdetail.provider).name }}
                 </p>
                 <!--END Payment section-->
                 <!--START Shipping Method section-->
                 <p class="vms-element-dialog__paragraph" *ngIf="shippingMethods && shippingMethods.length !== 0">
-                    ID đơn vị giao hàng: {{ renderShippingUnit(initialState.shippingMethod_id).shortName }} - {{ renderShippingUnit(initialState.shippingMethod_id).name }}
+                    ID đơn vị giao hàng: {{ renderShippingUnit(initialState.shippingMethod_id).shortname }} - {{ renderShippingUnit(initialState.shippingMethod_id).name }}
                 </p>
                 <p class="vms-element-dialog__paragraph">
                     Địa chỉ giao hàng (người dùng đặt): {{ initialState.shippingAddress }}

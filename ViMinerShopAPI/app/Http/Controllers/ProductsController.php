@@ -12,7 +12,10 @@ class ProductsController extends Controller
     // thêm images
     public function getProducts(Request $request)
     {
-        $product = Product::with(["productcategory", "productinventory", "algorithm", "productimages"])
+        $product = Product::select([
+            'products.Id', 'products.Name', 'products.Desc', 'products.NoteDesc', 'products.DetailDesc', 'products.PaymentDesc', 'products.WarrantyDesc', 'products.SKU', 'products.Category_id', 'products.Inventory_id', 'products.Algorithm_id', 'products.Price', 'products.PricePromotion', 'products.isActive', 'products.Created_at', 'products.Updated_at', 'productinventories.hps', 'productinventories.weight'
+        ])
+        ->with(["productcategory", "productinventory", "algorithm", "productimages"])
         ->join("productcategories", "products.Category_id", "=", "productcategories.id")
         ->join("productinventories", "products.Inventory_id", "=", "productinventories.id")
         // ->join("algorithms", "products.Algorithm_id", "=", "algorithms.id")
@@ -59,13 +62,13 @@ class ProductsController extends Controller
             // under development
             if (isset($request->searchString) && $request->searchString != "") {
                 $searchString = strtolower($request->searchString);
-                $product = $product->where("Name", "LIKE", "%".$searchString."%");
+                $product = $product->where("products.Name", "LIKE", "%".$searchString."%");
             }
             if (isset($request->sort) && $request->sort != "any") {
                 if ($request->sort == "lowest") {
-                    $product = $product->orderBy("Price", "DESC");
+                    $product = $product->orderBy("products.Price", "DESC");
                 } elseif ($request->sort == "highest") {
-                    $product = $product->orderBy("Price", "ASC");
+                    $product = $product->orderBy("products.Price", "ASC");
                 } elseif ($request->sort == "hlowest") {
                     $product = $product->orderBy("productinventories.hps", "DESC");
                 } elseif ($request->sort == "hhighest") {

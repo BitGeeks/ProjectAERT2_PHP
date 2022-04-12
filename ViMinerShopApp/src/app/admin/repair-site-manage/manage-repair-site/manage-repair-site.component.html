@@ -24,7 +24,7 @@
                     <tr *ngFor="let site of repairSiteList">
                         <td>{{ site.code }}{{ site.isDisabled ? ' (Đã vô hiệu hóa)' : '' }}</td>
                         <td>{{ site.name }}</td>
-                        <td>{{ (site.extraInfo !== null && site.extraInfo.trim().length === 0) ? site.extraInfo : 'Chưa đặt' }}</td>
+                        <td>{{ (site.extrainfo !== null && site.extrainfo.trim().length === 0) ? site.extrainfo : 'Chưa đặt' }}</td>
                         <td>{{ (site.note !== null && site.note.trim().length === 0) ? site.note : 'Chưa đặt' }}</td>
                         <td>
                             <a href="javascript:" (click)="editRepairSite(site)">Chỉnh sửa</a>

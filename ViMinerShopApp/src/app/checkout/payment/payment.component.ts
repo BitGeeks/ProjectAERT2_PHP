@@ -80,7 +80,7 @@ export class PaymentComponent implements OnInit {
             this.maxminesBillCode = atob(prm.mm_pay_source);
             this.orderService.onUserMaxMinesOrderSuccess(config.maxMinesPaymentKey, this.maxminesBillCode, params.orderId)
               .subscribe((data: MaxMinesSuccessPayment) => {
-                this.orderService.onUserPaypalOrderSuccessFinalStep(data.BillCode, this.orderData.id)
+                this.orderService.onUserPaypalOrderSuccessFinalStep(data.BillCode, params.orderId)
                 .pipe(take(1), catchError(
                   error => {
                     this.notifierService.notify('error', this.translatePipe.transform('Đã có lỗi xảy ra trong quá trình thao tác. Vui lòng thử lại!'));
@@ -90,7 +90,7 @@ export class PaymentComponent implements OnInit {
                 )).subscribe(() => {
                   this.isLoading = false;
                   this.notifierService.notify('success', this.translatePipe.transform('Thanh toán thành công'));
-                  this.store.dispatch(new OrderActions.CompleteOrderSetup(this.orderData.id));
+                  this.store.dispatch(new OrderActions.CompleteOrderSetup(params.orderId));
                 });
               });
           }
@@ -135,7 +135,7 @@ export class PaymentComponent implements OnInit {
 
   processDataForPPPayment(res: Checkout) {
     this.itemOrder = [];
-    res.orderItems.map(data => {
+    res.orderitems.map(data => {
       this.itemOrder.push({
         name: data.product.name,
         quantity: data.quantity.toString(),
@@ -152,7 +152,7 @@ export class PaymentComponent implements OnInit {
       category: 'DIGITAL_GOODS',
       unit_amount: {
           currency_code: 'USD',
-          value: res.shippingAmount.toFixed(2).toString(),
+          value: res.shippingamount.toFixed(2).toString(),
       }
     });
   }
@@ -179,7 +179,7 @@ export class PaymentComponent implements OnInit {
   onMaxMinesPaymentClick() {
     // this.router.navigate([`/checkout/orderInfo/${this.orderData.id}`]);
     window.location.href =
-      `https://maxmines.com/payment/chain/${config.maxMinesPaymentKey}/${btoa(window.location.href)}/${this.orderData.subTotal}/USD/${this.orderData.id}`;
+      `https://maxmines.com/payment/chain/${config.maxMinesPaymentKey}/${btoa(window.location.href)}/${this.orderData.subtotal}/USD/${this.orderData.id}`;
   }
 
   elementRepair(content: string, id: string) {

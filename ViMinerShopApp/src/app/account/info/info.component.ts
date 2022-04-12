@@ -74,8 +74,8 @@ export class InfoComponent implements OnInit {
         }
       ))
       .subscribe(data => {
-        this.unpaidOrderNum = data.filter(d => d.paymentDetail.status === 0).length;
-        this.unshippedOrderNum = data.filter(d => d.paymentDetail.status === 2).length;
+        this.unpaidOrderNum = data.filter(d => d.paymentdetail.status === 0).length;
+        this.unshippedOrderNum = data.filter(d => d.paymentdetail.status === 2).length;
       });
     this.userInfo = new FormGroup({
       fname: new FormControl(null, [Validators.required]),
@@ -123,7 +123,7 @@ export class InfoComponent implements OnInit {
         (res) => {
           this.notifierService.notify('success', this.translatePipe.transform('Tải lên thành công!'));
           this.profileImage = 'https://cdn.notevn.com/' + res.file_name + '' + res.type;
-          this.userData.userImage = 'https://cdn.notevn.com/' + res.file_name + '' + res.type;
+          this.userData.userimage = 'https://cdn.notevn.com/' + res.file_name + '' + res.type;
         },
         (err) => {
           this.profileImage = null;
@@ -144,7 +144,7 @@ export class InfoComponent implements OnInit {
       (res) => {
         this.notifierService.notify('success', this.translatePipe.transform('Tải lên thành công!'));
         this.profileImage = 'https://cdn.notevn.com/' + res.file_name + '' + res.type;
-        this.userData.userImage = 'https://cdn.notevn.com/' + res.file_name + '' + res.type;
+        this.userData.userimage = 'https://cdn.notevn.com/' + res.file_name + '' + res.type;
       },
       (err) => {
         this.profileImage = null;

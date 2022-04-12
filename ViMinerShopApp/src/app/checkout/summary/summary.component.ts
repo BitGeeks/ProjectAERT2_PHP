@@ -47,7 +47,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
   myCurrentLong = 0;
   mylocationName = '';
 
-  cartItemSubscription: Subscription;
+  cartitemsubscription: Subscription;
 
   currentShippingPrice = 0;
 
@@ -113,11 +113,11 @@ export class SummaryComponent implements OnInit, OnDestroy {
   countTotalCoupon = (couponList) => couponList.reduce((a, b) => a + parseFloat(b.couponPercent), 0);
 
   totalAmountCalc(session: ShoppingSession) {
-    let subTotal = session.total;
+    let subtotal = session.total;
     if (session.coupon !== null) {
-      subTotal -= (subTotal * (session.coupon.couponPercent / 100));
+      subtotal -= (subtotal * (session.coupon.couponPercent / 100));
     }
-    return subTotal;
+    return subtotal;
   }
 
   onUserClickDonate(coupon: Coupon) {
@@ -135,7 +135,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
     this.getUserAvailableCoupon()
 
   selectCoupon(coupon: Coupon) {
-    this.cartItemSubscription = this.cartState.subscribe((cartState: CartState) => {
+    this.cartitemsubscription = this.cartState.subscribe((cartState: CartState) => {
       if (cartState.cart !== null && cartState.cart.total < coupon.minPrice /*|| (cartState.cart.coupon_id !== null && cartState.cart.coupon_id === coupon.id)*/) { return; }
       this.couponSelected = coupon.id;
       this.cartService.toggleCoupon(coupon.couponCode).pipe(take(1), catchError(
@@ -147,7 +147,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
           return throwError(error);
         }
       )).subscribe((res: ShoppingSession) => {
-        this.cartItemSubscription.unsubscribe();
+        this.cartitemsubscription.unsubscribe();
         this.store.dispatch(new CartActions.FetchCart());
       });
     });
@@ -170,11 +170,11 @@ export class SummaryComponent implements OnInit, OnDestroy {
 
   onCartSubmit() {
     this.isLoading = true;
-    if (this.userData.userAddresss.length === 0) {
+    if (this.userData.useraddresss.length === 0) {
       this.notifierService.notify('error', this.translatePipe.transform('Bạn chưa nhập địa chỉ, vui lòng nhập địa chỉ và thử lại!'));
       return throwError(this.translatePipe.transform('Bạn chưa nhập địa chỉ, vui lòng nhập địa chỉ và thử lại!'));
     }
-    const { address, street_name, city, country, postal_code, telephone, mobile } = this.userData.userAddresss.filter(data => data.id === this.shippingAddressSelected)[0];
+    const { address, street_name, city, country, postal_code, telephone, mobile } = this.userData.useraddresss.filter(data => data.id === this.shippingAddressSelected)[0];
     const shippingAddressFormat = address + ', ' + street_name + ', ' + city + ', ' + country + ', ' + postal_code + ', ' + telephone + ', ' + mobile;
     this.cartState.subscribe((cartState: CartState) => {
       if (cartState.cart === null) { return; }
@@ -202,7 +202,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
   requestUserData() {
     this.accountService.getUser().pipe(take(1)).subscribe(data => {
       this.userData = data;
-      this.shippingAddressSelected = data.userAddresss.length !== 0 ? data.userAddresss.filter(data => data.isDefault)[0].id : 0;
+      this.shippingAddressSelected = data.useraddresss.length !== 0 ? data.useraddresss.filter(data => data.isdefault)[0].id : 0;
     });
   }
 

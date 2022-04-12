@@ -8,9 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class RepairItem extends Model
 {
     use HasFactory;
+    protected $table = "repairitem";
     protected $fillable = [
         'Id', 'RepairId', 'Product_id', 'Quantity', 'Remark'
     ];
+
+    public function repair () {
+        return $this->belongsTo(Repair::class);
+    }
+
+    public function product () {
+        return $this->belongsTo(Product::class, "Product_id", "Id");
+    }
 
     protected $hidden = [
         // 'Id'

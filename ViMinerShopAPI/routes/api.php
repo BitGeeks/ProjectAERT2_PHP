@@ -54,10 +54,13 @@ Route::get("products/related/{id}", [ProductsController::class, 'GetProductRelat
 Route::get("products/count", [ProductsController::class, 'GetProductsCount']);
 Route::get("products/newminer", [ProductsController::class, 'GetRecentProducts']);
 Route::get("products/bestminer", [ProductsController::class, 'GetBestMiner']);
+    
+Route::post("recovery/request", [RecoverController::class, 'GetUserRecoveryCode']);
+Route::post("recovery/verify", [RecoverController::class, 'PostUserRecovery']);
+Route::post("recovery/change", [RecoverController::class, 'PostUserRecovery2']);
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('users', [ApiController::class, 'get_user_info']);
-    Route::post('users/{id}', [ApiController::class, 'get_user_by_id']);
     Route::put('users/update',  [ApiController::class, 'update_user']);
     Route::put('users/subscription',  [ApiController::class, 'update_subscription']);
     Route::get('users/records/all',  [ApiController::class, 'get_user_records']);
@@ -66,13 +69,14 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post("users/referrals/create", [ApiController::class, 'create_referral_code']);
     Route::get("users/referrals/all", [ApiController::class, 'list_all_referral']);
     Route::get("users/stats/point", [ApiController::class, 'get_user_stats_points']);
-    Route::get("users/soldoutnotify", [ApiController::class, 'set_new_product_notify']);
+    Route::post("users/soldoutnotify", [ApiController::class, 'set_new_product_notify']);
 
     Route::get("useraddresses", [UserAddressController::class, 'get_user_address']);
     Route::get("useraddresses/{id}", [UserAddressController::class, 'get_user_address_by_id']);
     Route::put("useraddresses/update", [UserAddressController::class, 'update_user_address']);
     Route::get("useraddresses", [UserAddressController::class, 'get_user_address']);
     Route::post("useraddresses/setdefault", [UserAddressController::class, 'set_default']);
+    Route::post("useraddresses/add", [UserAddressController::class, 'user_address_add']);
 
     Route::get("shippingmethods/all", [ShippingMethodsController::class, 'GetShippingMethod']);
     Route::get("shippingmethods/flag/{flag}", [ShippingMethodsController::class, 'GetShippingMethodByFlag']);
@@ -118,10 +122,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     
     Route::get("productinventories/all", [ProductInventoriesController::class, 'GetProductInventories']);
     Route::get("productinventories/info/{id}", [ProductInventoriesController::class, 'GetProductInventory']);
-    
-    Route::post("recovery/request", [RecoverController::class, 'GetUserRecoveryCode']);
-    Route::post("recovery/verify", [RecoverController::class, 'PostUserRecovery']);
-    Route::post("recovery/change", [RecoverController::class, 'PostUserRecovery2']);
 
     Route::get("repairorder/all", [RepairOrderController::class, 'GetRepairOrders']);
     Route::post("repairorder/onpaymentpaypal", [RepairOrderController::class, 'OnPaymentPaypal']);
@@ -130,6 +130,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get("repairs/all", [RepairsController::class, 'GetRepairs']);
     Route::get("repairs/search/{queryString}", [RepairsController::class, 'GetRepair']);
+    Route::get("repairs/count/{type}", [RepairsController::class, 'GetRepairCount']);
     Route::get("repairs/type", [RepairsController::class, 'GetRepairByType']);
     Route::get("repairs/site/all", [RepairsController::class, 'GetAllRepairSites']);
     Route::get("repairs/ticket/{id}", [RepairsController::class, 'GetAllRepairTicket']);
@@ -138,7 +139,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::delete("repairs/remove/{type}", [RepairsController::class, 'DeleteRepair']);
     
     Route::get("admin", [AdminController::class, 'GetRoleVars']);
-    Route::get("admin/{id}", [AdminController::class, 'GetRoleVar']);
+    // Route::get("admin", [AdminController::class, 'GetRoleVar']);
     Route::put("admin/{id}", [AdminController::class, 'PutRoleVar']);
     Route::post("admin", [AdminController::class, 'PostRoleVar']);
     Route::get("admin/users/list", [AdminController::class, 'GetUserList']);
@@ -177,14 +178,16 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post("admin/repairsites/edit/{code}", [AdminController::class, 'EditRepairSite']);
     Route::post("admin/shipping/add", [AdminController::class, 'AddShipping']);
     Route::post("admin/shipping/edit/{id}", [AdminController::class, 'EditShipping']);
-    Route::get("admin/orders/{type}", [AdminController::class, 'GetOrdersByType']);
-    Route::get("admin/orders/count/{type}", [AdminController::class, 'GetOrderCount']);
     Route::post("admin/orders/edit/{id}", [AdminController::class, 'EditOrderStatus']);
     Route::get("admin/orders/chart", [AdminController::class, 'GetAllChartData']);
     Route::get("admin/transaction/list", [AdminController::class, 'GetAllTransaction']);
     Route::get("admin/transaction/count", [AdminController::class, 'GetAllTransactionCount']);
     Route::get("admin/shippingmethods/count", [AdminController::class, 'GetShippingMethodCount']);
     Route::get("admin/shippingmethods/list", [AdminController::class, 'GetShippingMethodList']);
+    Route::get("admin/orders/{type}", [AdminController::class, 'GetOrdersByType']);
+    Route::get("admin/orders/count/{type}", [AdminController::class, 'GetOrderCount']);
+
+    Route::post('users/{id}', [ApiController::class, 'get_user_by_id']);
 });
 
 Route::get("vms/convert", [VMSConvertController::class, 'convertFunc']);

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Hpnotice extends Model
 {
     use HasFactory;
-    protected $table = 'Hpnotice';
+    protected $table = 'hpnotice';
 
     protected $fillable = [
         'Id', 'Title', 'Content'

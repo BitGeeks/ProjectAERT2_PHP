@@ -64,10 +64,10 @@ export class RepairTicketDetailsComponent implements OnInit {
 
   setShippingName(id: number, isShipping: boolean) {
     if (isShipping) {
-      this.shippingUnitName = this.shippingMethods.filter(d => d.id === id)[0].shortName;
+      this.shippingUnitName = this.shippingMethods.filter(d => d.id === id)[0].shortname;
     }
     else {
-      this.returnShippingUnitName = this.shippingMethods.filter(d => d.id === id)[0].shortName;
+      this.returnShippingUnitName = this.shippingMethods.filter(d => d.id === id)[0].shortname;
     }
     }
 

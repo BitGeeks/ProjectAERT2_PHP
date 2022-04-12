@@ -28,8 +28,8 @@
                     </div>
                     <div class="item-value">
                         <div class="vms-radio-group vms-radio-group-outline">
-                            <input placeholder="Tên ngắn" type="text" class="vms-input" value="" formControlName="shortName" />
-                            <div class="input-error" *ngIf="addShippingForm.get('shortName').invalid && addShippingForm.get('shortName').touched">Tên ngắn là bắt buộc</div>
+                            <input placeholder="Tên ngắn" type="text" class="vms-input" value="" formControlName="shortname" />
+                            <div class="input-error" *ngIf="addShippingForm.get('shortname').invalid && addShippingForm.get('shortname').touched">Tên ngắn là bắt buộc</div>
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                         <font class="required">*</font> Nhận hàng sửa chữa
                     </div>
                     <div class="item-value">
-                        <select class="vms-select-selection vms-select-selection--single" formControlName="repairFlag">
+                        <select class="vms-select-selection vms-select-selection--single" formControlName="repairflag">
                             <option value="0">Không</option>
                             <option value="1">Có</option>
                         </select>
@@ -49,7 +49,7 @@
                         <font class="required">*</font> Nhận hàng đặt
                     </div>
                     <div class="item-value">
-                        <select class="vms-select-selection vms-select-selection--single" formControlName="salesFlag">
+                        <select class="vms-select-selection vms-select-selection--single" formControlName="salesflag">
                             <option value="0">Không</option>
                             <option value="1">Có</option>
                         </select>
@@ -60,7 +60,7 @@
                         <font class="required">*</font> Chuyển hàng miễn phí
                     </div>
                     <div class="item-value">
-                        <select class="vms-select-selection vms-select-selection--single" formControlName="supportFreeShip">
+                        <select class="vms-select-selection vms-select-selection--single" formControlName="supportfreeship">
                             <option value="0">Không</option>
                             <option value="1">Có</option>
                         </select>
@@ -72,8 +72,8 @@
                     </div>
                     <div class="item-value">
                         <div class="vms-radio-group vms-radio-group-outline">
-                            <input placeholder="Mã ERP" type="text" class="vms-input" value="" formControlName="erpCode" />
-                            <div class="input-error" *ngIf="addShippingForm.get('erpCode').invalid && addShippingForm.get('erpCode').touched">Mã ERP là bắt buộc</div>
+                            <input placeholder="Mã ERP" type="text" class="vms-input" value="" formControlName="erpcode" />
+                            <div class="input-error" *ngIf="addShippingForm.get('erpcode').invalid && addShippingForm.get('erpcode').touched">Mã ERP là bắt buộc</div>
                         </div>
                     </div>
                 </div>
@@ -83,8 +83,8 @@
                     </div>
                     <div class="item-value">
                         <div class="vms-radio-group vms-radio-group-outline">
-                            <input placeholder="Liên kết logo. Bắt đầu bằng https hoặc http..." type="text" class="vms-input" value="" formControlName="logoUrl" />
-                            <div class="input-error" *ngIf="addShippingForm.get('logoUrl').invalid && addShippingForm.get('logoUrl').touched">Liên kết logo là bắt buộc</div>
+                            <input placeholder="Liên kết logo. Bắt đầu bằng https hoặc http..." type="text" class="vms-input" value="" formControlName="logourl" />
+                            <div class="input-error" *ngIf="addShippingForm.get('logourl').invalid && addShippingForm.get('logourl').touched">Liên kết logo là bắt buộc</div>
                         </div>
                     </div>
                 </div>

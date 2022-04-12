@@ -5,18 +5,18 @@ export interface User {
   telephone: string;
   mobile: string;
   username: string;
-  userImage: string;
-  userAddresss: Array<UserAddresss>;
-  shoppingSessions: Array<ShoppingSession>;
-  isSubscribedToMailing: boolean;
-  referralBy: string;
-  referralCode: string;
+  userimage: string;
+  useraddresss: Array<UserAddresss>;
+  shoppingsessions: Array<ShoppingSession>;
+  issubscribedtomailing: boolean;
+  referralby: string;
+  referralcode: string;
 }
 
 export interface ShippingMethod {
   id: number;
   name: string;
-  shortName: string;
+  shortname: string;
 }
 
 export interface UserAddresss {
@@ -29,7 +29,7 @@ export interface UserAddresss {
   street_name: string;
   telephone: string;
   user_id: number;
-  isDefault: boolean;
+  isdefault: boolean;
 }
 
 export interface ProductCategory {
@@ -73,9 +73,9 @@ export interface ProductDetail {
 export interface SlideImage {
   id: number;
   name: string;
-  fillColor: string;
-  imgUrl: string;
-  jumpTo: string;
+  fillcolor: string;
+  imgurl: string;
+  jumpto: string;
 }
 
 export interface HPNotice {
@@ -86,8 +86,8 @@ export interface HPNotice {
 
 export interface productImage {
   id: number;
-  alt_Name: string;
-  imageUrl: string;
+  alt_name: string;
+  imageurl: string;
   created_at: string;
   updated_at: string;
 }
@@ -178,17 +178,17 @@ export interface Checkout {
   user_id: string;
   total: string;
   payment_id: string;
-  paymentDetail: PaymentDetail;
+  paymentdetail: PaymentDetail;
   shippingMethod_id: number;
   shippingMethod: ShippingMethod;
   shippingAddress: string;
   created_at: string;
   updated_at: string;
-  orderItems: Array<OrderItem>;
-  shippingAmount: number;
+  orderitems: Array<OrderItem>;
+  shippingamount: number;
   discountAmount: number;
   couponAmount: number;
-  subTotal: number;
+  subtotal: number;
 }
 
 export interface PaymentProvider {
@@ -228,13 +228,13 @@ export interface OrderItems {
 
 export interface Orders {
   id: number;
-  billingAddress: string;
-  totalPrice: number;
+  billingaddress: string;
+  totalprice: number;
   date: number;
   discount: Discount;
-  orderItems: Array<OrderItems>;
-  paymentDetail: PaymentDetail;
-  locationName: string;
+  orderitems: Array<OrderItems>;
+  paymentdetail: PaymentDetail;
+  locationname: string;
   latitute: string;
   logitute: string;
   created_at: string;
@@ -263,8 +263,8 @@ export class Repair {
   user_id: number;
   status: number;
   ticketReason: string;
-  repairItems: Array<RepairItem>;
-  trackingNo: string;
+  repairitem: Array<RepairItem>;
+  trackingno: string;
   shippingLogisticsId: number;
   customerAddress: string;
   repairSiteId: string;
@@ -289,7 +289,7 @@ export class RepairOrder {
 export class RepairSite {
   code: string;
   name: string;
-  extraInfo: string;
+  extrainfo: string;
   note: string;
 }
 
@@ -510,8 +510,8 @@ export class MaxMinesSuccessPayment {
 }
 
 export class processImage {
-  imageUrl: string;
-  alt_Name: string;
+  imageurl: string;
+  alt_name: string;
 }
 
 export class RoleVar {

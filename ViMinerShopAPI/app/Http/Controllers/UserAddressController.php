@@ -38,14 +38,12 @@ class UserAddressController extends Controller {
         $check->Telephone = $request->telephone;
         $check->Mobile = $request->mobile;
 
-        UserAddress::where("Id", $request->id)
-        ->where("User_id", $user->id)
-        ->update($check);
+        $check->save();
 
         return ""; // không
     }
 
-    function checkEmptyValueAddressObj (UserAddress $user) {
+    function checkEmptyValueAddressObj ($user) {
         if (isset($user->address))
             return "Địa chỉ không hợp lệ";
         elseif (isset($user->street_name))
@@ -78,7 +76,7 @@ class UserAddressController extends Controller {
                             ->where("User_id", $user->id)
                             ->first();
 
-        if ($check == null)
+        if ($check)
             return "Địa chỉ này đã tồn tại trong tài khoản của bạn";
         
         $address = new UserAddress();
@@ -93,7 +91,7 @@ class UserAddressController extends Controller {
         $address->Mobile = $request->mobile;
         $address->isDefault = $isDefault;
 
-        UserAddress::create($address);
+        $address->save();
 
         return ""; // không
     }
@@ -108,9 +106,7 @@ class UserAddressController extends Controller {
         
         if ($setNoDefault != null) {
             $setNoDefault->isDefault = false;
-            UserAddress::where("isDefault", true)
-            ->where("User_id", $user->id)
-            ->update($setNoDefault);
+            $setNoDefault->save();
         }
 
         $check = UserAddress::where("User_id", $user->id)
@@ -121,9 +117,7 @@ class UserAddressController extends Controller {
 
         $check->isDefault = true;
 
-        UserAddress::where("User_id", $user->id)
-                        ->where("Id", $request->id)
-                        ->update($check);
+        $check->save();
         
         return "";
     }

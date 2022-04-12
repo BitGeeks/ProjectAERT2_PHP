@@ -87,7 +87,7 @@ export class RepairService {
     return this.httpClient.delete(`${this.repairUrl}/remove/${id}`);
   }
 
-  submitRepairTicket(reasonFlag: string, listItem: Array<repairItemT>, shippingId: number, userAddress: string, repairSiteCode: string, returnShippingId: number, remark: string, trackingNo: string) {
+  submitRepairTicket(reasonFlag: string, listItem: Array<repairItemT>, shippingId: number, userAddress: string, repairSiteCode: string, returnShippingId: number, remark: string, trackingno: string) {
     return this.httpClient.post(`${this.repairUrl}/submitTicket`, {
       reasonFlag,
       listItem,
@@ -96,11 +96,11 @@ export class RepairService {
       repairSiteCode,
       returnShippingId,
       remark,
-      trackingNo
+      trackingno
     });
   }
 
-  updateRepairTicket(id: number, reasonFlag: string, listItem: Array<repairItemT>, shippingId: number, userAddress: string, repairSiteCode: string, returnShippingId: number, remark: string, trackingNo: string) {
+  updateRepairTicket(id: number, reasonFlag: string, listItem: Array<repairItemT>, shippingId: number, userAddress: string, repairSiteCode: string, returnShippingId: number, remark: string, trackingno: string) {
     return this.httpClient.post(`${this.repairUrl}/updateTicket/${id}`, {
       id,
       reasonFlag,
@@ -110,7 +110,7 @@ export class RepairService {
       repairSiteCode,
       returnShippingId,
       remark,
-      trackingNo
+      trackingno
     });
   }
 

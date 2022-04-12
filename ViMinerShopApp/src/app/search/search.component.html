@@ -16,7 +16,7 @@
       <ul class="clearfix">
         <li class="_1iymsrV0{{ product.productinventory.quantity === 0 ? ' soldout' : '' }}" *ngFor="let product of products">
           <a routerLink="/detail/{{product.id}}" class="">
-            <div class="avatar"><img src="{{ product.productimages.length !== 0 ? product.productimages[0].imageUrl : '' }}" /></div>
+            <div class="avatar"><img src="{{ product.productimages.length !== 0 ? product.productimages[0].imageurl : '' }}" /></div>
             <h4>{{product.name}}</h4>
             <p>{{product.desc}}</p>
           </a>

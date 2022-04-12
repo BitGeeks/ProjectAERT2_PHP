@@ -95,7 +95,7 @@
       <ul class="clearfix" *ngIf="selectedView === 'grid'">
         <li class="vms-browse{{ product.productinventory.quantity === 0 ? ' soldout' : '' }}" *ngFor="let product of ( browseState | async ).products">
           <a routerLink="/detail/{{product.id}}" class="">
-            <div class="avatar"><img src="{{ product.productimages.length !== 0 ? product.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}" width="140" /></div>
+            <div class="avatar"><img src="{{ product.productimages.length !== 0 ? product.productimages[0].imageurl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}" width="140" /></div>
             <h4>{{product.name}}</h4>
             <p>{{product.desc}}</p>
           </a>
@@ -120,7 +120,7 @@
           <a routerLink="/detail/{{n.id}}" class="item">
             <div class="type">{{ n.productcategory.name }} - {{ n.algorithm.name }}</div>
             <div class="avatar">
-              <img src="{{ n.productimages.length !== 0 ? n.productimages[0].imageUrl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}">
+              <img src="{{ n.productimages.length !== 0 ? n.productimages[0].imageurl : 'https://cdn.notevn.com/DzPbjDuoi.png' }}">
             </div>
             <div class="text">
               <h3>{{n.name}}</h3>

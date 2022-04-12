@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentDetail extends Model
 {
     use HasFactory;
+    protected $table = "paymentdetails";
+    protected $primaryKey = "Id";
     protected $fillable = [
         'Id', 'Amount', 'Provider', 'Status', 'MaxMinesBillID', 'PaypalID', 'ReferralBy', 'Created_at', 'Updated_at'
     ];

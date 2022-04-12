@@ -26,7 +26,7 @@
           <p translate>Hoàn thành</p>
       </div>
     </div>
-    <div class="content" *ngIf="orderData && orderData.paymentDetail.status === 0">
+    <div class="content" *ngIf="orderData && orderData.paymentdetail.status === 0">
       <div class="user-addr item">
         <div class="shopping-method item">
           <div class="title" translate>
@@ -62,11 +62,11 @@
       <table>
           <tr>
               <td translate>Tiền hàng:</td>
-              <td>{{ orderData.subTotal * currencyRate | currency: currency }}</td>
+              <td>{{ orderData.subtotal * currencyRate | currency: currency }}</td>
           </tr>
           <tr>
               <td translate>Phí vận chuyển:</td>
-              <td>{{ orderData.shippingAmount * currencyRate | currency: currency }}</td>
+              <td>{{ orderData.shippingamount * currencyRate | currency: currency }}</td>
           </tr>
           <tr>
               <td translate>Coupon:</td>

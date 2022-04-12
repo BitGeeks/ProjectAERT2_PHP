@@ -10,11 +10,14 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Helpers\MiscHelper;
+use App\Models\UserRecord;
 
 class ApiController extends Controller
 {
     public function get_user_info (Request $request) {
-        $user = User::where("id", $request->userData->id)->first();
+        $user = User::with(["useraddresss", "shoppingsessions"])
+        ->where("id", $request->userData->id)->first();
 
         return $user;
     }
@@ -164,9 +167,9 @@ class ApiController extends Controller
         if (isset($request->password))
             $user->password = bcrypt($request->password);
 
-        User::where("id", $request->id)->update($user);
+        User::where("id", $user->id)->update($user);
 
-        return $this->get_user_by_id($request->id);
+        return $this->get_user_by_id($user->id);
     }
  
     public function get_user(Request $request)
@@ -189,12 +192,14 @@ class ApiController extends Controller
     }
 
     public function get_user_records (Request $request) {
-        $results = User::OrderBy("id", "DESC")->where("User_id", $request->userData->id)->skip($skip)->take($limit)->get();
+        $user = $request->userData;
+        $results = UserRecord::where("Id", $user->id)->get();
         return response()->json($results);
     }
 
     public function get_user_records_count (Request $request) {
-        $results = User::OrderBy("id", "DESC")->where("User_id", $request->userData->id)->skip($skip)->take($limit)->count();
+        $user = $request->userData;
+        $results = UserRecord::where("Id", $user->id)->count();
         return response()->json($results);
     }
 
@@ -202,7 +207,7 @@ class ApiController extends Controller
     public function validate_user (Request $request) {
         $token = $request->token;
         $user = $request->userData;
-        $currentTime = Carbon::now();
+        $currentTime = \Carbon\Carbon::now();
         $uvc = UserCredentialsVerify::where("User_id", $user->id)->whereRaw('DATEDIFF(ResendMailAt,'.$currentTime.') < 15')->first();
 
         if ($uvc == null) return "Mã xác minh không khả dụng! Vui lòng xác minh lại";
@@ -219,7 +224,8 @@ class ApiController extends Controller
 
         if ($user->ReferralCode != null) 
             return "Người dùng này đã tạo mã giới thiệu!";
-        $refCode = new MiscHelper().randomStr();
+        $mischelper = new MiscHelper();
+        $refCode = $mischelper->randomStr();
         $checkRef = User::where("id", $user->id);
 
         User::where("id", $user->id)->update(["ReferralCode" => $refCode]);
@@ -241,39 +247,36 @@ class ApiController extends Controller
 
     public function get_user_stats_points (Request $request) {
         $user = $request->userData;
-        $numberPoint = OrderDetail::join("PaymentDetail", "PaymentDetail.Id", "=", "OrderDetail.Payment_id")->where("PaymentDetail.Status", "!=", 0).count() * 1024;
+        $numberPoint = OrderDetail::join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")->where("paymentdetails.status", "!=", 0)->count() * 1024;
 
         return array(
-            "Balance" => .0,
-            "Point" => $numberPoint
+            "balance" => .0,
+            "point" => $numberPoint
         );
     }
 
     public function set_new_product_notify (Request $request) {
         $user = $request->userData;
-        $currentTime = Carbon::now();
+        $expDate = \Carbon\Carbon::now()->subDays(15);
         $psoData = ProductSoldOutNotify::where("User_id", $user->id)
                     ->where("Product_id", $request->productId)
-                    ->whereRaw('DATEDIFF(created_at,'.$currentTime.') < 15')
+                    ->whereDate('created_at', ">", $expDate)
                     ->first();
         
         if (!$psoData) {
-            $psoNew = [
+            $psoData = [
                 "User_id" => $user->id,
                 "Product_id" => $request->productId,
                 "quantity" => $request->quantity,
-                "created_at" => Carbon::now(),
-                "updated_at" => Carbon::now()
+                "created_at" => \Carbon\Carbon::now(),
+                "updated_at" => \Carbon\Carbon::now()
             ];
-            ProductSoldOutNotify::create($psoNew);
+            ProductSoldOutNotify::insert($psoData);
         } else {
-            $psoData->updated_at = $currentTime;
             $psoData->quantity = $request->quantity;
+            $psoData->save();
         }
 
-        ProductSoldOutNotify::where("User_id", $user->id)
-                    ->where("Product_id", $request->productId)
-                    ->whereRaw('DATEDIFF(created_at,'.$currentTime.') < 365')
-                    ->update($psoData);
+        return "";
     }
 }

@@ -24,9 +24,9 @@
                 <tbody>
                     <tr *ngFor="let slide of homePageSlide">
                         <td>{{ slide.name }}</td>
-                        <td>{{ slide.fillColor }}</td>
-                        <td>{{ slide.imgUrl }}</td>
-                        <td><a [href]="slide.jumpTo">{{ slide.jumpTo }}</a></td>
+                        <td>{{ slide.fillcolor }}</td>
+                        <td>{{ slide.imgurl }}</td>
+                        <td><a [href]="slide.jumpto">{{ slide.jumpto }}</a></td>
                         <td>
                             <a href="javascript:" (click)="editHomePageSlide(slide)">Chỉnh sửa</a> / <a href="javascript:" (click)="removeSlide(slide)">Xóa</a>
                         </td>

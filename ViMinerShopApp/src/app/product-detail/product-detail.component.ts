@@ -56,8 +56,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   maxMiner = 0;
   imageInitial: productImage = {
     id: 0,
-    alt_Name: 'Placeholder',
-    imageUrl: 'https://cdn.notevn.com/DzPbjDuoi.png',
+    alt_name: 'Placeholder',
+    imageurl: 'https://cdn.notevn.com/DzPbjDuoi.png',
     created_at: null,
     updated_at: null
   };

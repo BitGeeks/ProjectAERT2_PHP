@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class RoleVar extends Model
 {
     use HasFactory;
+    protected $table = "rolevars";
     protected $fillable = [
         'Id', 'RoleName', 'IsAdmin', 'IsSeller'
     ];

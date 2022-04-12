@@ -9,6 +9,8 @@ use App\Models\PaymentDetail;
 use App\Models\OrderDetail;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use App\Models\ShippingMethod;
+use App\Http\Helpers\MiscHelper;
 
 class CartController extends Controller
 {
@@ -45,9 +47,8 @@ class CartController extends Controller
                 ->first();
 
             foreach ($ctext->cartitems as $c) {
-                if ($c->product->PricePromotion == null || $c->product->Price == null || $c->product->Quantity == null) return "NotFound";
-                $cartPrice = $c->PricePromotion != 0 ? $c->PricePromotion : $c->Price;
-                $total += $c->Quantity * $cartPrice;
+                $cartPrice = $c->product->PricePromotion != 0 ? $c->product->PricePromotion : $c->product->Price;
+                $total += $c->product->productinventory->Quantity * $cartPrice;
             }
 
             $ctext->Total = $total;
@@ -89,14 +90,18 @@ class CartController extends Controller
             // ->join("productcategories", "productcategories.Id", "=", "products.Category_id")
             // ->join("productinventories", "productinventories.Id", "=", "products.Inventory_id")
             ->where([
-                ["cartitems.Session_id", $sessionCheck->Id],
-                ["cartitems.Id", $request->cartItemId]
+                ["Session_id", $sessionCheck->Id],
+                ["Id", $request->cartItemId]
             ])
             ->first();
 
             if ($updateObj != null) {
-                $updateObj->Quantity += $request->amount;
-                CartItem::update($updateObj);
+                // $updateObj->Quantity += $request->amount;
+                // return response()->json($updateObj);
+                // $updateObj->save();
+                CartItem::where("Id", $updateObj->Id)->update([
+                    "Quantity" => $updateObj->Quantity + $request->amount
+                ]);
 
                 return $this->GetSession($request);
             }
@@ -123,11 +128,13 @@ class CartController extends Controller
             ->first();
 
             if ($updateObj != null) {
-                if ($request->amount <= $updateObj->Quantity)
+                if ($request->amount <= $updateObj->product->productinventory->Quantity)
                     $updateObj->Quantity = $request->amount;
                 else
-                    $updateObj->Quantity = $updateObj->Quantity;
-                CartItem::update($updateObj);
+                    $updateObj->Quantity = $updateObj->product->productinventory->Quantity;
+                CartItem::where("Id", $updateObj->Id)->update([
+                    "Quantity" => $updateObj->Quantity
+                ]);
 
                 return $this->GetSession($request);
             }
@@ -151,7 +158,7 @@ class CartController extends Controller
             $couponAmount = 0;
             $discountAmount = 0;
 
-            if ($sessionCheck->coupon->Coupon_id != null && (
+            if ($sessionCheck->coupon != null && (
                 $sessionCheck->coupon->Expired_at > \Carbon\Carbon::now() &&
                 $sessionCheck->coupon->Active &&
                 $sessionCheck->coupon->MinPrice < $request->Total
@@ -171,7 +178,7 @@ class CartController extends Controller
                 "Created_at" => \Carbon\Carbon::now(),
                 "Updated_at" => \Carbon\Carbon::now()
             ];
-            PaymentDetail::insert($PaymentDetail);
+            $PaymentDetailID = PaymentDetail::insertGetId($PaymentDetail);
 
             $orderDetail = [
                 "User_id" => $user->id,
@@ -180,32 +187,32 @@ class CartController extends Controller
                 "DiscountAmount" => $discountAmount,
                 "CouponAmount" => $couponAmount,
                 "ShippingAmount" => $shippingAmount,
-                "Payment_id" => $PaymentDetail->Id,
+                "Payment_id" => $PaymentDetailID,
                 "ShippingMethod_id" => $request->ShippingMethod_Id,
                 "ShippingAddress" => $request->shippingAddress,
                 "Coupon_id" => $sessionCheck->Coupon_id,
                 "Discount_id" => $sessionCheck->Discount_id,
-                "LocationName" => $request->LocationName,
-                "Latitute" => $request->Latitute,
-                "Longitute" => $request->Longitute,
+                "LocationName" => $request->locationName,
+                "Latitute" => $request->latitute,
+                "Longitute" => $request->longitute,
                 "Created_at" => \Carbon\Carbon::now(),
                 "Updated_at" => \Carbon\Carbon::now()
             ];
 
-            OrderDetail::insert($orderDetail);
+            $orderDetailID = OrderDetail::insertGetId($orderDetail);
 
-            foreach ($CartItems as $item) {
+            foreach ($request->cartitems as $item) {
                 $orderItem = [
-                    "Order_id" => $orderDetail->Id,
-                    "Product_id" => $item->Product_id,
-                    "Quantity" => $item->Quantity,
+                    "Order_id" => $orderDetailID,
+                    "Product_id" => $item["product_id"],
+                    "Quantity" => $item["quantity"],
                     "Created_at" => \Carbon\Carbon::now(),
                     "Updated_at" => \Carbon\Carbon::now()
                 ];
                 OrderItem::insert($orderItem);
                 CartItem::where([
                     ["Session_id", $request->Id],
-                    ["Id", $item->Id]
+                    ["Id", $item["id"]]
                 ])->delete();
             }
 
@@ -216,7 +223,7 @@ class CartController extends Controller
 
             // Gửi email?
 
-            return $this->GetOrderById($orderDetail->Id);
+            return $this->GetOrderById($request, $orderDetailID);
         }
 
         return "NotFound";
@@ -224,68 +231,75 @@ class CartController extends Controller
 
     public function GetOrderById (Request $request, $id) {
         $user = $request->userData;
-        $total = 0;
 
-        $sessionCheck = ShoppingSession::with("coupon")
+        $sessionCheck = OrderDetail::with(["paymentdetail", "shippingmethod", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages", "user", "coupon", "discount"])
         // join("coupon", "coupon.Id", "=", "shoppingsessions.Coupon_id")
                 ->where("User_id", $user->id)
                 ->orderBy("Id", "DESC")
                 ->first();
 
-        if ($sessionCheck == null) return "NotFound";
+        if (!$sessionCheck) return "2NotFound";
 
         return response()->json($sessionCheck);
     }
 
     public function SetShippingPos (Request $request) {
-        // Under development
+        $shippingMethod = ShippingMethod::where("Id", $request->shippingId)->first();
+
+        $miscHelper = new MiscHelper();
+
+        $distance = $miscHelper->mxmsdistance(13.977583958282, 107.99479541302, $request->latitute, $request->longitute, "K") * $shippingMethod->avgfeeperkm;
+
+        return $distance;
     }
 
     public function GetOrders (Request $request) {
         $user = $request->userData;
 
         $sessionCheck = OrderDetail::with(["paymentdetail", "shippingmethod", "user"])
-            ->where("User_id", $user->id)
-            ->get();
 
-        return response()->json($sessionCheck);
+            ->where("User_id", $user->id)->get();
+            
+            if (sessionCheck == null)
+                return "NotFound";
+            return response()->json($sessionCheck);
     }
 
     public function DecrementCartItem (Request $request) {
         $user = $request->userData;
 
         $sessionCheck = ShoppingSession::
-            where("User_id", $user->id)
-            ->orderBy("Id", "DESC")
-            ->first();
+        where("User_id", $user->id)
+        ->orderBy("Id", "DESC")->first();
 
-        if ($sessionCheck == null) {
+        if (!$sessionCheck)
+        {
             $session = [
                 "User_id" => $user->id,
                 "Total" => 0,
-                "Updated_at" => \Carbon\Cartbon::now(),
-                "Created_at" => \Carbon\Cartbon::now()
+                "Updated_at" => \Carbon\Carbon::now(),
+                "Created_at" => \Carbon\Carbon::now()
             ];
-
             ShoppingSession::insert($session);
             $sessionCheck = ShoppingSession::
-            where("User_id", $user->id)
-            ->orderBy("Id", "DESC")
-            ->first();
+                where("User_id", $user->id)
+                ->orderBy("Id", "DESC")->first();
         }
-
-        if ($sessionCheck != null) {
-            $updateObj = CartItem::
-            with(["product", "product.productcategory", "product.productimages", "product.productinventory"])
-            ->where(["Session_id" => $sessionCheck->Id, "Id" => $request->cartItemId])
-            ->first();
-
-            if ($updateObj != null) {
-                if ($updateObj->Quantity - $request->amount <= 0)
+        if ($sessionCheck)
+        {
+            $updateObj = CartItem::where(["Session_id" => $sessionCheck->Id, "Id" => $request->cartItemId])->first();
+            if ($updateObj)
+            {
+                if ($updateObj->Quantity - $request->amount <= 0) {
                     CartItem::where("Id", $updateObj->Id)->delete();
-                else $updateObj->Quantity -= $request->amount;
-
-                return GetSession();
+                }
+                else {
+                    $updateObj->Quantity -= $request->amount;
+                    CartItem::where("Id", $updateObj->Id)->update([
+                        "Quantity" => $updateObj->Quantity
+                    ]);
+                }
+                return $this->GetSession($request);
             }
         }
 
@@ -293,18 +307,86 @@ class CartController extends Controller
     }
 
     public function GetCartItem (Request $request, $id) {
-        // Under development
+        $cartItem = CartItem::where("Id", $id)->first();
+
+        if (!$cartItem)
+        {
+            return "NotFound";
+        }
+
+        return response()->json($cartItem);
     }
 
     public function PostCartItem (Request $request) {
-        // Under development
+        $user = $request->userData;
+
+        $sessionCheck = ShoppingSession::
+        where("User_id", $user->id)
+        ->orderBy("Id", "DESC")->first();
+
+        if (!$sessionCheck)
+        {
+            $session = [
+                "User_id" => $user->id,
+                "Total" => 0,
+                "Updated_at" => \Carbon\Carbon::now(),
+                "Created_at" => \Carbon\Carbon::now()
+            ];
+            ShoppingSession::insert($session);
+            $sessionCheck = ShoppingSession::
+                where("User_id", $user->id)
+                ->orderBy("Id", "DESC")->first();
+        }
+        if ($sessionCheck)
+        {
+            $checkCart = CartItem::where(["Session_id" => $sessionCheck->Id, "Product_id" => $request->ProductId])->first();
+            if (!$checkCart)
+            {
+                $cart = [
+                    "Product_id" => $request->productId,
+                    "Session_id" => $sessionCheck->Id,
+                    "Quantity" => $request->amount,
+                    "Updated_at" => \Carbon\Carbon::now(),
+                    "Created_at" => \Carbon\Carbon::now()
+                ];
+                CartItem::insert($cart);
+            } else {
+                $checkCart->Quantity += $request->amount;
+                $checkCart->save();
+            }
+        }
+
+        return $this->GetSession($request);
     }
 
     public function DeleteCartItem (Request $request, $id) {
-        // Under development
+        $cartItem = CartItem::where("Id", $id)->delete();
+
+        return $this->GetSession($request);
     }
 
     public function ToggleCoupon (Request $request) {
-        // Under development
+        $user = $request->userData;
+
+        $check = Coupon::where([
+            "User_id" => $user->id,
+            "CouponCode" => $request->code
+        ])->where("Expired_at", ">", \Carbon\Carbon::now())->first();
+
+        $sessionCheck = ShoppingSession::where("User_id", $user->id)->orderBy("Id", "DESC")->first();
+
+        if (!$check)
+        {
+            $sessionCheck->Coupon_id = null;
+        }
+        else
+        {
+            if ($sessionCheck->Coupon_id == $check->Id) $sessionCheck->Coupon_id = null;
+            else $sessionCheck->Coupon_id = $check->Id;
+        }
+
+        ShoppingSession::where("Id", $sessionCheck->Id)->update($sessionCheck);
+
+        return $this->GetSession($request);
     }
 }

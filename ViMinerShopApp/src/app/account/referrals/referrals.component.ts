@@ -18,7 +18,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class ReferralsComponent implements OnInit {
   refData: Array<User>;
-  referralCode: string;
+  referralcode: string;
   userData: User;
   buttonLoading = false;
 
@@ -52,7 +52,7 @@ export class ReferralsComponent implements OnInit {
       this.buttonLoading = false;
       this.getUserInfo();
       this.notifierService.notify('success', this.translatePipe.transform(`Tạo mã giới thiệu thành công!`));
-      // this.referralCode = data;
+      // this.referralcode = data;
     });
   }
 
@@ -64,7 +64,7 @@ export class ReferralsComponent implements OnInit {
     }
     )).subscribe(data => {
       this.userData = data;
-      this.referralCode = data.referralCode;
+      this.referralcode = data.referralcode;
     });
   }
 

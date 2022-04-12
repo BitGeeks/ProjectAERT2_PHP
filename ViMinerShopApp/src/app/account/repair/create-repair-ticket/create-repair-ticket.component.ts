@@ -62,7 +62,7 @@ export class CreateRepairTicketComponent implements OnInit {
   ];
   ticketReasonSelected = 'APPLY_FOR_REPAIR';
 
-  trackingNo = '';
+  trackingno = '';
 
   siteSelected = null;
 
@@ -122,7 +122,7 @@ export class CreateRepairTicketComponent implements OnInit {
             }
             this.ticketData = data;
             this.ticketReasonSelected = data.ticketReason;
-            data.repairItems.map(data => {
+            data.repairitem.map(data => {
               this.itemForRepair.push({
                 id: this.makeSomeSalt(10),
                 categoryName: data.product.productcategory.name,
@@ -134,7 +134,7 @@ export class CreateRepairTicketComponent implements OnInit {
               });
             });
             this.shippingMethodSelected = data.shippingLogisticsId;
-            this.trackingNo = data.trackingNo;
+            this.trackingno = data.trackingno;
             this.siteSelected = data.repairSiteId;
             this.accountService.getShippingMethodsByFlag('repair').pipe(take(1), catchError(error => {
               return throwError(error);
@@ -205,7 +205,7 @@ export class CreateRepairTicketComponent implements OnInit {
   requestUserData() {
     this.accountService.getUser().pipe(take(1)).subscribe(data => {
       this.userData = data;
-      this.shippingAddressSelected = data.userAddresss.length !== 0 ? data.userAddresss.filter(data => data.isDefault)[0].id : 0;
+      this.shippingAddressSelected = data.useraddresss.length !== 0 ? data.useraddresss.filter(data => data.isdefault)[0].id : 0;
       this.currentEditingObj = data;
     });
   }
@@ -337,29 +337,29 @@ export class CreateRepairTicketComponent implements OnInit {
   }
 
   submitRepairTicket() {
-    if (this.userData.userAddresss.length === 0) {
+    if (this.userData.useraddresss.length === 0) {
       this.notifierService.notify('error', this.translatePipe.transform('Bạn chưa nhập địa chỉ, vui lòng nhập địa chỉ và thử lại!'));
       return throwError(this.translatePipe.transform('Bạn chưa nhập địa chỉ, vui lòng nhập địa chỉ và thử lại!'));
     } else if (this.itemForRepair.length === 0) {
       this.notifierService.notify('error', this.translatePipe.transform('Bạn chưa có sản phẩm nào để sửa'));
       return throwError(this.translatePipe.transform('Bạn chưa có sản phẩm nào để sửa'));
-    } else if (this.trackingNo.length !== 8) {
+    } else if (this.trackingno.length !== 8) {
       this.notifierService.notify('error', this.translatePipe.transform('Mã theo dõi phải có 8 ký tự trở lên'));
       return throwError(this.translatePipe.transform('Mã theo dõi phải có 8 ký tự trở lên'));
     } else if (this.siteSelected === null) {
       this.notifierService.notify('error', this.translatePipe.transform('Bạn chưa chọn đại lý sửa chữa'));
       return throwError(this.translatePipe.transform('Bạn chưa chọn đại lý sửa chữa'));
     }
-    const { address, street_name, city, country, postal_code, telephone, mobile } = this.userData.userAddresss.filter(data => data.id === this.shippingAddressSelected)[0];
+    const { address, street_name, city, country, postal_code, telephone, mobile } = this.userData.useraddresss.filter(data => data.id === this.shippingAddressSelected)[0];
     const shippingAddressFormat = address + ', ' + street_name + ', ' + city + ', ' + country + ', ' + postal_code + ', ' + telephone + ', ' + mobile;
     if (!this.ticketId) {
-      this.repairService.submitRepairTicket(this.ticketReasonSelected, this.itemForRepair, this.shippingMethodSelected, shippingAddressFormat, this.siteSelected, this.returnShippingAddressSelected, this.lastRemark, this.trackingNo).pipe(take(1), catchError(error => throwError(error)))
+      this.repairService.submitRepairTicket(this.ticketReasonSelected, this.itemForRepair, this.shippingMethodSelected, shippingAddressFormat, this.siteSelected, this.returnShippingAddressSelected, this.lastRemark, this.trackingno).pipe(take(1), catchError(error => throwError(error)))
       .subscribe(() => {
         this.router.navigate([`/account/repair/tickets`]);
       });
     }
     else {
-      this.repairService.updateRepairTicket(this.ticketId, this.ticketReasonSelected, this.itemForRepair, this.shippingMethodSelected, shippingAddressFormat, this.siteSelected, this.returnShippingAddressSelected, this.lastRemark, this.trackingNo).pipe(take(1), catchError(error => throwError(error)))
+      this.repairService.updateRepairTicket(this.ticketId, this.ticketReasonSelected, this.itemForRepair, this.shippingMethodSelected, shippingAddressFormat, this.siteSelected, this.returnShippingAddressSelected, this.lastRemark, this.trackingno).pipe(take(1), catchError(error => throwError(error)))
       .subscribe(() => {
         this.router.navigate([`/account/repair/tickets`]);
       });

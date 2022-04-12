@@ -57,10 +57,10 @@ export class AddressComponent implements OnInit {
   requestUserData() {
     this.accountService.getUser().pipe(take(1)).subscribe(data => {
       this.userData = data;
-      if (data.userAddresss.length !== 0)
+      if (data.useraddresss.length !== 0)
       {
-        this.shippingAddressSelected = data.userAddresss.filter(data => data.isDefault)[0].id;
-        this.currentEditingObj = data.userAddresss.filter(data => data.isDefault)[0];
+        this.shippingAddressSelected = data.useraddresss.filter(data => data.isdefault)[0].id;
+        this.currentEditingObj = data.useraddresss.filter(data => data.isdefault)[0];
       }
 
       this.innerLoading = false;

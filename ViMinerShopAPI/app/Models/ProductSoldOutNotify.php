@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductSoldOutNotify extends Model
 {
     use HasFactory;
+    protected $table = "productsoldoutnotify";
     protected $fillable = [
         'Id', 'User_id', 'Product_id', 'quantity', 'Created_at', 'Updated_at'
     ];

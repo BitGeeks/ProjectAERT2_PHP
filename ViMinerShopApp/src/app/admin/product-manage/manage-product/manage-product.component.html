@@ -13,7 +13,7 @@
             <li class="thread-list-item-container row relative" *ngFor="let product of productList">
                 <div class="thread-list-item-avatar col-lg-1 col-md-1 col-sm-1 col-xs-2" style="padding-right: 10px">
                     <a routerLink="/detail/{{ product.id }}">
-                        <img src="{{ product.productimages.length !== 0 ? product.productimages[0].imageUrl : '' }}" alt="{{ product.productimages.length !== 0 ? product.productimages[0].alt_name : '' }}" />
+                        <img src="{{ product.productimages.length !== 0 ? product.productimages[0].imageurl : '' }}" alt="{{ product.productimages.length !== 0 ? product.productimages[0].alt_name : '' }}" />
                     </a>
                 </div>
                 <div class="thread-list-item-content col-lg-9 col-md-9 col-sm-9 col-xs-9">

@@ -12,6 +12,7 @@ class User extends Authenticatable implements JWTSubject
     use HasFactory, Notifiable;
 
     protected $primaryKey = 'email';
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,14 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'id', 'FirstName', 'LastName', 'username', 'SocialID', 'email', 'Telephone', 'UserImage', 'LoginFailedCount', 'password', 'isSubscribedToMailing', 'RoleVar_Id', 'ReferralCode', 'ReferralBy', 'created_at', 'updated_at'
     ];
+
+    public function useraddresss () {
+        return $this->hasMany(UserAddress::class, "User_id", "id");
+    }
+
+    public function shoppingsessions () {
+        return $this->hasMany(ShoppingSession::class, "User_id", "id");
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -47,7 +56,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-        return ['email' => $this->getAttributeValue('Email')];
+        return ['email' => $this->getAttributeValue('email')];
     }
 
     public function products()

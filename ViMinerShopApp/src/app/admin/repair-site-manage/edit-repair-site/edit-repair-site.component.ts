@@ -36,14 +36,14 @@ export class EditRepairSiteComponent implements OnInit {
     this.editRepairSite = new FormGroup({
       code: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
-      extraInfo: new FormControl(null, []),
+      extrainfo: new FormControl(null, []),
       note: new FormControl(null, []),
       location: new FormControl(null, [Validators.required])
     });
     this.editRepairSite.patchValue({
       code: this.initialState.code,
       name: this.initialState.name,
-      extraInfo: this.initialState.extraInfo,
+      extrainfo: this.initialState.extrainfo,
       note: this.initialState.note,
       location: this.initialState.location
     });
@@ -51,8 +51,8 @@ export class EditRepairSiteComponent implements OnInit {
 
   onEditSubmitted() {
     if (!this.editRepairSite.valid) { return; }
-    const { code, name, extraInfo, note, location } = this.editRepairSite.value;
-    this.adminService.editRepairSite(code, name, extraInfo, note, location)
+    const { code, name, extrainfo, note, location } = this.editRepairSite.value;
+    this.adminService.editRepairSite(code, name, extrainfo, note, location)
       .pipe(take(1), catchError(
         error => {
           this.FormExceptionOccurEv.emit(error);
