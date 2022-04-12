@@ -9,12 +9,13 @@ class Repair extends Model
 {
     use HasFactory;
     protected $table = "repair";
+    protected $primaryKey = "Id";
     protected $fillable = [
         'Id', 'User_id', 'Status', 'TicketReason', 'TrackingNo', 'ShippingLogisticsId', 'CustomerAddress', 'RepairSiteId', 'ReturnLogisticsId', 'Remark', 'Created_at', 'Updated_at'
     ];
 
     public function repairorder () {
-        return $this->hasMany(RepairOrder::class, "Repair_id", "Id");
+        return $this->hasOne(RepairOrder::class, "Repair_id", "Id");
     }
 
     public function repairitem () {

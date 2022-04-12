@@ -21,35 +21,35 @@ export const SET_CURRENT_CURRENCY = 'SET_CURRENT_CURRENCY';
 export class FetchProducts implements Action {
   readonly type = FETCH_PRODUCTS;
 
-  constructor(public payload: { page: number, sort: string, category: string, algorithm: string, minPrice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) {
+  constructor(public payload: { page: number, sort: string, category: string, algorithm: string, minprice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) {
   }
 }
 
 export class FetchProductsSuccess implements Action {
   readonly type = FETCH_PRODUCTS_SUCCESS;
 
-  constructor(public payload: { res: Array<ProductDetail>, effect: string, selectedPage: number, selectedSort: string, selectedCategory: string, selectedAlgorithm: string, minPrice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) {
+  constructor(public payload: { res: Array<ProductDetail>, effect: string, selectedPage: number, selectedSort: string, selectedCategory: string, selectedAlgorithm: string, minprice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) {
   }
 }
 
 export class FetchProductsAppend implements Action {
   readonly type = FETCH_PRODUCTS_APPEND;
 
-  constructor(public payload: { page: number, sort: string, category: string, algorithm: string, minPrice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) {
+  constructor(public payload: { page: number, sort: string, category: string, algorithm: string, minprice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) {
   }
 }
 
 export class FetchProductAppendSuccess implements Action {
   readonly type = FETCH_PRODUCTS_APPEND_SUCCESS;
 
-  constructor(public payload: { res: Array<ProductDetail>, effect: string, selectedPage: number, selectedSort: string, selectedCategory: string, selectedAlgorithm: string, minPrice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) {
+  constructor(public payload: { res: Array<ProductDetail>, effect: string, selectedPage: number, selectedSort: string, selectedCategory: string, selectedAlgorithm: string, minprice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) {
   }
 }
 
 export class FetchProductsCount implements Action {
   readonly type = FETCH_PRODUCTS_COUNT;
 
-  constructor(public payload: { category: string, algorithm: string, minPrice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) {
+  constructor(public payload: { category: string, algorithm: string, minprice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) {
   }
 }
 

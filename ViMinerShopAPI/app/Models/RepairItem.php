@@ -9,6 +9,7 @@ class RepairItem extends Model
 {
     use HasFactory;
     protected $table = "repairitem";
+    protected $primaryKey = "Id";
     protected $fillable = [
         'Id', 'RepairId', 'Product_id', 'Quantity', 'Remark'
     ];

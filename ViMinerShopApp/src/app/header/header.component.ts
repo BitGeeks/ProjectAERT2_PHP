@@ -133,7 +133,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   getProducts() {
-    this.store.dispatch(new BrowseActions.FetchProducts({ page: 0, sort: 'any', category: this.selectedCategory, algorithm: 'any', minPrice: '0', maxPrice: '0', minHashrate: '0', maxHashrate: '0', searchString: '' }));
+    this.store.dispatch(new BrowseActions.FetchProducts({ page: 0, sort: 'any', category: this.selectedCategory, algorithm: 'any', minprice: '0', maxPrice: '0', minHashrate: '0', maxHashrate: '0', searchString: '' }));
   }
 
   onUserClickTab(navItem: number) {

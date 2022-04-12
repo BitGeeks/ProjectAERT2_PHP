@@ -9,6 +9,7 @@ class SlideImage extends Model
 {
     use HasFactory;
     protected $table = "slideimage";
+    protected $primaryKey = "Id";
 
     protected $fillable = [
         'Id', 'Name', 'FillColor', 'ImgUrl', 'JumpTo'

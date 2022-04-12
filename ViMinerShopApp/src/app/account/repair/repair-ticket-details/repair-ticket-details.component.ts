@@ -47,18 +47,18 @@ export class RepairTicketDetailsComponent implements OnInit {
           )).subscribe(data => {
             this.titleMeta.setTitle(this.translatePipe.transform('Chi tiết phiếu sửa chữa mã ') + params.ticketId);
             this.ticketData = data;
-            this.requestRepairSite(data.repairSiteId);
+            this.requestRepairSite(data.repairsiteid);
             this.getShippingMethod();
           });
       });
   }
 
-  requestRepairSite(repairSiteId: string) {
+  requestRepairSite(repairsiteid: string) {
     this.repairService.getRepairSite().pipe(take(1), catchError(error => {
       return throwError(error);
     }
     )).subscribe(data => {
-      this.repairSiteName = data.filter(d => d.code === repairSiteId)[0].name;
+      this.repairSiteName = data.filter(d => d.code === repairsiteid)[0].name;
     });
   }
 
@@ -77,8 +77,8 @@ export class RepairTicketDetailsComponent implements OnInit {
     }
     )).subscribe(data => {
       this.shippingMethods = data;
-      this.setShippingName(this.ticketData.shippingLogisticsId, true);
-      this.setShippingName(this.ticketData.returnLogisticsId, false);
+      this.setShippingName(this.ticketData.shippinglogisticsid, true);
+      this.setShippingName(this.ticketData.returnlogisticsid, false);
     });
   }
 

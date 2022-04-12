@@ -82,16 +82,16 @@ export class ListRepairOrdersComponent implements OnInit {
     });
   }
 
-  repairOrderPayment(repairOrder: RepairOrder) {
+  repairOrderPayment(repairorder: RepairOrder) {
     const RepairOrderUpdate = this.modalService.open(RepairOrderPaymentDialogComponent, {
       backdrop: 'static',
       keyboard: false,
       centered: true
     });
     RepairOrderUpdate.componentInstance.initialState = {
-      repair_id: repairOrder.repair_id,
-      provider: repairOrder.provider,
-      price: repairOrder.price,
+      repair_id: repairorder.repair_id,
+      provider: repairorder.provider,
+      price: repairorder.price,
       providers: this.providerList
     };
     RepairOrderUpdate.componentInstance.FormSubmittedEv.subscribe($e => this.initPaginate());

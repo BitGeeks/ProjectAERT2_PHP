@@ -6,7 +6,7 @@
                 <div class="header"><h4 class="title" translate>Thông tin phiếu sửa</h4></div>
                 <div class="content">
                     <div class="types clearfix">
-                        <div class="item{{ flag.flag === ticketReasonSelected ? ' selected' : '' }}" *ngFor="let flag of ticketReason" (click)="onUserSelectTicketReason(flag.flag)">{{ flag.name }}</div>
+                        <div class="item{{ flag.flag === ticketReasonSelected ? ' selected' : '' }}" *ngFor="let flag of ticketreason" (click)="onUserSelectTicketReason(flag.flag)">{{ flag.name }}</div>
                     </div>
                 </div>
                 <div class="tips text-sm">

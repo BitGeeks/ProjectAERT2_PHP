@@ -78,7 +78,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
   selectedSort = 'any';
   selectedCategory = 'any';
   selectedAlgorithm = 'any';
-  minPrice = '0';
+  minprice = '0';
   maxPrice = '0';
   minHashrate = '0';
   maxHashrate = '0';
@@ -113,7 +113,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
       this.selectedSort = data.selectedSort;
       this.selectedCategory = data.selectedCategory;
       this.selectedAlgorithm = data.selectedAlgorithm;
-      this.minPrice = data.minPrice;
+      this.minprice = data.minprice;
       this.maxPrice = data.maxPrice;
 
       if (data.categories.length === 0) {
@@ -152,9 +152,9 @@ export class BrowseComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectMin(minPrice: string) {
-    this.minPriceReal = minPrice.trim().length === 0 ? '0' : (parseFloat(minPrice) / this.currencyRate).toFixed(2).toString();
-    this.minPrice = minPrice.trim().length === 0 ? '0' : minPrice.trim();
+  selectMin(minprice: string) {
+    this.minPriceReal = minprice.trim().length === 0 ? '0' : (parseFloat(minprice) / this.currencyRate).toFixed(2).toString();
+    this.minprice = minprice.trim().length === 0 ? '0' : minprice.trim();
     this.getProducts();
   }
 
@@ -192,7 +192,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
   }
 
   clearPrice() {
-    this.minPrice = '0';
+    this.minprice = '0';
     this.maxPrice = '0';
     this.getProducts();
   }
@@ -204,8 +204,8 @@ export class BrowseComponent implements OnInit, OnDestroy {
   }
 
   resetFilter() {
-    if (this.minPrice === '0' && this.maxPrice === '0' && this.minHashrate === '0' && this.maxHashrate === '0') { return; }
-    this.minPrice = '0';
+    if (this.minprice === '0' && this.maxPrice === '0' && this.minHashrate === '0' && this.maxHashrate === '0') { return; }
+    this.minprice = '0';
     this.maxPrice = '0';
     this.minHashrate = '0';
     this.maxHashrate = '0';
@@ -216,17 +216,17 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
   getProducts() {
     this.selectedPage = 0;
-    this.store.dispatch(new BrowseActions.FetchProducts({ page: this.selectedPage, sort: this.selectedSort, category: this.selectedCategory, algorithm: this.selectedAlgorithm, minPrice: this.minPriceReal, maxPrice: this.maxPriceReal, minHashrate: this.minHashrate, maxHashrate: this.maxHashrate, searchString: this.searchString }));
+    this.store.dispatch(new BrowseActions.FetchProducts({ page: this.selectedPage, sort: this.selectedSort, category: this.selectedCategory, algorithm: this.selectedAlgorithm, minprice: this.minPriceReal, maxPrice: this.maxPriceReal, minHashrate: this.minHashrate, maxHashrate: this.maxHashrate, searchString: this.searchString }));
     this.getProductsCount();
     this.selectedPage++;
   }
 
   getProductsCount() {
-    this.store.dispatch(new BrowseActions.FetchProductsCount({ category: this.selectedCategory, algorithm: this.selectedAlgorithm, minPrice: this.minPriceReal, maxPrice: this.maxPriceReal, minHashrate: this.minHashrate, maxHashrate: this.maxHashrate, searchString: this.searchString }));
+    this.store.dispatch(new BrowseActions.FetchProductsCount({ category: this.selectedCategory, algorithm: this.selectedAlgorithm, minprice: this.minPriceReal, maxPrice: this.maxPriceReal, minHashrate: this.minHashrate, maxHashrate: this.maxHashrate, searchString: this.searchString }));
   }
 
   getProductsAppend() {
-    this.store.dispatch(new BrowseActions.FetchProductsAppend({ page: this.selectedPage, sort: this.selectedSort, category: this.selectedCategory, algorithm: this.selectedAlgorithm, minPrice: this.minPriceReal, maxPrice: this.maxPriceReal, minHashrate: this.minHashrate, maxHashrate: this.maxHashrate, searchString: this.searchString }));
+    this.store.dispatch(new BrowseActions.FetchProductsAppend({ page: this.selectedPage, sort: this.selectedSort, category: this.selectedCategory, algorithm: this.selectedAlgorithm, minprice: this.minPriceReal, maxPrice: this.maxPriceReal, minHashrate: this.minHashrate, maxHashrate: this.maxHashrate, searchString: this.searchString }));
     this.selectedPage++;
   }
 

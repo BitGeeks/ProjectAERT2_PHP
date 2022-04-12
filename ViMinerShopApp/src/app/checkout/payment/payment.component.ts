@@ -152,7 +152,7 @@ export class PaymentComponent implements OnInit {
       category: 'DIGITAL_GOODS',
       unit_amount: {
           currency_code: 'USD',
-          value: res.shippingamount.toFixed(2).toString(),
+          value: res.shippingamount ? res.shippingamount.toFixed(2).toString() : 0,
       }
     });
   }

@@ -15,8 +15,8 @@ export class BrowseEffects {
       map((action: BrowseActions.FetchProducts) => {
         return action.payload;
       }),
-      switchMap((params: { page: number, sort: string, category: string, algorithm: string, minPrice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) => {
-        return this.productService.getProducts(params.page, params.sort, params.category, params.algorithm, params.minPrice, params.maxPrice, params.minHashrate, params.maxHashrate, encodeURIComponent(params.searchString))
+      switchMap((params: { page: number, sort: string, category: string, algorithm: string, minprice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) => {
+        return this.productService.getProducts(params.page, params.sort, params.category, params.algorithm, params.minprice, params.maxPrice, params.minHashrate, params.maxHashrate, encodeURIComponent(params.searchString))
           .pipe(map(res => {
             return {
               type: BrowseActions.FETCH_PRODUCTS_SUCCESS,
@@ -27,7 +27,7 @@ export class BrowseEffects {
                 selectedSort: params.sort,
                 selectedCategory: params.category,
                 selectedAlgorithm: params.algorithm,
-                minPrice: params.minPrice,
+                minprice: params.minprice,
                 maxPrice: params.maxPrice
               }
             };
@@ -41,8 +41,8 @@ export class BrowseEffects {
       map((action: BrowseActions.FetchProductsAppend) => {
         return action.payload;
       }),
-      mergeMap((params: { page: number, sort: string, category: string, algorithm: string, minPrice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) => {
-        return this.productService.getProducts(params.page, params.sort, params.category, params.algorithm, params.minPrice, params.maxPrice, params.minHashrate, params.maxHashrate, encodeURIComponent(params.searchString))
+      mergeMap((params: { page: number, sort: string, category: string, algorithm: string, minprice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) => {
+        return this.productService.getProducts(params.page, params.sort, params.category, params.algorithm, params.minprice, params.maxPrice, params.minHashrate, params.maxHashrate, encodeURIComponent(params.searchString))
           .pipe(map(res => {
             return {
               type: BrowseActions.FETCH_PRODUCTS_APPEND_SUCCESS,
@@ -53,7 +53,7 @@ export class BrowseEffects {
                 selectedSort: params.sort,
                 selectedCategory: params.category,
                 selectedAlgorithm: params.algorithm,
-                minPrice: params.minPrice,
+                minprice: params.minprice,
                 maxPrice: params.maxPrice
               }
             };
@@ -67,8 +67,8 @@ export class BrowseEffects {
       map((action: BrowseActions.FetchProductsCount) => {
         return action.payload;
       }),
-      switchMap((params: { category: string, algorithm: string, minPrice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) => {
-        return this.productService.getProductsCount(params.category, params.algorithm, params.minPrice, params.maxPrice, params.minHashrate, params.maxHashrate, encodeURIComponent(params.searchString))
+      switchMap((params: { category: string, algorithm: string, minprice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string }) => {
+        return this.productService.getProductsCount(params.category, params.algorithm, params.minprice, params.maxPrice, params.minHashrate, params.maxHashrate, encodeURIComponent(params.searchString))
           .pipe(map(res => {
             return {
               type: BrowseActions.FETCH_PRODUCTS_COUNT_SUCCESS,

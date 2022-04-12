@@ -102,45 +102,45 @@
           <span translate>Mã khuyến mãi</span>
         </div>
         <div class="coupons-child">
-          <div class="coupon" *ngFor="let coupon of couponList" [style.cursor]="(cartState | async).cart.total >= coupon.minPrice ? 'pointer' : 'auto'" (click)="selectCoupon(coupon)">
-            <div class="couponImg checked{{ (((cartState | async).cart.total < coupon.minPrice) || ((cartState | async).cart.coupon_id !== null && (cartState | async).cart.coupon_id === coupon.id)) ? ' disabled' : '' }}">
+          <div class="coupon" *ngFor="let coupon of couponList" [style.cursor]="(cartState | async).cart.total >= coupon.minprice ? 'pointer' : 'auto'" (click)="selectCoupon(coupon)">
+            <div class="couponImg checked{{ (((cartState | async).cart.total < coupon.minprice) || ((cartState | async).cart.coupon_id !== null && (cartState | async).cart.coupon_id === coupon.id)) ? ' disabled' : '' }}">
               <div class="couponInfo">
                 <div class="countAndMoney">
                   <div class="couponCount" *ngIf="!((cartState | async).cart.coupon_id !== null && (cartState | async).cart.coupon_id === coupon.id)">
-                    x{{ coupon.couponLeft }}
+                    x{{ coupon.couponleft }}
                   </div>
                   <div class="couponCount" *ngIf="((cartState | async).cart.coupon_id !== null && (cartState | async).cart.coupon_id === coupon.id)">
-                    x{{ coupon.couponLeft - 1 }}
+                    x{{ coupon.couponleft - 1 }}
                   </div>
                   <div class="money">
                     <span>
                       <span class="price" style="font-size: 12px;">
-                        {{ (((cartState | async).cart.total * (coupon.couponPercent/100)).toFixed(2)) * currencyRate | currency: currency }}
+                        {{ (((cartState | async).cart.total * (coupon.couponpercent/100)).toFixed(2)) * currencyRate | currency: currency }}
                       </span>
                     </span>
                   </div>
-                  <div class="couponType" *ngIf="coupon.couponType === 'sales'" translate>
+                  <div class="coupontype" *ngIf="coupon.coupontype === 'sales'" translate>
                     Bán hàng
                   </div>
-                  <div class="couponType" *ngIf="coupon.couponType === 'after_sales'" translate>
+                  <div class="coupontype" *ngIf="coupon.coupontype === 'after_sales'" translate>
                     Sau khi bán
                   </div>
-                  <div class="couponType" *ngIf="coupon.couponType === 'orders'" translate>
+                  <div class="coupontype" *ngIf="coupon.coupontype === 'orders'" translate>
                     Order
                   </div>
                 </div>
                 <div class="infoAndRules">
                   <div class="moreInfo">
                     <div class="names">
-                      <span class="couponName" *ngIf="coupon.couponCode !== null">
-                        {{ coupon.couponCode }}
+                      <span class="couponname" *ngIf="coupon.couponcode !== null">
+                        {{ coupon.couponcode }}
                       </span>
                     </div>
                     <div class="limitMoney" translate>
-                      Đơn hàng tối thiểu {{ coupon.minPrice * currencyRate | currency: currency }}
+                      Đơn hàng tối thiểu {{ coupon.minprice * currencyRate | currency: currency }}
                     </div>
                     <div class="couponIdAndDonate">
-                      <div class="couponId" translate>
+                      <div class="couponid" translate>
                         Hết hạn: {{ coupon.expired_at | date: "dd/MM/yyyy HH:ss" }}
                       </div>
                       <div class="btn-pane">
@@ -179,7 +179,7 @@
           <tr>
               <td translate>Coupon:</td>
               <td *ngIf="(cartState | async).cart.coupon_id !== null && (cartState | async).cart.coupon !== null">
-                {{ ((cartState | async).cart.total * ((cartState | async).cart.coupon.couponPercent/100)).toFixed(2) * currencyRate | currency: currency }}
+                {{ ((cartState | async).cart.total * ((cartState | async).cart.coupon.couponpercent/100)).toFixed(2) * currencyRate | currency: currency }}
               </td>
               <td *ngIf="(cartState | async).cart.coupon_id === null">-{{  0 * currencyRate | currency: currency }}</td>
           </tr>

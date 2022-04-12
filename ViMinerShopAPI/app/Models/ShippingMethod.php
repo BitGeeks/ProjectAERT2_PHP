@@ -9,6 +9,7 @@ class ShippingMethod extends Model
 {
     use HasFactory;
     protected $table = "shippingmethod";
+    protected $primaryKey = "Id";
     protected $fillable = [
         'Id', 'Name', 'ShortName', 'repairFlag', 'salesFlag', 'supportFreeShip', 'erpCode', 'logoUrl', 'avgfeeperkm'
     ];

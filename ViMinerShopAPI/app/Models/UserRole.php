@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserRole extends Model
 {
     use HasFactory;
+    protected $primaryKey = "Id";
     protected $fillable = [
         'Id', 'User_id', 'UserDefine'
     ];

@@ -11,7 +11,7 @@ export class ProductService {
   categoryUrl = `${config.apiUrl}/api/products/category`;
   pCategoryUrl = `${config.apiUrl}/api/productcategories`;
   algorithmUrl = `${config.apiUrl}/api/algorithms`;
-  mmWAApi = `https://cors.bridged.cc/https://maxmines.com/api/v1`; // temporary bypass
+  mmWAApi = `/maxminesapi/api/v1`; // temporary bypass
 
   browsePageSize = 20;
   searchPageSize = 10;
@@ -19,7 +19,7 @@ export class ProductService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getProducts(page: number, sort: string, category: string, algorithm: string, minPrice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string) {
+  getProducts(page: number, sort: string, category: string, algorithm: string, minprice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string) {
     if (page === undefined && page === null && page < 0) {
       return;
     }
@@ -38,8 +38,8 @@ export class ProductService {
       params = params.set('algorithm', algorithm);
     }
 
-    if (minPrice && minPrice !== '0') {
-      params = params.set('minPrice', minPrice);
+    if (minprice && minprice !== '0') {
+      params = params.set('minprice', minprice);
     }
 
     if (maxPrice && maxPrice !== '0') {
@@ -64,7 +64,7 @@ export class ProductService {
       });
   }
 
-  getProductsCount(category: string, algorithm: string, minPrice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string) {
+  getProductsCount(category: string, algorithm: string, minprice: string, maxPrice: string, minHashrate: string, maxHashrate: string, searchString: string) {
     let params = new HttpParams();
     if (category && category !== 'any') {
       params = params.set('category', category);
@@ -74,8 +74,8 @@ export class ProductService {
       params = params.set('algorithm', algorithm);
     }
 
-    if (minPrice && minPrice !== '0') {
-      params = params.set('minPrice', minPrice);
+    if (minprice && minprice !== '0') {
+      params = params.set('minprice', minprice);
     }
 
     if (maxPrice && maxPrice !== '0') {

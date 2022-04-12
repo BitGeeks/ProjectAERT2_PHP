@@ -186,8 +186,8 @@ export interface Checkout {
   updated_at: string;
   orderitems: Array<OrderItem>;
   shippingamount: number;
-  discountAmount: number;
-  couponAmount: number;
+  discountamount: number;
+  couponamount: number;
   subtotal: number;
 }
 
@@ -262,18 +262,18 @@ export class Repair {
   id: number;
   user_id: number;
   status: number;
-  ticketReason: string;
+  ticketreason: string;
   repairitem: Array<RepairItem>;
   trackingno: string;
-  shippingLogisticsId: number;
-  customerAddress: string;
-  repairSiteId: string;
-  repairSite: RepairSite;
-  returnLogisticsId: number;
+  shippinglogisticsid: number;
+  customeraddress: string;
+  repairsiteid: string;
+  repairsite: RepairSite;
+  returnlogisticsid: number;
   remark: string;
   created_at: string;
   updated_at: string;
-  repairOrder: RepairOrder;
+  repairorder: RepairOrder;
 }
 
 export class RepairOrder {
@@ -294,7 +294,7 @@ export class RepairSite {
 }
 
 export class RepairItem {
-  repairId: number;
+  repairid: number;
   product_id: string;
   product: ProductDetail;
   quantity: number;
@@ -303,27 +303,27 @@ export class RepairItem {
 
 export class Coupon {
   active: boolean;
-  couponCode: string;
-  couponPercent: number;
-  couponType: string;
+  couponcode: string;
+  couponpercent: number;
+  coupontype: string;
   created_at: string;
   desc: string;
   expired_at: string;
   id: number;
-  minPrice: number;
+  minprice: number;
   updated_at: string;
   user_id: number;
-  couponLeft: number;
+  couponleft: number;
 }
 
 export class CouponDonate {
   id: number;
-  transactionId: string;
+  transactionid: string;
   user_id: number;
-  receiverId: number;
-  couponId: string;
-  couponName: string;
-  couponPercent: string;
+  receiverid: number;
+  couponid: string;
+  couponname: string;
+  couponpercent: string;
   quantity: number;
   created_at: string;
   updated_at: string;
@@ -332,8 +332,8 @@ export class CouponDonate {
 export class UserRecord {
   id: number;
   user_id: number;
-  activityName: string;
-  userAgent: string;
+  activityname: string;
+  useragent: string;
   loglevel: number;
   ip: string;
   created_at: string;

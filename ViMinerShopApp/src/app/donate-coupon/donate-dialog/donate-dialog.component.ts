@@ -33,16 +33,16 @@ export class DonateDialogComponent implements OnInit {
       id: new FormControl(null, [Validators.required]),
       code: new FormControl(null, [Validators.required]),
       userId: new FormControl(null, [Validators.required]),
-      couponType: new FormControl(null, [Validators.required]),
+      coupontype: new FormControl(null, [Validators.required]),
       receiveMail: new FormControl(null, [Validators.required]),
       couponNumber: new FormControl(null, [Validators.required])
     });
     this.donateDialog.patchValue({
       id: this.couponState.id,
-      code: this.couponState.couponCode,
+      code: this.couponState.couponcode,
       userId: this.couponState.user_id,
-      couponType: this.couponState.couponType,
-      couponNumber: this.couponState.couponLeft
+      coupontype: this.couponState.coupontype,
+      couponNumber: this.couponState.couponleft
     });
   }
 
@@ -52,8 +52,8 @@ export class DonateDialogComponent implements OnInit {
 
   onUserCouponNumberChange(ev) {
     const { value } = ev.target;
-    if (value > this.couponState.couponLeft) { this.donateDialog.patchValue({
-      couponNumber: this.couponState.couponLeft
+    if (value > this.couponState.couponleft) { this.donateDialog.patchValue({
+      couponNumber: this.couponState.couponleft
     });
     }
   }

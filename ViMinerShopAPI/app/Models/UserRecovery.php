@@ -9,6 +9,7 @@ class UserRecovery extends Model
 {
     use HasFactory;
     protected $table = "userrecovery";
+    protected $primaryKey = "Id";
     protected $fillable = [
         'Id', 'User_id', 'recoveryCode', 'IsUsed', 'Created_at', 'Updated_at'
     ];

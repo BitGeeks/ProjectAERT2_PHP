@@ -9,16 +9,17 @@ class RepairOrder extends Model
 {
     use HasFactory;
     protected $table = "repairorder";
+    protected $primaryKey = "Id";
     protected $fillable = [
         'Id', 'Repair_id', 'Payment_id', 'Status', 'Provider', 'Price', 'Created_at', 'Updated_at'
     ];
 
     public function repair () {
-        return $this->belongsTo(Repair::class);
+        return $this->belongsTo(Repair::class, "Repair_id", "Id");
     }
 
     public function payment () {
-        return $this->belongsTo(PaymentDetail::class);
+        return $this->belongsTo(PaymentDetail::class, "Payment_id", "Id");
     }
 
     protected $hidden = [

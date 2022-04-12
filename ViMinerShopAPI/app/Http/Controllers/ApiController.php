@@ -247,7 +247,11 @@ class ApiController extends Controller
 
     public function get_user_stats_points (Request $request) {
         $user = $request->userData;
-        $numberPoint = OrderDetail::join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")->where("paymentdetails.status", "!=", 0)->count() * 1024;
+        $numberPoint = OrderDetail::
+        join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
+        ->where("paymentdetails.status", "!=", 0)
+        ->where("User_id", $user->id)
+        ->count() * 1024;
 
         return array(
             "balance" => .0,

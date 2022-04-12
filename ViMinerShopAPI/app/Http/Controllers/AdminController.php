@@ -165,8 +165,7 @@ class AdminController extends Controller
     }
 
     public function GetListRepairsByType (Request $request, $type) {
-        $repair = Repair::with(["repairorder", "repairitem", "repairsite"])
-                    ->where("Id", "!=", 0);
+        $repair = Repair::with(["repairorder", "repairitem", "repairsite"]);
 
         if ($type != 0) $repair = $repair->where("Status", $type - 1);
         if ($request->page != null && $request->size != null)
@@ -175,7 +174,7 @@ class AdminController extends Controller
                     ->take($request->size)
                     ->orderBy("Id", "DESC");
 
-        return response()->json($repair);
+        return response()->json($repair->get());
     }
 
     public function UpdateRepairTicketStatus (Request $request, $id) {
@@ -185,7 +184,7 @@ class AdminController extends Controller
 
         $repair->Status = $request->status;
 
-        Repair::where("Id", $repair->Id)->update($repair);
+        $repair->save();
 
         $customer = User::where("Id", $repair->User_id);
 
@@ -218,14 +217,14 @@ class AdminController extends Controller
                 "Created_at" => \Carbon\Carbon::now(),
                 "Updated_at" => \Carbon\Carbon::now()
             ];
-            $PaymentDetail = PaymentDetail::insert($PaymentDetail);
+            $PaymentDetailID = PaymentDetail::insert($PaymentDetail);
 
             $repairOrder = [
-                "Repair_id" => id,
+                "Repair_id" => $id,
                 "Status" => $request->repairOrderStatus,
                 "Provider" => 0,
                 "Price" => $request->price,
-                "Payment_id" => $PaymentDetail->Id,
+                "Payment_id" => $PaymentDetailID,
                 "Created_at" => \Carbon\Carbon::now(),
                 "Updated_at" => \Carbon\Carbon::now()
             ];

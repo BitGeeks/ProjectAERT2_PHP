@@ -11,6 +11,8 @@ class RepairSite extends Model
     protected $table = "repairsite";
     protected $primaryKey = "Code";
     public $timestamps = false;
+    public $incrementing = false;
+    
     protected $fillable = [
         'Code', 'Name', 'ExtraInfo', 'Note', 'Location', 'isDisabled'
     ];

@@ -24,37 +24,37 @@
                   <div class="couponInfo">
                     <div class="countAndMoney">
                       <div class="couponCount">
-                        x{{ coupon.couponLeft }}
+                        x{{ coupon.couponleft }}
                       </div>
                       <div class="money">
                         <span>
                           <span class="price" style="font-size: 12px;">
-                            {{ 'Giảm' | translate }} {{ coupon.couponPercent }}%
+                            {{ 'Giảm' | translate }} {{ coupon.couponpercent }}%
                           </span>
                         </span>
                       </div>
-                      <div class="couponType" *ngIf="coupon.couponType === 'sales'" translate>
+                      <div class="coupontype" *ngIf="coupon.coupontype === 'sales'" translate>
                         Bán hàng
                       </div>
-                      <div class="couponType" *ngIf="coupon.couponType === 'after_sales'" translate>
+                      <div class="coupontype" *ngIf="coupon.coupontype === 'after_sales'" translate>
                         Sau khi bán
                       </div>
-                      <div class="couponType" *ngIf="coupon.couponType === 'orders'" translate>
+                      <div class="coupontype" *ngIf="coupon.coupontype === 'orders'" translate>
                         Order
                       </div>
                     </div>
                     <div class="infoAndRules">
                       <div class="moreInfo">
                         <div class="names">
-                          <span class="couponName" *ngIf="coupon.couponCode !== null">
-                            {{ coupon.couponCode }}
+                          <span class="couponname" *ngIf="coupon.couponcode !== null">
+                            {{ coupon.couponcode }}
                           </span>
                         </div>
                         <div class="limitMoney" translate>
-                          Đơn hàng tối thiểu {{ coupon.minPrice * currencyRate | currency: currency }}
+                          Đơn hàng tối thiểu {{ coupon.minprice * currencyRate | currency: currency }}
                         </div>
                         <div class="couponIdAndDonate">
-                          <div class="couponId" translate>
+                          <div class="couponid" translate>
                             Hết hạn: {{ coupon.expired_at | date: "dd/MM/yyyy HH:ss" }}
                           </div>
                           <div class="btn-pane">

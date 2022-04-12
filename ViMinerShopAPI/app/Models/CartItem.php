@@ -9,6 +9,7 @@ class CartItem extends Model
 {
     use HasFactory;
     protected $table = "cartitems";
+    protected $primaryKey = "Id";
 
     protected $fillable = [
         'Id', 'Session_id', 'Product_id', 'Quantity', 'Created_at', 'Updated_at'

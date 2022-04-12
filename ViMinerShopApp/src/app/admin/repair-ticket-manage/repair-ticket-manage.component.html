@@ -31,9 +31,9 @@
                     <tr *ngFor="let ticket of ticketList">
                         <td>{{ ticket.id }}</td>
                         <td>{{ ticket.user_id }}</td>
-                        <td>{{ renderTicketStatus(ticket.status) }}/{{ renderRepairOrderStatus(ticket.repairOrder !== null ? ticket.repairOrder.status : 0) }}</td>
-                        <td>{{ ticket.ticketReason }}</td>
-                        <td>${{ ticket.repairOrder !== null ? ticket.repairOrder.price : '0' }}</td>
+                        <td>{{ renderTicketStatus(ticket.status) }}/{{ renderRepairOrderStatus(ticket.repairorder !== null ? ticket.repairorder.status : 0) }}</td>
+                        <td>{{ ticket.ticketreason }}</td>
+                        <td>${{ ticket.repairorder !== null ? ticket.repairorder.price : '0' }}</td>
                         <td>{{ ticket.created_at | date: "dd/MM/yyyy HH:ss" }}</td>
                         <td>
                             <a href="javascript:" (click)="updateTicketStatus(ticket)">Phiếu</a> / <a href="javascript:" (click)="editOrderRepair(ticket)">Đơn</a>

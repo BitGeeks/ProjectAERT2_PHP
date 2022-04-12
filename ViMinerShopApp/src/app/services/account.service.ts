@@ -157,9 +157,9 @@ export class AccountService {
     });
   }
 
-  startDonateTransaction(couponId: number, receiverMail: string, couponNumber: number) {
+  startDonateTransaction(couponid: number, receiverMail: string, couponNumber: number) {
     return this.httpClient.post(`${this.cDonateUrl}/transaction`, {
-      couponId,
+      couponid,
       receiverMail,
       couponNumber
     });

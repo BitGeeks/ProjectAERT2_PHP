@@ -43,26 +43,27 @@ class CDonateController extends Controller
     public function PostCouponDonate (Request $request) {
         $user = $request->userData;
 
-        $couponCheck = Coupon::where("Id", $request->couponId)
+        $couponCheck = Coupon::where("Id", $request->couponid)
                     ->where("User_id", $user->id)
                     ->where("Expired_at", ">", \Carbon\Carbon::now())
-                    ->get();
+                    ->first();
 
         $backCoupon = $couponCheck;
 
-        $receiver = User::where("email", $request->receiveMail)
+        $receiver = User::where("email", $request->receiverMail)
                     ->first();
 
-        if ($receiver == null || $couponCheck == null || $couponCheck->CouponLeft < $request->couponNumber || $receiver->id == $user->id) return "NotFound";
+        if ($receiver == null || $couponCheck == null || $couponCheck->CouponLeft < $request->couponNumber || $receiver->id == $user->id)
+            return "NotFound";
 
         $couponRCheck = Coupon::where("User_id", $receiver->id)
                         ->where("CouponCode", $couponCheck->CouponCode)
                         ->first();
         
         if ($couponCheck->CouponLeft == $request->couponNumber) {
-            if ($couponRCheck != null) {
+            if ($couponRCheck) {
                 $couponRCheck->CouponLeft += $request->couponNumber;
-                Coupon::where("Id", $request->couponId)
+                Coupon::where("Id", $request->couponid)
                     ->where("User_id", $user->id)
                     ->where("Expired_at", ">", \Carbon\Carbon::now())
                     ->delete();
@@ -71,7 +72,7 @@ class CDonateController extends Controller
             }
         } else {
             $couponCheck->CouponLeft -= $request->couponNumber;
-            if ($couponRCheck == null) {
+            if (!$couponRCheck) {
                 $newCoupon = [
                     "CouponCode" => $couponCheck->CouponCode,
                     "User_id" => $receiver->id,
@@ -90,14 +91,14 @@ class CDonateController extends Controller
                 $couponRCheck->CouponLeft += $request->couponNumber;
             }
         }
-        $couponRCheck->Updated_at = \Carbon\Carbon::now();
+
         $mischelper = new MiscHelper();
 
         $donate = [
             "TransactionId" => $mischelper->randomStr(20),
             "User_id" => $user->id,
             "ReceiverId" => $receiver->id,
-            "CouponId" => $backCoupon->id,
+            "CouponId" => $backCoupon->Id,
             "CouponName" => $backCoupon->CouponCode,
             "CouponPercent" => $backCoupon->CouponPercent,
             "Quantity" => $request->couponNumber,
@@ -105,7 +106,9 @@ class CDonateController extends Controller
             "Updated_at" => \Carbon\Carbon::now()
         ];
         CouponDonate::insert($donate);
-        Coupon::update($couponRCheck);
+        $couponCheck->save();
+        if ($couponRCheck)
+            $couponRCheck->save();
 
         return response()->json("");
     }

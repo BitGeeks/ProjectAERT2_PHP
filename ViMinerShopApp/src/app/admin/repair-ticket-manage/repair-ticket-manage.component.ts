@@ -76,8 +76,8 @@ export class RepairTicketManageComponent implements OnInit {
     });
     RepairOrderUpdate.componentInstance.initialState = {
       id: ticket.id,
-      price: ticket.repairOrder !== null ? ticket.repairOrder.price : 0,
-      repairOrderStatus: ticket.repairOrder !== null ? ticket.repairOrder.status : 0
+      price: ticket.repairorder !== null ? ticket.repairorder.price : 0,
+      repairOrderStatus: ticket.repairorder !== null ? ticket.repairorder.status : 0
     };
     RepairOrderUpdate.componentInstance.FormSubmittedEv.subscribe($e => this.getRepairTicketList());
     RepairOrderUpdate.componentInstance.FormExceptionOccurEv.subscribe($e => this.onException($e));

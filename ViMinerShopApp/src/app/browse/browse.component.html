@@ -38,7 +38,7 @@
           <div class="row">
             <p translate>Lọc theo giá <span [innerText]="'(' + currency + ')'"></span></p>
             <div class="min col-md-4">
-              <input class="vms-element-input__inner browse-value" placeholder="Nhập giá thấp nhất" type="number" min="0.00" (change)="selectMin($event.target.value)" value="{{minPrice !== '0' ? minPrice : ''}}">
+              <input class="vms-element-input__inner browse-value" placeholder="Nhập giá thấp nhất" type="number" min="0.00" (change)="selectMin($event.target.value)" value="{{minprice !== '0' ? minprice : ''}}">
             </div>
             <div class="max col-md-4">
               <input class="vms-element-input__inner browse-value" placeholder="Nhập giá cao nhất" type="number" min="0.00" (change)="selectMax($event.target.value)" value="{{maxPrice !== '0' ? maxPrice : ''}}">
@@ -64,7 +64,7 @@
                 <option *ngFor="let s of sortBy" [value]="s.value" [selected]="s.value === selectedSort ? true : false">{{ s.display }}</option>
             </select>
           </div>
-          <button class="bt-button bt-primary button-lg reset-btn{{ (minPrice === '0' && maxPrice === '0' && minHashrate === '0' && maxHashrate === '0') ? ' inactive' : '' }}" [disabled]="minPrice === '0' && maxPrice === '0' && minHashrate === '0' && maxHashrate === '0'" (click)="resetFilter()">
+          <button class="bt-button bt-primary button-lg reset-btn{{ (minprice === '0' && maxPrice === '0' && minHashrate === '0' && maxHashrate === '0') ? ' inactive' : '' }}" [disabled]="minprice === '0' && maxPrice === '0' && minHashrate === '0' && maxHashrate === '0'" (click)="resetFilter()">
             <span translate>
               Đặt lại bộ lọc
             </span>

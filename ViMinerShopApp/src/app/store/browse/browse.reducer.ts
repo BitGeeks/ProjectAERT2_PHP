@@ -13,7 +13,7 @@ export interface BrowseState {
   selectedSort: string;
   selectedCategory: string;
   selectedAlgorithm: string;
-  minPrice: string;
+  minprice: string;
   maxPrice: string;
   errors: Array<HttpError>;
   loading: boolean;
@@ -31,7 +31,7 @@ const initialState: BrowseState = {
   selectedSort: 'any',
   selectedCategory: 'any',
   selectedAlgorithm: 'any',
-  minPrice: '0',
+  minprice: '0',
   maxPrice: '0',
   errors: [],
   loading: false,
@@ -55,7 +55,7 @@ export function browseReducer(state = initialState, action: BrowseActions.Browse
         selectedSort: action.payload.selectedSort,
         selectedCategory: action.payload.selectedCategory,
         selectedAlgorithm: action.payload.selectedAlgorithm,
-        minPrice: action.payload.minPrice,
+        minprice: action.payload.minprice,
         maxPrice: action.payload.maxPrice,
         products: action.payload.res,
         canFetch: action.payload.res.length !== 0,
@@ -70,7 +70,7 @@ export function browseReducer(state = initialState, action: BrowseActions.Browse
         selectedSort: action.payload.selectedSort,
         selectedCategory: action.payload.selectedCategory,
         selectedAlgorithm: action.payload.selectedAlgorithm,
-        minPrice: action.payload.minPrice,
+        minprice: action.payload.minprice,
         maxPrice: action.payload.maxPrice,
         products: [...state.products, ...action.payload.res],
         canFetch: action.payload.res.length !== 0,

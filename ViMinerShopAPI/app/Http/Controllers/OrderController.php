@@ -15,7 +15,11 @@ class OrderController extends Controller
 {
     public function GetAllOrderByType (Request $request, $type) {
         $user = $request->userData;
-        $results = OrderDetail::with(["paymentdetail", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
+        $results = OrderDetail::
+        select([
+            'orderdetails.Id', 'orderdetails.User_id', 'orderdetails.SubTotal', 'orderdetails.CouponAmount', 'orderdetails.DiscountAmount', 'orderdetails.ShippingAmount', 'orderdetails.Total', 'orderdetails.Payment_id', 'orderdetails.ShippingMethod_id', 'orderdetails.ShippingAddress', 'orderdetails.Discount_id', 'orderdetails.Coupon_id', 'orderdetails.LocationName', 'orderdetails.Latitute', 'orderdetails.Longitute', 'orderdetails.Created_at', 'orderdetails.Updated_at'
+        ])
+        ->with(["paymentdetail", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
                     ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
                     ->where(["User_id" => $user->id]);
 
@@ -27,7 +31,7 @@ class OrderController extends Controller
         elseif ($type == 6) $results = $results->where("paymentdetails.status", 4);
         elseif ($type == 7) {
             $expDate = \Carbon\Carbon::now()->subDays(30);
-            $results = $results->whereDate('Created_at', '>=', $expDate);
+            $results = $results->whereDate('orderdetails.created_at', '>=', $expDate);
         }
 
         return response()->json($results->get());
@@ -47,7 +51,7 @@ class OrderController extends Controller
         elseif ($type == 6) $results = $results->where("paymentdetails.status", 4);
         elseif ($type == 7) {
             $expDate = \Carbon\Carbon::now()->subDays(30);
-            $results = $results->whereDate('Created_at', '>=', $expDate);
+            $results = $results->whereDate('orderdetails.Created_at', '>=', $expDate);
         }
 
         return response()->json($results->count());
@@ -313,7 +317,7 @@ class OrderController extends Controller
                 ->where("Expired_at", ">=", \Carbon\Carbon::now());
         }
         elseif ($type == 1) {
-            return OrderDetails::where("User_id", $user->id)->where("Coupon_id", "!=", null)->count();
+            return OrderDetail::where("User_id", $user->id)->where("Coupon_id", "!=", null)->count();
         }
         elseif ($type == 2) {
             $couponCount = $couponCount
@@ -346,8 +350,12 @@ class OrderController extends Controller
     public function GetUsedCoupon (Request $request) {
         $user = $request->userData;
 
-        $coupon = OrderDetail::select("coupon")->with("coupon")
-                ->where("User_id", $user->id)
+        $coupon = OrderDetail::
+        with("coupon")->select([
+            'coupon.Id', 'coupon.CouponCode', 'coupon.User_id', 'coupon.Desc', 'coupon.CouponPercent', 'coupon.CouponType', 'coupon.MinPrice', 'coupon.Active', 'coupon.CouponLeft', 'coupon.Expired_at', 'coupon.Created_at', 'coupon.Updated_at'
+        ])
+                ->join("coupon", "coupon.id", "=", "orderdetails.coupon_id")
+                ->where("orderdetails.User_id", $user->id)
                 ->where("Coupon_id", "!=", null);
 
         if (isset($request->size) && $request->size != null)

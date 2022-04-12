@@ -9,6 +9,7 @@ class ShoppingSession extends Model
 {
     use HasFactory;
     protected $table = "shoppingsessions";
+    protected $primaryKey = "Id";
     protected $fillable = [
         'Id', 'User_id', 'Total', 'Coupon_id', 'Discount_id', 'Created_at', 'Updated_at'
     ];

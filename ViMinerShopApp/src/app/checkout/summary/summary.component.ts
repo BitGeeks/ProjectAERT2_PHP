@@ -110,12 +110,12 @@ export class SummaryComponent implements OnInit, OnDestroy {
     this.termsAccepted = !this.termsAccepted;
   }
 
-  countTotalCoupon = (couponList) => couponList.reduce((a, b) => a + parseFloat(b.couponPercent), 0);
+  countTotalCoupon = (couponList) => couponList.reduce((a, b) => a + parseFloat(b.couponpercent), 0);
 
   totalAmountCalc(session: ShoppingSession) {
     let subtotal = session.total;
     if (session.coupon !== null) {
-      subtotal -= (subtotal * (session.coupon.couponPercent / 100));
+      subtotal -= (subtotal * (session.coupon.couponpercent / 100));
     }
     return subtotal;
   }
@@ -136,9 +136,9 @@ export class SummaryComponent implements OnInit, OnDestroy {
 
   selectCoupon(coupon: Coupon) {
     this.cartitemsubscription = this.cartState.subscribe((cartState: CartState) => {
-      if (cartState.cart !== null && cartState.cart.total < coupon.minPrice /*|| (cartState.cart.coupon_id !== null && cartState.cart.coupon_id === coupon.id)*/) { return; }
+      if (cartState.cart !== null && cartState.cart.total < coupon.minprice /*|| (cartState.cart.coupon_id !== null && cartState.cart.coupon_id === coupon.id)*/) { return; }
       this.couponSelected = coupon.id;
-      this.cartService.toggleCoupon(coupon.couponCode).pipe(take(1), catchError(
+      this.cartService.toggleCoupon(coupon.couponcode).pipe(take(1), catchError(
         error => {
           this.notifierService.notify('error', this.translatePipe.transform('Có lỗi xảy ra trong quá trình sử dụng coupon của bạn!'));
           if (error.status === 400) {

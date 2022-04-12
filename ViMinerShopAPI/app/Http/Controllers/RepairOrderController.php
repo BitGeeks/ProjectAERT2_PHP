@@ -6,6 +6,7 @@ use App\Models\Repair;
 use Illuminate\Http\Request;
 use App\Models\RepairOrder;
 use App\Models\PaymentProvider;
+use App\Models\PaymentDetail;
 
 class RepairOrderController extends Controller
 {
@@ -13,20 +14,28 @@ class RepairOrderController extends Controller
         $user = $request->userData;
 
         $orderList = Repair::with(["repairorder", "repairorder.repair", "repairorder.repair.repairitem"])
-            ->select("repairorder")
-            ->where("User_id", $user->id)
-            ->where("repairorder", "!=", null);
+            // ->join("repairorder", "repairorder.repair_id", "=", "repair.id")
+            // ->select([
+            //     'repair.Id', 'repairorder.Repair_id', 'repairorder.Payment_id', 'repairorder.Status', 'repairorder.Provider', 'repairorder.Price', 'repairorder.Created_at', 'repairorder.Updated_at'
+            // ])
+            ->where("User_id", $user->id);;
 
         if ($request->type != -1)
             $orderList = $orderList
                 ->where("Status", "=", $request->type);
 
         $orderList = $orderList
-            ->orderBy("Id", "DESC")
+            ->orderBy("repair.Id", "DESC")
             ->skip($request->page * $request->size)
             ->take($request->size)->get();
 
-        return response()->json($orderList);
+        $dataBack = [];
+
+        foreach ($orderList as $repairfix) {
+            array_push($dataBack, $repairfix->repairorder);
+        }
+
+        return response()->json($dataBack);
     }
 
     public function OnPaymentPaypal (Request $request) {
@@ -47,8 +56,9 @@ class RepairOrderController extends Controller
             $payment->Status = 1;
             $payment->Updated_at = \Carbon\Carbon::now();
             $payment->Provider = $provider->Id;
-
-            PaymentDetail::where("Id", $payment->Id)->update($payment);
+            
+            $repair->save();
+            $payment->save();
 
             $this->afterPaymentSuccessful($user, $repair, "thanh toán qua Paypal");
 
@@ -67,8 +77,7 @@ class RepairOrderController extends Controller
         $orderList = Repair::with("repairorder")
             ->join("repairorder", "repairorder.repair_id", "=", "repair.id")
             ->select("repairorder.*")
-            ->where("User_id", $user->Id)
-            ->where("repairorder.id", "!=", null);
+            ->where("User_id", $user->id);;
 
         if ($type != -1)
             $orderList = $orderList
@@ -78,13 +87,13 @@ class RepairOrderController extends Controller
     }
 
     public function GetRepairOrder (Request $request, $id) {
-        $repairOrder = RepairOrder::where("Id", $id);
+        $repairOrder = RepairOrder::where("repairOrderId", $id)->first();
 
         if (!$repairOrder)
         {
             return "NotFound";
         }
 
-        return response()->json(repairOrder);
+        return response()->json($repairOrder);
     }
 }

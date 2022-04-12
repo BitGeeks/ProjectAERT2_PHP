@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Algorithm extends Model
 {
     use HasFactory;
+    protected $primaryKey = "Id";
     protected $fillable = [
         'Id', 'Name', 'Desc', 'Slug', 'Created_at', 'Updated_at'
     ];

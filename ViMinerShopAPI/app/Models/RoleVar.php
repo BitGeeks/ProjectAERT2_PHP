@@ -11,6 +11,7 @@ class RoleVar extends Model
 {
     use HasFactory;
     protected $table = "rolevars";
+    protected $primaryKey = "Id";
     protected $fillable = [
         'Id', 'RoleName', 'IsAdmin', 'IsSeller'
     ];

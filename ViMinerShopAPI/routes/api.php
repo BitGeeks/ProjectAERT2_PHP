@@ -114,8 +114,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::put("order/paymentsetup", [OrderController::class, 'PutOrderDetail']);
     Route::get("order/couponCount/{type}", [OrderController::class, 'GetCouponCount']);
     Route::get("order/availableCoupon", [OrderController::class, 'GetAvailableCoupon']);
-    Route::post("order/usedCoupon", [OrderController::class, 'GetUsedCoupon']);
-    Route::post("order/expiredCoupon", [OrderController::class, 'GetExpiredCoupon']);
+    Route::get("order/usedCoupon", [OrderController::class, 'GetUsedCoupon']);
+    Route::get("order/expiredCoupon", [OrderController::class, 'GetExpiredCoupon']);
     
     Route::get("paymentproviders/providers", [PaymentProviderController::class, 'GetPaymentProvider']);
     Route::get("paymentproviders/{id}", [PaymentProviderController::class, 'GetPaymentProviderID']);
@@ -124,7 +124,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get("productinventories/info/{id}", [ProductInventoriesController::class, 'GetProductInventory']);
 
     Route::get("repairorder/all", [RepairOrderController::class, 'GetRepairOrders']);
-    Route::post("repairorder/onpaymentpaypal", [RepairOrderController::class, 'OnPaymentPaypal']);
+    Route::post("repairorder/onPaymentPaypal", [RepairOrderController::class, 'OnPaymentPaypal']);
     Route::get("repairorder/count/{type}", [RepairOrderController::class, 'GetRepairOrderCount']);
     Route::post("repairorder/{id}", [RepairOrderController::class, 'GetRepairOrder']);
 

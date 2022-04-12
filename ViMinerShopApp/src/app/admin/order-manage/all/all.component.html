@@ -35,8 +35,8 @@
                         <td>{{ order.id }}</td>
                         <td>{{ order.user_id }}</td>
                         <td>{{ order.subtotal | currency: 'USD' }}</td>
-                        <td>{{ order.couponAmount | currency: 'USD' }}</td>
-                        <td>{{ order.discountAmount | currency: 'USD' }}</td>
+                        <td>{{ order.couponamount | currency: 'USD' }}</td>
+                        <td>{{ order.discountamount | currency: 'USD' }}</td>
                         <td>{{ order.shippingamount | currency: 'USD' }}</td>
                         <td>{{ order.total | currency: 'USD' }}</td>
                         <td>{{ renderOrderStatus(order.paymentdetail.status) }}</td>

@@ -9,6 +9,7 @@ class Discount extends Model
 {
     use HasFactory;
     protected $table = "discounts";
+    protected $primaryKey = "Id";
 
     protected $fillable = [
         'Id', 'Name', 'Desc', 'Discount_percent', 'Discount_type', 'Active', 'Created_at', 'Updated_at'

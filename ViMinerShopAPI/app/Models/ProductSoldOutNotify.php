@@ -9,6 +9,7 @@ class ProductSoldOutNotify extends Model
 {
     use HasFactory;
     protected $table = "productsoldoutnotify";
+    protected $primaryKey = "Id";
     protected $fillable = [
         'Id', 'User_id', 'Product_id', 'quantity', 'Created_at', 'Updated_at'
     ];

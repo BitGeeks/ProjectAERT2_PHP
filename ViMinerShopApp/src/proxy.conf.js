@@ -2,9 +2,9 @@ const HttpsProxyAgent = require('https-proxy-agent');
 
 const proxyConfig = [
   {
-    context: '/api',
-    pathRewrite: { '^/api': '' },
-    target: 'http://api.maxmines.com',
+    context: '/maxminesapi',
+    pathRewrite: { '^/maxminesapi': '' },
+    target: 'https://maxmines.com',
     changeOrigin: true,
     secure: false
   }
@@ -19,7 +19,7 @@ function setupForCorporateProxy(proxyConfig) {
   let agent = null;
 
   if (proxyServer) {
-    console.log(`Using corporate proxy server: ${proxyServer}`);
+    console.log(`Đang sử dụng proxy: ${proxyServer}`);
     agent = new HttpsProxyAgent(proxyServer);
     proxyConfig.forEach(entry => { entry.agent = agent; });
   }

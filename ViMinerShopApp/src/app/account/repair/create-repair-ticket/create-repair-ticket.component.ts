@@ -54,7 +54,7 @@ export class CreateRepairTicketComponent implements OnInit {
   isEditDialogOpening = false;
   currentEditingObj = {};
 
-  ticketReason = [
+  ticketreason = [
     {
       name: 'Yêu cầu sửa',
       flag: 'APPLY_FOR_REPAIR'
@@ -121,7 +121,7 @@ export class CreateRepairTicketComponent implements OnInit {
               this.router.navigate([`/account/repair/tickets`]);
             }
             this.ticketData = data;
-            this.ticketReasonSelected = data.ticketReason;
+            this.ticketReasonSelected = data.ticketreason;
             data.repairitem.map(data => {
               this.itemForRepair.push({
                 id: this.makeSomeSalt(10),
@@ -133,15 +133,15 @@ export class CreateRepairTicketComponent implements OnInit {
                 remark: data.remark
               });
             });
-            this.shippingMethodSelected = data.shippingLogisticsId;
+            this.shippingMethodSelected = data.shippinglogisticsid;
             this.trackingno = data.trackingno;
-            this.siteSelected = data.repairSiteId;
+            this.siteSelected = data.repairsiteid;
             this.accountService.getShippingMethodsByFlag('repair').pipe(take(1), catchError(error => {
               return throwError(error);
             }
             )).subscribe(dataz => {
               this.returnShippingMethods = dataz;
-              this.returnShippingAddressSelected = data.returnLogisticsId;
+              this.returnShippingAddressSelected = data.returnlogisticsid;
             });
             this.acceptTerms = true;
             this.lastRemark = data.remark;
@@ -343,7 +343,7 @@ export class CreateRepairTicketComponent implements OnInit {
     } else if (this.itemForRepair.length === 0) {
       this.notifierService.notify('error', this.translatePipe.transform('Bạn chưa có sản phẩm nào để sửa'));
       return throwError(this.translatePipe.transform('Bạn chưa có sản phẩm nào để sửa'));
-    } else if (this.trackingno.length !== 8) {
+    } else if (this.trackingno.length <= 8) {
       this.notifierService.notify('error', this.translatePipe.transform('Mã theo dõi phải có 8 ký tự trở lên'));
       return throwError(this.translatePipe.transform('Mã theo dõi phải có 8 ký tự trở lên'));
     } else if (this.siteSelected === null) {

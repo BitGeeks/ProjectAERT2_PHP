@@ -48,7 +48,7 @@ class CartController extends Controller
 
             foreach ($ctext->cartitems as $c) {
                 $cartPrice = $c->product->PricePromotion != 0 ? $c->product->PricePromotion : $c->product->Price;
-                $total += $c->product->productinventory->Quantity * $cartPrice;
+                $total += $c->Quantity * $cartPrice;
             }
 
             $ctext->Total = $total;
@@ -163,11 +163,11 @@ class CartController extends Controller
                 $sessionCheck->coupon->Active &&
                 $sessionCheck->coupon->MinPrice < $request->Total
             )) {
-                $cptick = Coupon::where("Id", $sessionCheck->coupon->Coupon_id)->first();
+                $cptick = Coupon::where("Id", $sessionCheck->coupon->Id)->first();
                 $couponAmount = $total * (floatval($sessionCheck->coupon->CouponPercent) / 100);
                 $total -= $total * (floatval($sessionCheck->coupon->CouponPercent) / 100);
-                $cptick->coupon->CouponLeft -= 1;
-                Coupon::update($cptick);
+                $cptick->CouponLeft -= 1;
+                $cptick->save();
             }
 
             $PaymentDetail = [
@@ -384,7 +384,7 @@ class CartController extends Controller
             else $sessionCheck->Coupon_id = $check->Id;
         }
 
-        ShoppingSession::where("Id", $sessionCheck->Id)->update($sessionCheck);
+        $sessionCheck->save();
 
         return $this->GetSession($request);
     }

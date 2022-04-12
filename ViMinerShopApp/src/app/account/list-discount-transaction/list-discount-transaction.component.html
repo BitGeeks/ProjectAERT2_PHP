@@ -92,12 +92,12 @@
                         <tbody>
                             <ng-container *ngIf="listTransaction && listTransaction.length !== 0">
                                 <tr *ngFor="let trans of listTransaction">
-                                    <td value="{{ trans.transactionId }}"><span>{{ trans.transactionId.slice(0, 7) + "..." }}</span></td>
-                                    <td *ngIf="selectTab === 0"><span>{{ trans.receiverId }}</span></td>
+                                    <td value="{{ trans.transactionid }}"><span>{{ trans.transactionid.slice(0, 7) + "..." }}</span></td>
+                                    <td *ngIf="selectTab === 0"><span>{{ trans.receiverid }}</span></td>
                                     <td *ngIf="selectTab === 1"><span>{{ trans.user_id }}</span></td>
-                                    <td><span>{{ trans.couponId }}</span></td>
-                                    <td><span>{{ trans.couponName }}</span></td>
-                                    <td><span>{{ trans.couponPercent }}</span></td>
+                                    <td><span>{{ trans.couponid }}</span></td>
+                                    <td><span>{{ trans.couponname }}</span></td>
+                                    <td><span>{{ trans.couponpercent }} %</span></td>
                                     <td><span>{{ trans.quantity }}</span></td>
                                     <td><span>{{ trans.created_at | date: "dd/MM/yyyy HH:mm" }}</span></td>
                                 </tr>

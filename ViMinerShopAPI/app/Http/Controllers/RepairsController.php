@@ -113,7 +113,7 @@ class RepairsController extends Controller
         }
 
         $repair->TicketReason = $cobj->reasonFlag;
-        $repair->TrackingNo = $cobj->trackingNo;
+        $repair->TrackingNo = $cobj->trackingno;
         $repair->ShippingLogisticsId = $cobj->shippingId;
         $repair->CustomerAddress = $cobj->userAddress;
         $repair->RepairSiteId = $cobj->repairSiteCode;
@@ -145,7 +145,7 @@ class RepairsController extends Controller
             "Status" => 0,
             "User_id" => $user->id,
             "TicketReason" => $cobj->reasonFlag,
-            "TrackingNo" => $cobj->trackingNo,
+            "TrackingNo" => $cobj->trackingno,
             "ShippingLogisticsId" => $cobj->shippingId,
             "CustomerAddress" => $cobj->userAddress,
             "RepairSiteId" => $cobj->repairSiteCode,
@@ -192,7 +192,7 @@ class RepairsController extends Controller
 
         $repair->Status = 5; //Cancel
 
-        Repair::where("Id", $repair->Id)->update($repair);
+        $repair->save();
 
         return response()->json($repair);
     }

@@ -9,6 +9,7 @@ class Hpnotice extends Model
 {
     use HasFactory;
     protected $table = 'hpnotice';
+    protected $primaryKey = "Id";
 
     protected $fillable = [
         'Id', 'Title', 'Content'
