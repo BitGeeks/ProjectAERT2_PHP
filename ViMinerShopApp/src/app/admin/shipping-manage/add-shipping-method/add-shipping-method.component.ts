@@ -24,19 +24,19 @@ export class AddShippingMethodComponent implements OnInit {
     this.addShippingForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       shortname: new FormControl(null, [Validators.required]),
-      repairFlag: new FormControl(null, []),
-      salesFlag: new FormControl(null, []),
-      supportFreeShip: new FormControl(null, []),
-      erpCode: new FormControl(null, [Validators.required]),
-      logoUrl: new FormControl(null, []),
+      repairflag: new FormControl(null, []),
+      salesflag: new FormControl(null, []),
+      supportfreeship: new FormControl(null, []),
+      erpcode: new FormControl(null, [Validators.required]),
+      logourl: new FormControl(null, []),
       avgfeeperkm: new FormControl(null, [Validators.required])
     });
   }
 
   FormSubmittedEv() {
     if (!this.addShippingForm.valid) { return; }
-    const { name, shortname, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm } = this.addShippingForm.value;
-    this.adminService.addShippingMethod(name, shortname, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm)
+    const { name, shortname, repairflag, salesflag, supportfreeship, erpcode, logourl, avgfeeperkm } = this.addShippingForm.value;
+    this.adminService.addShippingMethod(name, shortname, repairflag, salesflag, supportfreeship, erpcode, logourl, avgfeeperkm)
       .pipe(take(1), catchError(
         error => {
           return throwError(error);

@@ -71,24 +71,24 @@ export class EditHomePageSlideComponent implements OnInit {
     this.editHomepageSlide = new FormGroup({
       id: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
-      fillColor: new FormControl(null, [Validators.required]),
-      imgUrl: new FormControl(null, [Validators.required]),
-      jumpTo: new FormControl(null, [Validators.required])
+      fillcolor: new FormControl(null, [Validators.required]),
+      imgurl: new FormControl(null, [Validators.required]),
+      jumpto: new FormControl(null, [Validators.required])
     });
     this.editHomepageSlide.patchValue({
       id: this.initialState.id,
       name: this.initialState.name,
-      fillColor: this.initialState.fillColor,
-      imgUrl: this.initialState.imgUrl,
-      jumpTo: this.initialState.jumpTo
+      fillcolor: this.initialState.fillcolor,
+      imgurl: this.initialState.imgurl,
+      jumpto: this.initialState.jumpto
     });
-    this.imageurl = this.initialState.imgUrl !== null;
+    this.imageurl = this.initialState.imgurl !== null;
   }
 
   onEditSubmitted() {
     if (!this.editHomepageSlide.valid) { return; }
-    const { id, name, fillColor, imgUrl, jumpTo } = this.editHomepageSlide.value;
-    this.adminService.editSlideImage(id, name, fillColor, imgUrl, jumpTo)
+    const { id, name, fillcolor, imgurl, jumpto } = this.editHomepageSlide.value;
+    this.adminService.editSlideImage(id, name, fillcolor, imgurl, jumpto)
       .pipe(take(1), catchError(
         error => {
           this.FormExceptionOccurEv.emit(error);
@@ -116,7 +116,7 @@ export class EditHomePageSlideComponent implements OnInit {
           this.isUploading = false;
           this.notifierService.notify('success', 'Tải lên thành công!');
           this.editHomepageSlide.patchValue({
-            imgUrl: 'https://cdn.notevn.com/' + res.file_name + '' + res.type
+            imgurl: 'https://cdn.notevn.com/' + res.file_name + '' + res.type
           });
           this.imageurl = true;
         },

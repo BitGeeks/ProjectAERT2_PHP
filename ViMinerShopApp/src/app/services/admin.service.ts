@@ -157,15 +157,15 @@ export class AdminService {
     });
   }
 
-  addShippingMethod(name: string, shortname: string, repairFlag: number, salesFlag: number, supportFreeShip: number, erpCode: string, logoUrl: string, avgfeeperkm: number) {
+  addShippingMethod(name: string, shortname: string, repairflag: number, salesflag: number, supportfreeship: number, erpcode: string, logourl: string, avgfeeperkm: number) {
     return this.httpClient.post<ShippingMethod>(`${this.url}/shipping/add`, {
-      name, shortname, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm
+      name, shortname, repairflag, salesflag, supportfreeship, erpcode, logourl, avgfeeperkm
     });
   }
 
-  editShippingMethod(id: number, name: string, shortname: string, repairFlag: number, salesFlag: number, supportFreeShip: number, erpCode: string, logoUrl: string, avgfeeperkm: number) {
+  editShippingMethod(id: number, name: string, shortname: string, repairflag: number, salesflag: number, supportfreeship: number, erpcode: string, logourl: string, avgfeeperkm: number) {
     return this.httpClient.post<ShippingMethod>(`${this.url}/shipping/edit/${id}`, {
-      name, shortname, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm
+      name, shortname, repairflag, salesflag, supportfreeship, erpcode, logourl, avgfeeperkm
     });
   }
 
@@ -182,9 +182,9 @@ export class AdminService {
     return this.httpClient.get<number>(`${this.url}/repairsites/count`);
   }
 
-  addRepairSite(code, name, extraInfo, note, location) {
+  addRepairSite(code, name, extrainfo, note, location) {
     return this.httpClient.post<RepairSite>(`${this.url}/repairsites/add`, {
-      code, name, extraInfo, note, location
+      code, name, extrainfo, note, location
     });
   }
 
@@ -201,9 +201,9 @@ export class AdminService {
     });
   }
 
-  editRepairSite(code, name, extraInfo, note, location) {
+  editRepairSite(code, name, extrainfo, note, location) {
     return this.httpClient.post<RepairSite>(`${this.url}/repairsites/edit/${code}`, {
-      code, name, extraInfo, note, location
+      code, name, extrainfo, note, location
     });
   }
 
@@ -268,21 +268,21 @@ export class AdminService {
     return this.httpClient.post<Array<SlideImage>>(`${this.url}/homeslide/remove/${id}`, {});
   }
 
-  addNewSlideImage(name: string, fillColor: string, imgUrl: string, jumpTo: string) {
+  addNewSlideImage(name: string, fillcolor: string, imgurl: string, jumpto: string) {
     return this.httpClient.post<Array<SlideImage>>(`${this.url}/homeslide/add`, {
       name,
-      fillColor,
-      imgUrl,
-      jumpTo
+      fillcolor,
+      imgurl,
+      jumpto
     });
   }
 
-  editSlideImage(id: number, name: string, fillColor: string, imgUrl: string, jumpTo: string) {
+  editSlideImage(id: number, name: string, fillcolor: string, imgurl: string, jumpto: string) {
     return this.httpClient.post<Array<SlideImage>>(`${this.url}/homeslide/edit/${id}`, {
       name,
-      fillColor,
-      imgUrl,
-      jumpTo
+      fillcolor,
+      imgurl,
+      jumpto
     });
   }
 

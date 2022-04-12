@@ -73,9 +73,9 @@ export interface ProductDetail {
 export interface SlideImage {
   id: number;
   name: string;
-  fillColor: string;
-  imgUrl: string;
-  jumpTo: string;
+  fillcolor: string;
+  imgurl: string;
+  jumpto: string;
 }
 
 export interface HPNotice {
@@ -289,7 +289,7 @@ export class RepairOrder {
 export class RepairSite {
   code: string;
   name: string;
-  extraInfo: string;
+  extrainfo: string;
   note: string;
 }
 

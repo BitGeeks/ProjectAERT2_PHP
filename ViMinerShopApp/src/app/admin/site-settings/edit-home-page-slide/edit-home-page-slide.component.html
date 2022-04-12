@@ -20,32 +20,32 @@
                         </ng-container>
                         </div>
                     </div>
-                    <div class="vms-element-form-item{{editHomepageSlide.get('fillColor').invalid && editHomepageSlide.get('fillColor').touched ? ' is-error' : ''}} is-required" style="position: relative;">
-                        <label for="fillColor" class="vms-element-form-item__label" style="width: 120px;">Màu navbar:</label>
+                    <div class="vms-element-form-item{{editHomepageSlide.get('fillcolor').invalid && editHomepageSlide.get('fillcolor').touched ? ' is-error' : ''}} is-required" style="position: relative;">
+                        <label for="fillcolor" class="vms-element-form-item__label" style="width: 120px;">Màu navbar:</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                             <div class="vms-element-input">
-                                <input autocomplete="off" type="text" class="vms-element-input__inner" formControlName="fillColor" value="{{ initialState.fillColor }}" />
+                                <input autocomplete="off" type="text" class="vms-element-input__inner" formControlName="fillcolor" value="{{ initialState.fillcolor }}" />
                             </div>
                             <p class="err-info" style="display: none;"></p>
-                            <ng-container *ngIf="editHomepageSlide.get('fillColor').invalid && editHomepageSlide.get('fillColor').touched">
-                                <div class="vms-element-form-item__error" *ngIf="editHomepageSlide.get('fillColor').errors['required']">Màu navbar không được để trống</div>
+                            <ng-container *ngIf="editHomepageSlide.get('fillcolor').invalid && editHomepageSlide.get('fillcolor').touched">
+                                <div class="vms-element-form-item__error" *ngIf="editHomepageSlide.get('fillcolor').errors['required']">Màu navbar không được để trống</div>
                             </ng-container>
                         </div>
                     </div>
-                    <div class="vms-element-form-item{{editHomepageSlide.get('imgUrl').invalid && editHomepageSlide.get('imgUrl').touched ? ' is-error' : ''}} is-required" style="position: relative;">
-                        <label for="imgUrl" class="vms-element-form-item__label" style="width: 120px;">Hình ảnh slide:</label>
+                    <div class="vms-element-form-item{{editHomepageSlide.get('imgurl').invalid && editHomepageSlide.get('imgurl').touched ? ' is-error' : ''}} is-required" style="position: relative;">
+                        <label for="imgurl" class="vms-element-form-item__label" style="width: 120px;">Hình ảnh slide:</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                             <div class="vms-element-input">
-                                <input autocomplete="off" type="text" class="vms-element-input__inner" formControlName="imgUrl" value="{{ initialState.imgUrl }}" />
+                                <input autocomplete="off" type="text" class="vms-element-input__inner" formControlName="imgurl" value="{{ initialState.imgurl }}" />
                             </div>
                             <p class="err-info" style="display: none;"></p>
-                            <ng-container *ngIf="editHomepageSlide.get('imgUrl').invalid && editHomepageSlide.get('imgUrl').touched">
-                                <div class="vms-element-form-item__error" *ngIf="editHomepageSlide.get('imgUrl').errors['required']">Hình ảnh slide không được để trống</div>
+                            <ng-container *ngIf="editHomepageSlide.get('imgurl').invalid && editHomepageSlide.get('imgurl').touched">
+                                <div class="vms-element-form-item__error" *ngIf="editHomepageSlide.get('imgurl').errors['required']">Hình ảnh slide không được để trống</div>
                             </ng-container>
                         </div>
                     </div>
                     <input #processFileInput type='file' style="display: none;" (change)="processFile($event.target)" accept="image/*" />
-                    <div class="vms-element-form-item is-required" style="position: relative;" *ngIf="editHomepageSlide.value.imgUrl.length === 0">
+                    <div class="vms-element-form-item is-required" style="position: relative;" *ngIf="editHomepageSlide.value.imgurl.length === 0">
                         <label for="price" class="vms-element-form-item__label" style="width: 120px;">Tải ảnh lên:</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                             <div class="vms-element-input">
@@ -71,15 +71,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="vms-element-form-item{{editHomepageSlide.get('jumpTo').invalid && editHomepageSlide.get('jumpTo').touched ? ' is-error' : ''}} is-required" style="position: relative;">
-                        <label for="jumpTo" class="vms-element-form-item__label" style="width: 120px;">Liên kết chuyển trang:</label>
+                    <div class="vms-element-form-item{{editHomepageSlide.get('jumpto').invalid && editHomepageSlide.get('jumpto').touched ? ' is-error' : ''}} is-required" style="position: relative;">
+                        <label for="jumpto" class="vms-element-form-item__label" style="width: 120px;">Liên kết chuyển trang:</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                             <div class="vms-element-input">
-                                <input autocomplete="off" type="text" class="vms-element-input__inner" formControlName="jumpTo" value="{{ initialState.jumpTo }}" />
+                                <input autocomplete="off" type="text" class="vms-element-input__inner" formControlName="jumpto" value="{{ initialState.jumpto }}" />
                             </div>
                             <p class="err-info" style="display: none;"></p>
-                            <ng-container *ngIf="editHomepageSlide.get('jumpTo').invalid && editHomepageSlide.get('jumpTo').touched">
-                                <div class="vms-element-form-item__error" *ngIf="editHomepageSlide.get('jumpTo').errors['required']">Liên kết chuyển trang không được để trống</div>
+                            <ng-container *ngIf="editHomepageSlide.get('jumpto').invalid && editHomepageSlide.get('jumpto').touched">
+                                <div class="vms-element-form-item__error" *ngIf="editHomepageSlide.get('jumpto').errors['required']">Liên kết chuyển trang không được để trống</div>
                             </ng-container>
                         </div>
                     </div>

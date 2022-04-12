@@ -33,11 +33,11 @@
                         </div>
                     </div>
                     <div class="vms-element-form-item is-required" style="position: relative;">
-                        <label for="repairFlag" class="vms-element-form-item__label" style="width: 120px;">Cờ sửa chữa:</label>
+                        <label for="repairflag" class="vms-element-form-item__label" style="width: 120px;">Cờ sửa chữa:</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                             <div class="vms-element-input">
                                 <i class="vms-element-input__icon vms-element-icon-caret-top"></i>
-                                <select class="vms-element-input__inner" formControlName="repairFlag">
+                                <select class="vms-element-input__inner" formControlName="repairflag">
                                     <option value="0">Không</option>
                                     <option value="1">Có</option>
                                 </select>
@@ -45,11 +45,11 @@
                         </div>
                     </div>
                     <div class="vms-element-form-item is-required" style="position: relative;">
-                        <label for="salesFlag" class="vms-element-form-item__label" style="width: 120px;">Cờ đặt hàng:</label>
+                        <label for="salesflag" class="vms-element-form-item__label" style="width: 120px;">Cờ đặt hàng:</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                             <div class="vms-element-input">
                                 <i class="vms-element-input__icon vms-element-icon-caret-top"></i>
-                                <select class="vms-element-input__inner" formControlName="salesFlag">
+                                <select class="vms-element-input__inner" formControlName="salesflag">
                                     <option value="0">Không</option>
                                     <option value="1">Có</option>
                                 </select>
@@ -57,38 +57,38 @@
                         </div>
                     </div>
                     <div class="vms-element-form-item is-required" style="position: relative;">
-                        <label for="supportFreeShip" class="vms-element-form-item__label" style="width: 120px;">Hỗ trợ ship miễn phí:</label>
+                        <label for="supportfreeship" class="vms-element-form-item__label" style="width: 120px;">Hỗ trợ ship miễn phí:</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                             <div class="vms-element-input">
                                 <i class="vms-element-input__icon vms-element-icon-caret-top"></i>
-                                <select class="vms-element-input__inner" formControlName="supportFreeShip">
+                                <select class="vms-element-input__inner" formControlName="supportfreeship">
                                     <option value="0">Không</option>
                                     <option value="1">Có</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="vms-element-form-item{{editShippingMethod.get('erpCode').invalid && editShippingMethod.get('erpCode').touched ? ' is-error' : ''}} is-required" style="position: relative;">
-                        <label for="erpCode" class="vms-element-form-item__label" style="width: 120px;">Mã ERP:</label>
+                    <div class="vms-element-form-item{{editShippingMethod.get('erpcode').invalid && editShippingMethod.get('erpcode').touched ? ' is-error' : ''}} is-required" style="position: relative;">
+                        <label for="erpcode" class="vms-element-form-item__label" style="width: 120px;">Mã ERP:</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                             <div class="vms-element-input">
-                                <input autocomplete="off" type="text" class="vms-element-input__inner" formControlName="erpCode" value="{{ initialState.erpCode }}" />
+                                <input autocomplete="off" type="text" class="vms-element-input__inner" formControlName="erpcode" value="{{ initialState.erpcode }}" />
                             </div>
                             <p class="err-info" style="display: none;"></p>
-                            <ng-container *ngIf="editShippingMethod.get('erpCode').invalid && editShippingMethod.get('erpCode').touched">
-                                <div class="vms-element-form-item__error" *ngIf="editShippingMethod.get('erpCode').errors['required']">Mã ERP không được để trống</div>
+                            <ng-container *ngIf="editShippingMethod.get('erpcode').invalid && editShippingMethod.get('erpcode').touched">
+                                <div class="vms-element-form-item__error" *ngIf="editShippingMethod.get('erpcode').errors['required']">Mã ERP không được để trống</div>
                             </ng-container>
                         </div>
                     </div>
-                    <div class="vms-element-form-item{{editShippingMethod.get('logoUrl').invalid && editShippingMethod.get('logoUrl').touched ? ' is-error' : ''}} is-required" style="position: relative;">
-                        <label for="logoUrl" class="vms-element-form-item__label" style="width: 120px;">Liên kết logo:</label>
+                    <div class="vms-element-form-item{{editShippingMethod.get('logourl').invalid && editShippingMethod.get('logourl').touched ? ' is-error' : ''}} is-required" style="position: relative;">
+                        <label for="logourl" class="vms-element-form-item__label" style="width: 120px;">Liên kết logo:</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                             <div class="vms-element-input">
-                                <input autocomplete="off" type="text" class="vms-element-input__inner" formControlName="logoUrl" value="{{ initialState.logoUrl }}" />
+                                <input autocomplete="off" type="text" class="vms-element-input__inner" formControlName="logourl" value="{{ initialState.logourl }}" />
                             </div>
                             <p class="err-info" style="display: none;"></p>
-                            <ng-container *ngIf="editShippingMethod.get('logoUrl').invalid && editShippingMethod.get('logoUrl').touched">
-                                <div class="vms-element-form-item__error" *ngIf="editShippingMethod.get('logoUrl').errors['required']">Liên kết logo không được để trống</div>
+                            <ng-container *ngIf="editShippingMethod.get('logourl').invalid && editShippingMethod.get('logourl').touched">
+                                <div class="vms-element-form-item__error" *ngIf="editShippingMethod.get('logourl').errors['required']">Liên kết logo không được để trống</div>
                             </ng-container>
                         </div>
                     </div>

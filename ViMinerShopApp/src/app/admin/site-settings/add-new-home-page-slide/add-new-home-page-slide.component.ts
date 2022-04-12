@@ -55,16 +55,16 @@ export class AddNewHomePageSlideComponent implements OnInit {
   ngOnInit(): void {
     this.addNewHomepageSlide = new FormGroup({
       name: new FormControl(null, [Validators.required]),
-      fillColor: new FormControl(null, [Validators.required]),
-      imgUrl: new FormControl(null, [Validators.required]),
-      jumpTo: new FormControl(null, [Validators.required])
+      fillcolor: new FormControl(null, [Validators.required]),
+      imgurl: new FormControl(null, [Validators.required]),
+      jumpto: new FormControl(null, [Validators.required])
     });
   }
 
   FormSubmittedEv() {
     if (!this.addNewHomepageSlide.valid) { return; }
-    const { name, fillColor, imgUrl, jumpTo } = this.addNewHomepageSlide.value;
-    this.adminService.addNewSlideImage(name, fillColor, imgUrl, jumpTo)
+    const { name, fillcolor, imgurl, jumpto } = this.addNewHomepageSlide.value;
+    this.adminService.addNewSlideImage(name, fillcolor, imgurl, jumpto)
       .pipe(take(1), catchError(
         error => {
           this.notifierService.notify('error', error);
@@ -90,7 +90,7 @@ export class AddNewHomePageSlideComponent implements OnInit {
           this.isUploading = false;
           this.notifierService.notify('success', 'Tải lên thành công!');
           this.addNewHomepageSlide.patchValue({
-            imgUrl: 'https://cdn.notevn.com/' + res.file_name + '' + res.type
+            imgurl: 'https://cdn.notevn.com/' + res.file_name + '' + res.type
           });
           this.imageurl = true;
         },

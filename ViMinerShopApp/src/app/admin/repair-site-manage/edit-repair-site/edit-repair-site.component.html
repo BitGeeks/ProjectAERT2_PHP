@@ -40,14 +40,14 @@
                         </div>
                     </div>
                     <div class="vms-element-form-item" style="position: relative;">
-                        <label for="extraInfo" class="vms-element-form-item__label" style="width: 120px;">Ghi chú thêm (hỗ trợ HTML):</label>
+                        <label for="extrainfo" class="vms-element-form-item__label" style="width: 120px;">Ghi chú thêm (hỗ trợ HTML):</label>
                         <div class="vms-element-form-item__content" style="margin-left: 120px;">
                         <div class="vms-element-input">
-                            <textarea rows="5" class="vms-element-textarea__inner" formControlName="extraInfo" value="{{ initialState.extraInfo }}"></textarea>
+                            <textarea rows="5" class="vms-element-textarea__inner" formControlName="extrainfo" value="{{ initialState.extrainfo }}"></textarea>
                         </div>
                         <p class="err-info" style="display: none;"></p>
-                        <ng-container *ngIf="editRepairSite.get('extraInfo').invalid && editRepairSite.get('extraInfo').touched">
-                            <div class="vms-element-form-item__error" *ngIf="editRepairSite.get('extraInfo').errors['required']">Ghi chú thêm không được để trống</div>
+                        <ng-container *ngIf="editRepairSite.get('extrainfo').invalid && editRepairSite.get('extrainfo').touched">
+                            <div class="vms-element-form-item__error" *ngIf="editRepairSite.get('extrainfo').errors['required']">Ghi chú thêm không được để trống</div>
                         </ng-container>
                         </div>
                     </div>

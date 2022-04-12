@@ -17,6 +17,7 @@ use App\Models\ProductCategory;
 use App\Models\RepairSite;
 use App\Models\ShippingMethod;
 use App\Models\OrderDetail;
+use App\Models\PaymentDetail;
 
 class AdminController extends Controller
 {
@@ -168,10 +169,10 @@ class AdminController extends Controller
                     ->where("Id", "!=", 0);
 
         if ($type != 0) $repair = $repair->where("Status", $type - 1);
-        if ($paginate->page != null && $paginate->size != null)
+        if ($request->page != null && $request->size != null)
             $repair = $repair
-                    ->skip($paginate->page * $paginate->size)
-                    ->take($paginate->size)
+                    ->skip($request->page * $request->size)
+                    ->take($request->size)
                     ->orderBy("Id", "DESC");
 
         return response()->json($repair);
@@ -564,7 +565,7 @@ class AdminController extends Controller
         $site->Note = $request->note;
         $site->Location = $request->location;
 
-        RepairSite::where("Code", $code)->update($site);
+        $site->save();
 
         return response()->json($site);
     }
@@ -607,42 +608,48 @@ class AdminController extends Controller
     }
 
     public function GetOrdersByType (Request $request, $type) {
-        $orders = OrderDetail::with("paymentdetail");
+        $orders = OrderDetail::with("paymentdetail")
+                ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id");
 
         $thirty = \Carbon\Carbon::now();
         $thirty->subDays(30);
         
-        if ($type == 1) $orders = $orders->where("paymentdetail.Status", 0);
-        elseif ($type == 2) $orders = $orders->where("paymentdetail.Status", 1);
-        elseif ($type == 3) $orders = $orders->where("paymentdetail.Status", 2);
-        elseif ($type == 4) $orders = $orders->where("paymentdetail.Status", 3);
-        elseif ($type == 5) $orders = $orders->where("paymentdetail.Status", 5);
-        elseif ($type == 6) $orders = $orders->where("Created_at", "<", $thirty);
+        if ($type == 1) $orders = $orders->where("paymentdetails.Status", 0);
+        elseif ($type == 2) $orders = $orders->where("paymentdetails.Status", 1);
+        elseif ($type == 3) $orders = $orders->where("paymentdetails.Status", 2);
+        elseif ($type == 4) $orders = $orders->where("paymentdetails.Status", 3);
+        elseif ($type == 5) $orders = $orders->where("paymentdetails.Status", 5);
+        elseif ($type == 6) $orders = $orders->where("orderdetails.Created_at", "<", $thirty);
 
         $orders = $orders->skip($request->page * $request->size)
                     ->take($request->size)
-                    ->orderBy("Id", "DESC")
+                    ->orderBy("orderdetails.Id", "DESC")
                     ->get();
 
         return response()->json($orders);
     }
 
-    public function GetOrderCount (Request $request) {
-        $orders = OrderDetail::with("paymentdetail");
+    public function GetOrderCount (Request $request, $type) {
+        $orders = OrderDetail::with("paymentdetail")
+            ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id");
 
         $thirty = \Carbon\Carbon::now();
         $thirty->subDays(30);
         
-        if ($type == 1) $orders = $orders->where("paymentdetail.Status", 0);
-        elseif ($type == 2) $orders = $orders->where("paymentdetail.Status", 1);
-        elseif ($type == 3) $orders = $orders->where("paymentdetail.Status", 2);
-        elseif ($type == 4) $orders = $orders->where("paymentdetail.Status", 3);
-        elseif ($type == 5) $orders = $orders->where("paymentdetail.Status", 5);
-        elseif ($type == 6) $orders = $orders->where("Created_at", "<", $thirty);
+        if ($type == 1) $orders = $orders->where("paymentdetails.Status", 0);
+        elseif ($type == 2) $orders = $orders->where("paymentdetails.Status", 1);
+        elseif ($type == 3) $orders = $orders->where("paymentdetails.Status", 2);
+        elseif ($type == 4) $orders = $orders->where("paymentdetails.Status", 3);
+        elseif ($type == 5) $orders = $orders->where("paymentdetails.Status", 5);
+        elseif ($type == 6) $orders = $orders->where("orderdetails.Created_at", "<", $thirty);
 
-        $orders = $orders->skip($request->page * $request->size)
+        if (isset($request->page) && isset($request->size))
+            $orders = $orders->skip($request->page * $request->size)
                     ->take($request->size)
-                    ->orderBy("Id", "DESC")
+                    ->orderBy("orderdetails.Id", "DESC")
+                    ->count();
+            $orders = $orders
+                    ->orderBy("orderdetails.Id", "DESC")
                     ->count();
 
         return response()->json($orders);
@@ -660,7 +667,7 @@ class AdminController extends Controller
         $paymentDetail->Status = $request->status;
         $paymentDetail->Updated_at = \Carbon\Carbon::now();
 
-        PaymentDetail::where("Id", $paymentDetail->Id)->update($paymentDetail);
+        $paymentDetail->save();
 
 //         EmailModel template = new EmailModel()
 //         {
@@ -711,11 +718,14 @@ class AdminController extends Controller
 
     public function GetAllTransaction (Request $request) {
         $result = OrderDetail::with("paymentdetail")
-                ->select("paymentdetail")
-                ->where("Status", "!=", 0)
+                ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
+                ->select([
+                    'paymentdetails.Id', 'paymentdetails.Amount', 'paymentdetails.Provider', 'paymentdetails.Status', 'paymentdetails.MaxMinesBillID', 'paymentdetails.PaypalID', 'paymentdetails.ReferralBy', 'paymentdetails.Created_at', 'paymentdetails.Updated_at'
+                ])
+                ->where("paymentdetails.Status", "!=", 0)
                 ->skip($request->page * $request->size)
                 ->take($request->size)
-                ->orderBy("Id", "DESC")
+                ->orderBy("paymentdetails.Id", "DESC")
                 ->get();
 
         return response()->json($result);
@@ -723,11 +733,12 @@ class AdminController extends Controller
 
     public function GetAllTransactionCount (Request $request) {
         $result = OrderDetail::with("paymentdetail")
-                ->select("paymentdetail")
-                ->where("Status", "!=", 0)
-                ->skip($request->page * $request->size)
-                ->take($request->size)
-                ->orderBy("Id", "DESC")
+                ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
+                ->select([
+                    'paymentdetails.Id', 'paymentdetails.Amount', 'paymentdetails.Provider', 'paymentdetails.Status', 'paymentdetails.MaxMinesBillID', 'paymentdetails.PaypalID', 'paymentdetails.ReferralBy', 'paymentdetails.Created_at', 'paymentdetails.Updated_at'
+                ])
+                ->where("paymentdetails.Status", "!=", 0)
+                ->orderBy("paymentdetails.Id", "DESC")
                 ->count();
 
         return response()->json($result);

@@ -37,30 +37,30 @@ export class EditShippingMethodDialogComponent implements OnInit {
       id: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       shortname: new FormControl(null, [Validators.required]),
-      repairFlag: new FormControl(null, [Validators.required]),
-      salesFlag: new FormControl(null, [Validators.required]),
-      supportFreeShip: new FormControl(null, [Validators.required]),
-      erpCode: new FormControl(null, [Validators.required]),
-      logoUrl: new FormControl(null, [Validators.required]),
+      repairflag: new FormControl(null, [Validators.required]),
+      salesflag: new FormControl(null, [Validators.required]),
+      supportfreeship: new FormControl(null, [Validators.required]),
+      erpcode: new FormControl(null, [Validators.required]),
+      logourl: new FormControl(null, [Validators.required]),
       avgfeeperkm: new FormControl(null, [Validators.required])
     });
     this.editShippingMethod.patchValue({
       id: this.initialState.id,
       name: this.initialState.name,
       shortname: this.initialState.shortname,
-      repairFlag: this.initialState.repairFlag,
-      salesFlag: this.initialState.salesFlag,
-      supportFreeShip: this.initialState.supportFreeShip,
-      erpCode: this.initialState.erpCode,
-      logoUrl: this.initialState.logoUrl,
+      repairflag: this.initialState.repairflag,
+      salesflag: this.initialState.salesflag,
+      supportfreeship: this.initialState.supportfreeship,
+      erpcode: this.initialState.erpcode,
+      logourl: this.initialState.logourl,
       avgfeeperkm: this.initialState.avgfeeperkm
     });
   }
 
   onEditSubmitted() {
     if (!this.editShippingMethod.valid) { return; }
-    const { id, name, shortname, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm } = this.editShippingMethod.value;
-    this.adminService.editShippingMethod(id, name, shortname, repairFlag, salesFlag, supportFreeShip, erpCode, logoUrl, avgfeeperkm)
+    const { id, name, shortname, repairflag, salesflag, supportfreeship, erpcode, logourl, avgfeeperkm } = this.editShippingMethod.value;
+    this.adminService.editShippingMethod(id, name, shortname, repairflag, salesflag, supportfreeship, erpcode, logourl, avgfeeperkm)
       .pipe(take(1), catchError(
         error => {
           this.FormExceptionOccurEv.emit(error);

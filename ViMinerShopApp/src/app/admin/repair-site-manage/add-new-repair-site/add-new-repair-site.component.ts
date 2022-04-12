@@ -24,7 +24,7 @@ export class AddNewRepairSiteComponent implements OnInit {
     this.addRepairSite = new FormGroup({
       code: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
-      extraInfo: new FormControl(null, []),
+      extrainfo: new FormControl(null, []),
       note: new FormControl(null, []),
       location: new FormControl(null, [Validators.required])
     });
@@ -32,8 +32,8 @@ export class AddNewRepairSiteComponent implements OnInit {
 
   FormSubmittedEv() {
     if (!this.addRepairSite.valid) { return; }
-    const { code, name, extraInfo, note, location } = this.addRepairSite.value;
-    this.adminService.addRepairSite(code, name, extraInfo, note, location)
+    const { code, name, extrainfo, note, location } = this.addRepairSite.value;
+    this.adminService.addRepairSite(code, name, extrainfo, note, location)
       .pipe(take(1), catchError(
         error => {
           return throwError(error);
