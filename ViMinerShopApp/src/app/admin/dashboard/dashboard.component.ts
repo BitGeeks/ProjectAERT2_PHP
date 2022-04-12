@@ -216,12 +216,12 @@ export class DashboardComponent implements OnInit {
       time.setUTCHours(0, 0, 0, 0);
       arr.push([time.getTime(), data.orderitems.length]);
 
-      if (data.locationName === null) { data.locationName = 'Không xác định'; }
+      if (data.locationname === null) { data.locationname = 'Không xác định'; }
 
-      if (this.odMapTable.filter(d => d.province === data.locationName).length === 0)
+      if (this.odMapTable.filter(d => d.province === data.locationname).length === 0)
       {
         this.odMapTable.push({
-          province: data.locationName,
+          province: data.locationname,
           productItems: data.orderitems.length,
           unpaid: data.paymentdetail.status === 0 ? 1 : 0,
           pending: data.paymentdetail.status === 1 ? 1 : 0,
@@ -229,20 +229,20 @@ export class DashboardComponent implements OnInit {
           shipping: data.paymentdetail.status === 3 ? 1 : 0,
           shipped: data.paymentdetail.status === 4 ? 1 : 0
         });
-        if (data.locationName !== 'Không xác định')
+        if (data.locationname !== 'Không xác định')
         {
           this.totalOrderSuccess += 1;
           this.orderType[Object.keys(this.orderType)[data.paymentdetail.status]] += 1;
         }
       }
       else {
-        this.odMapTable[this.odMapTable.findIndex(d => d.province === data.locationName)].productItems += data.orderitems.length,
-        this.odMapTable[this.odMapTable.findIndex(d => d.province === data.locationName)].unpaid += data.paymentdetail.status === 0 ? 1 : 0,
-        this.odMapTable[this.odMapTable.findIndex(d => d.province === data.locationName)].pending += data.paymentdetail.status === 1 ? 1 : 0,
-        this.odMapTable[this.odMapTable.findIndex(d => d.province === data.locationName)].unshipped += data.paymentdetail.status === 2 ? 1 : 0,
-        this.odMapTable[this.odMapTable.findIndex(d => d.province === data.locationName)].shipping += data.paymentdetail.status === 3 ? 1 : 0,
-        this.odMapTable[this.odMapTable.findIndex(d => d.province === data.locationName)].shipped += data.paymentdetail.status === 4 ? 1 : 0;
-        if (data.locationName !== 'Không xác định')
+        this.odMapTable[this.odMapTable.findIndex(d => d.province === data.locationname)].productItems += data.orderitems.length,
+        this.odMapTable[this.odMapTable.findIndex(d => d.province === data.locationname)].unpaid += data.paymentdetail.status === 0 ? 1 : 0,
+        this.odMapTable[this.odMapTable.findIndex(d => d.province === data.locationname)].pending += data.paymentdetail.status === 1 ? 1 : 0,
+        this.odMapTable[this.odMapTable.findIndex(d => d.province === data.locationname)].unshipped += data.paymentdetail.status === 2 ? 1 : 0,
+        this.odMapTable[this.odMapTable.findIndex(d => d.province === data.locationname)].shipping += data.paymentdetail.status === 3 ? 1 : 0,
+        this.odMapTable[this.odMapTable.findIndex(d => d.province === data.locationname)].shipped += data.paymentdetail.status === 4 ? 1 : 0;
+        if (data.locationname !== 'Không xác định')
         {
           this.totalOrderSuccess += 1;
           this.orderType[Object.keys(this.orderType)[data.paymentdetail.status]] += 1;

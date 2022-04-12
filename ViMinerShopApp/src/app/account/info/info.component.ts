@@ -123,7 +123,7 @@ export class InfoComponent implements OnInit {
         (res) => {
           this.notifierService.notify('success', this.translatePipe.transform('Tải lên thành công!'));
           this.profileImage = 'https://cdn.notevn.com/' + res.file_name + '' + res.type;
-          this.userData.userImage = 'https://cdn.notevn.com/' + res.file_name + '' + res.type;
+          this.userData.userimage = 'https://cdn.notevn.com/' + res.file_name + '' + res.type;
         },
         (err) => {
           this.profileImage = null;
@@ -144,7 +144,7 @@ export class InfoComponent implements OnInit {
       (res) => {
         this.notifierService.notify('success', this.translatePipe.transform('Tải lên thành công!'));
         this.profileImage = 'https://cdn.notevn.com/' + res.file_name + '' + res.type;
-        this.userData.userImage = 'https://cdn.notevn.com/' + res.file_name + '' + res.type;
+        this.userData.userimage = 'https://cdn.notevn.com/' + res.file_name + '' + res.type;
       },
       (err) => {
         this.profileImage = null;
@@ -185,8 +185,8 @@ export class InfoComponent implements OnInit {
   onUserClickSetInformation() {
     if (!this.isInfoChanging) {
       this.userInfo.patchValue({
-        fname: this.userData.firstName,
-        lname: this.userData.lastName,
+        fname: this.userData.firstname,
+        lname: this.userData.lastname,
         username: this.userData.username,
         password: '',
         telephone: this.userData.telephone

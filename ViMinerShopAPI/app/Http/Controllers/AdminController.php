@@ -228,7 +228,7 @@ class AdminController extends Controller
                 "Created_at" => \Carbon\Carbon::now(),
                 "Updated_at" => \Carbon\Carbon::now()
             ];
-            $repairOrder = RepairOrder::insert($repairOrder);
+            RepairOrder::insert($repairOrder);
 
             return response()->json($repairOrder);
         } else
@@ -251,7 +251,7 @@ class AdminController extends Controller
         $inventory->ShippingInfo = $request->shippingInfo;
         $inventory->Updated_at = \Carbon\Carbon::now();
 
-        $inventory = ProductInventory::where("Id", $id)->update($inventory);
+        ProductInventory::where("Id", $id)->update($inventory);
 
         return response()->json($inventory);
     }
@@ -334,7 +334,7 @@ class AdminController extends Controller
         $inventory->ShippingInfo = $request->shippingInfo;
         $inventory->Updated_at = \Carbon\Carbon::now();
 
-        $product = Product::where("Id", $product->Id)->update($product);
+        Product::where("Id", $product->Id)->update($product);
         ProductInventory::where("Id", $inventory->Id)->update($inventory);
 
         return response()->json($product);
@@ -355,14 +355,14 @@ class AdminController extends Controller
     }
 
     public function GetProductCount (Request $request) {
-        $product = Product::with(["productinventory", "productcategory", "productimage"])
+        $product = Product::with(["productinventory", "productcategory", "productimages"])
             ->count();
 
         return response()->json($product);
     }
 
     public function GetProductList (Request $request) {
-        $product = Product::with(["productinventory", "productcategory", "productimage"])
+        $product = Product::with(["productinventory", "productcategory", "productimages"])
             ->skip($request->size * $request->page)
             ->take($request->size)
             ->orderBy("Id", "DESC")
@@ -381,7 +381,7 @@ class AdminController extends Controller
             "Created_at" => \Carbon\Carbon::now(),
             "Updated_at" => \Carbon\Carbon::now()
         ];
-        $ProductInventory = ProductInventory::insert($ProductInventory);
+        $ProductInventoryId = ProductInventory::insertGetId($ProductInventory);
 
         $product = [
             "Name" => $request->name,
@@ -392,7 +392,7 @@ class AdminController extends Controller
             "WarrantyDesc" => $request->warrantyDesc,
             "SKU" => $request->sku,
             "Category_id" => $request->category_id,
-            "Inventory_id" => $ProductInventory->Id,
+            "Inventory_id" => $ProductInventoryId,
             "Algorithm_id" => $request->algorithm_id,
             "Price" => $request->price,
             "PricePromotion" => $request->pricePromotion,
@@ -401,19 +401,19 @@ class AdminController extends Controller
             "Updated_at" => \Carbon\Carbon::now()
         ];
 
-        $product = Product::insert($product);
+        $productId = Product::insertGetId($product);
 
         foreach ($request->productImage as $imageObj)
         {
             $productImage = ProductImage::where([
-                "Product_Id" => $product->Id,
+                "Product_Id" => $productId,
                 "ImageUrl" => $imageObj->imageUrl
             ])->first();
 
             if (!$productImage)
             {
                 $image = [
-                    "Product_Id" => $product->Id,
+                    "Product_Id" => $productId,
                     "Alt_Name" => $imageObj->alt_Name,
                     "ImageUrl" => $imageObj->imageUrl,
                     "Created_at" => \Carbon\Carbon::now(),
@@ -440,7 +440,7 @@ class AdminController extends Controller
             "Created_at" => \Carbon\Carbon::now(),
             "Updated_at" => \Carbon\Carbon::now()
         ];
-        $inventory = ProductInventory::insert($inventory);
+        ProductInventory::insert($inventory);
 
         return response()->json($inventory);
     }
@@ -458,7 +458,7 @@ class AdminController extends Controller
             "Created_at" => \Carbon\Carbon::now(),
             "Updated_at" => \Carbon\Carbon::now()
         ];
-        $category = ProductCategory::insert($category);
+        ProductCategory::insert($category);
 
         return response()->json($category);
     }
@@ -472,7 +472,7 @@ class AdminController extends Controller
         $category->Slug = $request->slug;
         $category->Updated_at = \Carbon\Carbon::now();
 
-        $category = ProductCategory::where("Id", $category->Id)->update($category);
+        $category->save();
 
         return response()->json($category);
     }
@@ -489,7 +489,7 @@ class AdminController extends Controller
             "Created_at" => \Carbon\Carbon::now(),
             "Updated_at" => \Carbon\Carbon::now()
         ];
-        $algorithm = Algorithm::insert($algorithm);
+        Algorithm::insert($algorithm);
 
         return response()->json($algorithm);
     }
@@ -505,7 +505,7 @@ class AdminController extends Controller
         $algorithm->Slug = $request->slug;
         $algorithm->Updated_at = DateTime.Now;
 
-        $algorithm = Algorithm::where("Id", $algorithm->Id)->update($algorithm);
+        Algorithm::where("Id", $algorithm->Id)->update($algorithm);
 
         return response()->json($algorithm);
     }
@@ -523,7 +523,7 @@ class AdminController extends Controller
             "Location" => $request->location,
             "isDisabled" => false
         ];
-        $site = RepairSite::insert($site);
+        RepairSite::insert($site);
 
         return response()->json($site);
     }
@@ -548,7 +548,7 @@ class AdminController extends Controller
 
         $site->isDisabled = !$site->isDisabled;
 
-        $site = RepairSite::where("Code", $code)->update($site);
+        RepairSite::where("Code", $code)->update($site);
 
         return response()->json($site);
     }
@@ -564,7 +564,7 @@ class AdminController extends Controller
         $site->Note = $request->note;
         $site->Location = $request->location;
 
-        $site = RepairSite::where("Code", $code)->update($site);
+        RepairSite::where("Code", $code)->update($site);
 
         return response()->json($site);
     }
@@ -580,7 +580,7 @@ class AdminController extends Controller
             "logoUrl" => $request->logoUrl,
             "avgfeeperkm" => $request->avgfeeperkm
         ];
-        $method = ShippingMethod::insert($method);
+        ShippingMethod::insert($method);
 
         return response()->json($method);
     }
@@ -597,7 +597,7 @@ class AdminController extends Controller
         $method->logoUrl = $request->logoUrl;
         $method->avgfeeperkm = $request->avgfeeperkm;
 
-        $method = ShippingMethod::where("Id", $method->Id)->update($method);
+        ShippingMethod::where("Id", $method->Id)->update($method);
 
         return response()->json($method);
     }
@@ -677,10 +677,13 @@ class AdminController extends Controller
     }
 
     public function GetAllChartData (Request $request) {
-        $orderDetails = OrderDetail::with(["orderitem", "paymentdetail"])->get();
+        $orderDetails = OrderDetail::with(["orderitems", "paymentdetail"])->get();
         
         $miner = Product::with("productinventory")
-                ->select("productinventory")
+                ->join("productinventories", "productinventories.id", "=", "products.id")
+                ->select([
+                    'productinventories.Id', 'productinventories.Quantity', 'productinventories.Flag', 'productinventories.Hps', 'productinventories.weight', 'productinventories.ShippingInfo', 'productinventories.Created_at', 'productinventories.Updated_at'
+                ])
                 ->get();
 
         if (count($orderDetails) == 0) return "NotFound";
@@ -697,10 +700,10 @@ class AdminController extends Controller
         }
 
         $DashboardModelData = [
-            "OrderHistory" => $orderDetails,
-            "TotalIncome" => $totalincome,
-            "TotalOrder" => count($orderDetails),
-            "TotalMiner" => $totalminer
+            "orderHistory" => $orderDetails,
+            "totalIncome" => $totalincome,
+            "totalOrder" => count($orderDetails),
+            "totalMiner" => $totalminer
         ];
 
         return response()->json($DashboardModelData);

@@ -30,11 +30,13 @@ class CDonateController extends Controller
         $couponDonate = CouponDonate::orderBy("Id", "DESC");
 
         if ($flag == "transfered")
-            $couponDonate = $couponDonate->where("User_id", $user->id);
-        else $couponDonate = $couponDonate->where("ReceiverId", $user->id);
+            $couponDonate = CouponDonate::where("User_id", $user->id);
+        else $couponDonate = CouponDonate::where("ReceiverId", $user->id);
 
-        $results = $couponDonate->skip($request->page * $request->size)
+        if (isset($request->size) && isset($request->page))
+            $results = $couponDonate->orderBy("Id", "DESC")->skip($request->page * $request->size)
                 ->take($request->size)->count();
+        $results = $couponDonate->orderBy("Id", "DESC")->count();
         return response()->json($results);
     }
 

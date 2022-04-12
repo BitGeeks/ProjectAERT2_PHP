@@ -15,19 +15,19 @@ class OrderController extends Controller
 {
     public function GetAllOrderByType (Request $request, $type) {
         $user = $request->userData;
-        $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
-                    ->join("paymentdetail", "paymentdetail.id", "=", "orderdetail.payment_id")
+        $results = OrderDetail::with(["paymentdetail", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
+                    ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
                     ->where(["User_id" => $user->id]);
 
 
-        if ($type == 2) $results = $results->where("paymentdetail.status", 0);
-        elseif ($type == 3) $results = $results->where("paymentdetail.status", 1);
-        elseif ($type == 4) $results = $results->where("paymentdetail.status", 2);
-        elseif ($type == 5) $results = $results->where("paymentdetail.status", 3);
-        elseif ($type == 6) $results = $results->where("paymentdetail.status", 4);
+        if ($type == 2) $results = $results->where("paymentdetails.status", 0);
+        elseif ($type == 3) $results = $results->where("paymentdetails.status", 1);
+        elseif ($type == 4) $results = $results->where("paymentdetails.status", 2);
+        elseif ($type == 5) $results = $results->where("paymentdetails.status", 3);
+        elseif ($type == 6) $results = $results->where("paymentdetails.status", 4);
         elseif ($type == 7) {
-            $expDate = Carbon::now()->subDays(30);
-            $results = $results->whereDate('Created_at', '>=', $expDate - 30);
+            $expDate = \Carbon\Carbon::now()->subDays(30);
+            $results = $results->whereDate('Created_at', '>=', $expDate);
         }
 
         return response()->json($results->get());
@@ -35,19 +35,19 @@ class OrderController extends Controller
 
     public function GetAllOrderCountByType (Request $request, $type) {
         $user = $request->userData;
-        $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
-                    ->join("paymentdetail", "paymentdetail.id", "=", "orderdetail.payment_id")
+        $results = OrderDetail::with(["paymentdetail", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
+                    ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
                     ->where(["User_id" => $user->id]);
 
 
-        if ($type == 2) $results = $results->where("paymentdetail.status", 0);
-        elseif ($type == 3) $results = $results->where("paymentdetail.status", 1);
-        elseif ($type == 4) $results = $results->where("paymentdetail.status", 2);
-        elseif ($type == 5) $results = $results->where("paymentdetail.status", 3);
-        elseif ($type == 6) $results = $results->where("paymentdetail.status", 4);
+        if ($type == 2) $results = $results->where("paymentdetails.status", 0);
+        elseif ($type == 3) $results = $results->where("paymentdetails.status", 1);
+        elseif ($type == 4) $results = $results->where("paymentdetails.status", 2);
+        elseif ($type == 5) $results = $results->where("paymentdetails.status", 3);
+        elseif ($type == 6) $results = $results->where("paymentdetails.status", 4);
         elseif ($type == 7) {
-            $expDate = Carbon::now()->subDays(30);
-            $results = $results->whereDate('Created_at', '>=', $expDate - 30);
+            $expDate = \Carbon\Carbon::now()->subDays(30);
+            $results = $results->whereDate('Created_at', '>=', $expDate);
         }
 
         return response()->json($results->count());
@@ -56,7 +56,8 @@ class OrderController extends Controller
     public function GetOrderDetails (Request $request) {
         $user = $request->userData;
 
-        $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
+        $results = OrderDetail::
+            with(["paymentdetail", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
                     ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
                     ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
@@ -70,7 +71,7 @@ class OrderController extends Controller
     public function GetAllOrderCount (Request $request) {
         $user = $request->userData;
 
-        $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
+        $results = OrderDetail::with(["paymentdetail", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
                     ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
                     ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
@@ -84,12 +85,12 @@ class OrderController extends Controller
     public function GetUnpaidOrder (Request $request) {
         $user = $request->userData;
 
-        $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
+        $results = OrderDetail::with(["paymentdetail", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
                     ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
                     ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
-                    ->where(["User_id" => $user->id, "paymentdetail.status" => 0])
+                    ->where(["User_id" => $user->id, "paymentdetails.status" => 0])
                     ->get();
                     
         return response()->json($results);
@@ -98,12 +99,12 @@ class OrderController extends Controller
     public function GetPendingOrder (Request $request) {
         $user = $request->userData;
 
-        $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
+        $results = OrderDetail::with(["paymentdetail", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
                     ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
                     ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
-                    ->where(["User_id" => $user->id, "paymentdetail.status" => 1])
+                    ->where(["User_id" => $user->id, "paymentdetails.status" => 1])
                     ->get();
                     
         return response()->json($results);
@@ -112,12 +113,12 @@ class OrderController extends Controller
     public function GetUnshippedOrder (Request $request) {
         $user = $request->userData;
 
-        $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
+        $results = OrderDetail::with(["paymentdetail", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
                     ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
                     ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
-                    ->where(["User_id" => $user->id, "paymentdetail.status" => 2])
+                    ->where(["User_id" => $user->id, "paymentdetails.status" => 2])
                     ->get();
                     
         return response()->json($results);
@@ -126,12 +127,12 @@ class OrderController extends Controller
     public function GetShippingOrder (Request $request) {
         $user = $request->userData;
 
-        $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
+        $results = OrderDetail::with(["paymentdetail", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
                     ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
                     ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
-                    ->where(["User_id" => $user->id, "paymentdetail.status" => 3])
+                    ->where(["User_id" => $user->id, "paymentdetails.status" => 3])
                     ->get();
                     
         return response()->json($results);
@@ -140,12 +141,12 @@ class OrderController extends Controller
     public function GetShippedOrder (Request $request) {
         $user = $request->userData;
 
-        $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
+        $results = OrderDetail::with(["paymentdetail", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
                     ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
                     ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
-                    ->where(["User_id" => $user->id, "paymentdetail.status" => 4])
+                    ->where(["User_id" => $user->id, "paymentdetails.status" => 4])
                     ->get();
                     
         return response()->json($results);
@@ -153,15 +154,15 @@ class OrderController extends Controller
 
     public function GetExpiredOrder (Request $request) {
         $user = $request->userData;
-        $expDate = Carbon::now()->subDays(30);
+        $expDate = \Carbon\Carbon::now()->subDays(30);
 
-        $results = OrderDetail::with(["orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
+        $results = OrderDetail::with(["paymentdetail", "orderitems", "orderitems.product", "orderitems.product.productcategory", "orderitems.product.productinventory", "orderitems.product.productimages"])
                     ->join("paymentdetails", "paymentdetails.id", "=", "orderdetails.payment_id")
                     ->orderBy("orderdetails.id", "DESC")
                     ->skip($request->page * $request->size)
                     ->take($request->size)
                     ->where(["User_id" => $user->id])
-                    ->whereDate('Created_at', '>=', $expDate - 30)
+                    ->whereDate('Created_at', '>=', $expDate)
                     ->get();
                     
         return response()->json($results);

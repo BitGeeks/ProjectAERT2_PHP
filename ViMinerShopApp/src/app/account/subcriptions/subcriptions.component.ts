@@ -37,7 +37,7 @@ export class SubcriptionsComponent implements OnInit {
     }
     )).subscribe(data => {
       this.userData = data;
-      this.mailSubscriptionOn = data.isSubscribedToMailing;
+      this.mailSubscriptionOn = data.issubscribedtomailing;
     });
   }
 
@@ -49,7 +49,7 @@ export class SubcriptionsComponent implements OnInit {
     }
     )).subscribe(data => {
       this.userData = data;
-      this.mailSubscriptionOn = data.isSubscribedToMailing;
+      this.mailSubscriptionOn = data.issubscribedtomailing;
     });
   }
 

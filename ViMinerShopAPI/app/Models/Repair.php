@@ -14,15 +14,15 @@ class Repair extends Model
     ];
 
     public function repairorder () {
-        return $this->hasMany(RepairOrder::class);
+        return $this->hasMany(RepairOrder::class, "Repair_id", "Id");
     }
 
     public function repairitem () {
-        return $this->hasMany(RepairItem::class);
+        return $this->hasMany(RepairItem::class, "RepairId", "Id");
     }
 
     public function repairsite () {
-        return $this->belongsTo(RepairSite::class);
+        return $this->belongsTo(RepairSite::class, "RepairSiteId", "Code");
     }
 
     protected $hidden = [

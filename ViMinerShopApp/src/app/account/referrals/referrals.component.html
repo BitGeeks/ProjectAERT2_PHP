@@ -4,7 +4,7 @@
       <span translate>Danh sách giới thiệu</span>
     </h2>
   </div>
-    <div *ngIf="!referralCode" class="referralDesc">
+    <div *ngIf="!referralcode" class="referralDesc">
         <p translate>
             Bạn chưa có mã giới thiệu! Vui lòng click vào nút bên dưới để tạo 1 mã
         </p>
@@ -12,8 +12,8 @@
             <button class="button primary large block fill{{ buttonLoading ? ' disabled' : ''}}" [disabled]="buttonLoading" type="button" style="margin-bottom:'10px';margin-top:'10px';width:'365px'" (click)="createReferralCode()" translate>Tạo mã giới thiệu</button>
         </p>
     </div>
-    <div *ngIf="referralCode" class="referralDesc" translate>
-        Mã giới thiệu của bạn là: <code>{{ referralCode }}</code>
+    <div *ngIf="referralcode" class="referralDesc" translate>
+        Mã giới thiệu của bạn là: <code>{{ referralcode }}</code>
     </div>
     <div class="record-table" style="overflow-x: auto;">
         <table border="0" cellspacing="0" cellpadding="0">

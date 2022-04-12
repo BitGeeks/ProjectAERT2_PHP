@@ -69,8 +69,8 @@ export class AuthEffects {
       map((action: AuthActions.SocialSignIn) => {
         return action.payload;
       }),
-      switchMap((credentials: { email: string, id: string, firstName: string, lastName: string }) => {
-        return this.accountService.loginSocialAccount(credentials.email, credentials.id, credentials.firstName, credentials.lastName)
+      switchMap((credentials: { email: string, id: string, firstname: string, lastname: string }) => {
+        return this.accountService.loginSocialAccount(credentials.email, credentials.id, credentials.firstname, credentials.lastname)
           .pipe(switchMap((res: UserAuthenticate) => {
             this.tokenService.saveToken(res.token);
             this.router.navigate(['/']);

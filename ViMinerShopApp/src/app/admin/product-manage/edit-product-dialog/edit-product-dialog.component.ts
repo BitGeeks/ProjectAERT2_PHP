@@ -151,7 +151,7 @@ export class EditProductDialogComponent implements OnInit {
       this.initialState.productimages.map((data, idx) => {
         this.productimages.push({
           imageurl: data.imageurl,
-          alt_Name: data.alt_Name
+          alt_name: data.alt_name
         });
       });
     }
@@ -244,7 +244,7 @@ export class EditProductDialogComponent implements OnInit {
           this.notifierService.notify('success', 'Tải lên thành công!');
           this.productimages.push({
             imageurl: 'https://cdn.notevn.com/' + res.file_name + '' + res.type,
-            alt_Name: file.name
+            alt_name: file.name
           });
         },
         (err) => {

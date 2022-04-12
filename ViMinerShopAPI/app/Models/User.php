@@ -27,6 +27,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(UserAddress::class, "User_id", "id");
     }
 
+    public function shoppingsessions () {
+        return $this->hasMany(ShoppingSession::class, "User_id", "id");
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

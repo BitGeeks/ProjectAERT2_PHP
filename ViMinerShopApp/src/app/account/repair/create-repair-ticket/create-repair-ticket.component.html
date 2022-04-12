@@ -51,7 +51,7 @@
                                     <td><div class="tag text-primary">{{ product.categoryName }}</div></td>
                                     <td>{{ product.productName }}</td>
                                     <td>{{ product.quantity }}</td>
-                                    <td class="device-remark text-left">{{ product.remark && product.remark.length >= 20 ? product.remark.splice(0, 20) + '...' : product.remark }}</td>
+                                    <td class="device-remark text-left">{{ product.remark && product.remark.length > 20 ? product.remark.slice(0, 20) + '...' : product.remark }}</td>
                                     <td class="text-primary text-pointer text-md"><i class="bt-icon" (click)="onUserClickEditRepairItem(product.id)"></i>&nbsp;&nbsp; <i class="bt-icon" (click)="onUserClickRemoveRepairItem(product.id)"></i></td>
                                 </tr>                                
                                 <tr *ngIf="itemForRepair.length === 0">
@@ -72,7 +72,7 @@
                         <div class="item input-field">
                             <label><i class="text-warning">*</i> {{ 'Mã theo dõi' | translate }} </label>
                             <div class="field">
-                                <input type="text" value="{{ trackingNo }}" name="tracking" maxlength="20" placeholder="Tracking No." data-vv-as="Tracking No." aria-required="true" aria-invalid="false" (change)="onRemarkTxtChange('trackingNo', $event.target.value)" />
+                                <input type="text" value="{{ trackingno }}" name="tracking" maxlength="20" placeholder="Tracking No." data-vv-as="Tracking No." aria-required="true" aria-invalid="false" (change)="onRemarkTxtChange('trackingno', $event.target.value)" />
                             </div>
                             &nbsp;
                             <div class="ex-tips top">

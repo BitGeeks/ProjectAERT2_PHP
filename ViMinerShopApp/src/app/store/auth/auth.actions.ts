@@ -48,7 +48,7 @@ export class SignInSuccess implements Action {
 export class SocialSignIn implements Action {
   readonly type = SOCIAL_SIGN_IN;
 
-  constructor(public payload: { email: string, id: string, firstName: string, lastName: string }) {
+  constructor(public payload: { email: string, id: string, firstname: string, lastname: string }) {
   }
 }
 

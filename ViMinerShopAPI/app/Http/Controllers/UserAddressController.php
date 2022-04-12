@@ -38,9 +38,7 @@ class UserAddressController extends Controller {
         $check->Telephone = $request->telephone;
         $check->Mobile = $request->mobile;
 
-        UserAddress::where("Id", $request->id)
-        ->where("User_id", $user->id)
-        ->update($check);
+        $check->save();
 
         return ""; // không
     }

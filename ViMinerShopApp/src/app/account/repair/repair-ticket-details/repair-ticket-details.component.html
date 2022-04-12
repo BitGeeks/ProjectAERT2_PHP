@@ -21,7 +21,7 @@
             <div class="header"><h4 class="title" translate>Thông Tin Hàng</h4></div>
             <div class="content clearfix">
                 <div class="products text-sm">
-                    <div class="product" *ngFor="let product of ticketData.repairItems">
+                    <div class="product" *ngFor="let product of ticketData.repairitem">
                         <div class="tag text-primary">{{ product.product.productcategory.name }}</div>
                         <div class="text">
                             <span [title]="product.product.name" class="">{{ product.product.name }}</span>
@@ -30,7 +30,7 @@
                         <!--<i class="bt-icon text-gray"></i>-->
                     </div>
                 </div>
-                <div class="total-items"><span class="label" translate>Tổng Sản Phẩm: </span> <span class="value text-strong">{{ ticketData.repairItems.length }}</span></div>
+                <div class="total-items"><span class="label" translate>Tổng Sản Phẩm: </span> <span class="value text-strong">{{ ticketData.repairitem.length }}</span></div>
             </div>
         </div>
         <div class="box">
@@ -48,7 +48,7 @@
             <div class="content">
                 <div class="text">
                     <div class="text-justify"><span class="label" translate>Đơn vị vận chuyển</span>: <span class="value" *ngIf="shippingMethods">{{ shippingUnitName }}</span></div>
-                    <div class="text-justify"><span class="label" translate>Mã theo dõi</span>: <span class="value">{{ ticketData.trackingNo }}</span></div>
+                    <div class="text-justify"><span class="label" translate>Mã theo dõi</span>: <span class="value">{{ ticketData.trackingno }}</span></div>
                 </div>
             </div>
         </div>

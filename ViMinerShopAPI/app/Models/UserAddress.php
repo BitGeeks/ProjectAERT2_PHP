@@ -9,6 +9,7 @@ class UserAddress extends Model
 {
     use HasFactory;
     protected $table = "useraddresss";
+    protected $primaryKey = 'Id';
 
     public $timestamps = false;
 

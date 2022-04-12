@@ -37,12 +37,12 @@ export class AccountService {
     }, { headers: { 'Content-type': 'application/json; charset=utf-8' } });
   }
 
-  loginSocialAccount(email: string, id: string, firstName: string, lastName: string) {
+  loginSocialAccount(email: string, id: string, firstname: string, lastname: string) {
     return this.httpClient.post(this.url + '/socialAuthenticate', {
       email,
       id/*,
-      firstName,
-      lastName*/
+      firstname,
+      lastname*/
     }, { headers: { 'Content-type': 'application/json; charset=utf-8' } });
   }
 

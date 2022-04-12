@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ProductInventory;
 use Illuminate\Http\Request;
 use App\Models\Repair;
+use App\Models\RepairSite;
+use App\Models\RepairItem;
 
 class RepairsController extends Controller
 {
@@ -136,29 +138,30 @@ class RepairsController extends Controller
     }
 
     public function submitTicket (Request $request) {
+        $cobj = $request;
         $user = $request->userData;
         // Gửi email
         $repair = [
-            Status => 0,
-            User_id => $user->id,
-            TicketReason => $cobj->reasonFlag,
-            TrackingNo => $cobj->trackingNo,
-            ShippingLogisticsId => $cobj->shippingId,
-            CustomerAddress => $cobj->userAddress,
-            RepairSiteId => $cobj->repairSiteCode,
-            ReturnLogisticsId => $cobj->returnShippingId,
-            Remark => $cobj->remark,
-            Created_at => \Carbon\Carbon::now(),
-            Updated_at => \Carbon\Carbon::now()
+            "Status" => 0,
+            "User_id" => $user->id,
+            "TicketReason" => $cobj->reasonFlag,
+            "TrackingNo" => $cobj->trackingNo,
+            "ShippingLogisticsId" => $cobj->shippingId,
+            "CustomerAddress" => $cobj->userAddress,
+            "RepairSiteId" => $cobj->repairSiteCode,
+            "ReturnLogisticsId" => $cobj->returnShippingId,
+            "Remark" => $cobj->remark,
+            "Created_at" => \Carbon\Carbon::now(),
+            "Updated_at" => \Carbon\Carbon::now()
         ];
-        Repair::insert($repair);
+        $repair["Id"] = Repair::insertGetId($repair);
 
         foreach ($cobj->listItem as $item) {
             RepairItem::insert([
-                "RepairId" => $repair->Id,
-                "Product_id" => $item->productId,
-                "Quantity" => $item->quantity,
-                "Remark" => $item->remark
+                "RepairId" => $repair["Id"],
+                "Product_id" => $item["productId"],
+                "Quantity" => $item["quantity"],
+                "Remark" => $item["remark"]
             ]);
         }
 

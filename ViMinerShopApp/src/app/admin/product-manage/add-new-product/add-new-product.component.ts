@@ -167,7 +167,7 @@ export class AddNewProductComponent implements OnInit {
           this.notifierService.notify('success', 'Tải lên thành công!');
           this.productimages.push({
             imageurl: 'https://cdn.notevn.com/' + res.file_name + '' + res.type,
-            alt_Name: file.name
+            alt_name: file.name
           });
         },
         (err) => {

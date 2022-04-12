@@ -1,16 +1,16 @@
 export interface User {
   email: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   telephone: string;
   mobile: string;
   username: string;
-  userImage: string;
+  userimage: string;
   useraddresss: Array<UserAddresss>;
-  shoppingSessions: Array<ShoppingSession>;
-  isSubscribedToMailing: boolean;
-  referralBy: string;
-  referralCode: string;
+  shoppingsessions: Array<ShoppingSession>;
+  issubscribedtomailing: boolean;
+  referralby: string;
+  referralcode: string;
 }
 
 export interface ShippingMethod {
@@ -86,7 +86,7 @@ export interface HPNotice {
 
 export interface productImage {
   id: number;
-  alt_Name: string;
+  alt_name: string;
   imageurl: string;
   created_at: string;
   updated_at: string;
@@ -228,13 +228,13 @@ export interface OrderItems {
 
 export interface Orders {
   id: number;
-  billingAddress: string;
-  totalPrice: number;
+  billingaddress: string;
+  totalprice: number;
   date: number;
   discount: Discount;
   orderitems: Array<OrderItems>;
   paymentdetail: PaymentDetail;
-  locationName: string;
+  locationname: string;
   latitute: string;
   logitute: string;
   created_at: string;
@@ -263,8 +263,8 @@ export class Repair {
   user_id: number;
   status: number;
   ticketReason: string;
-  repairItems: Array<RepairItem>;
-  trackingNo: string;
+  repairitem: Array<RepairItem>;
+  trackingno: string;
   shippingLogisticsId: number;
   customerAddress: string;
   repairSiteId: string;
@@ -511,7 +511,7 @@ export class MaxMinesSuccessPayment {
 
 export class processImage {
   imageurl: string;
-  alt_Name: string;
+  alt_name: string;
 }
 
 export class RoleVar {
@@ -537,8 +537,8 @@ export class UserAuthenticate {
   id: number;
   email: string;
   username: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   rolevar_id: number;
   isactive: boolean;
   token: string;
