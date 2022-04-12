@@ -18,7 +18,7 @@
                 height="92"
             />
               <div class="userIdNameContactMail">
-                <p class="user"><span *ngIf="!isInfoChanging">{{ userData.firstName }} {{ userData.lastName }}</span><input *ngIf="isInfoChanging" value="{{ userData.firstName }}" formControlName="fname" /> <input *ngIf="isInfoChanging" value="{{ userData.lastName }}" formControlName="lname"/></p>
+                <p class="user"><span *ngIf="!isInfoChanging">{{ userData.firstname }} {{ userData.lastname }}</span><input *ngIf="isInfoChanging" value="{{ userData.firstname }}" formControlName="fname" /> <input *ngIf="isInfoChanging" value="{{ userData.lastname }}" formControlName="lname"/></p>
                 <p class="name" *ngIf="userData.username !== null">
                     <span translate>Tên tài khoản: </span> <span *ngIf="!isInfoChanging" style="margin-right: 124px;">{{ userData.username }}</span>
                     <input *ngIf="isInfoChanging" value="{{ userData.username }}" disabled="disabled" class="disabled" formControlName="username" />

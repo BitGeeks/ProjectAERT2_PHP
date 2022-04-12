@@ -16,6 +16,7 @@
               <div *ngIf="e.error.status === 500 || e.error.status === 0" translate>
                 Lỗi không xác định
               </div>
+              {{ e.error.status }}
             </ng-container>
           </span>
         </p>

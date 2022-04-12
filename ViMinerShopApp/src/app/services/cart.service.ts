@@ -54,7 +54,7 @@ export class CartService {
       Id: cart.id,
       ShippingMethod_Id: ShippingMethodId,
       Total: cart.total,
-      CartItems: cart.cartItems,
+      cartitems: cart.cartitems,
       shippingAddress,
       shippingAmount,
       locationName,

@@ -44,7 +44,7 @@ export class EditUserPermissionComponent implements OnInit {
     });
     this.editUserPermission.patchValue({
       id: this.initialState.id,
-      permission: this.initialState.roleVar_Id
+      permission: this.initialState.rolevar_id
     });
   }
 

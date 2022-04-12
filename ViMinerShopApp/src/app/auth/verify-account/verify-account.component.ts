@@ -49,7 +49,7 @@ export class VerifyAccountComponent implements OnInit {
         if (!data.authenticated) {
           this.notifierService.notify('error', this.translatePipe.transform('Bạn phải đăng nhập trước đã!'));
           this.router.navigate(['/login']);
-        } else if (data.isActive) {
+        } else if (data.isactive) {
           this.router.navigate(['/']);
         }
       });

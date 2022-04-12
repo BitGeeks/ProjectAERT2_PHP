@@ -242,11 +242,54 @@ class CartController extends Controller
     }
 
     public function GetOrders (Request $request) {
-        // Under development
+        $user = $request->userData;
+
+        $sessionCheck = OrderDetail::with(["paymentdetail", "shippingmethod", "user"])
+            ->where("User_id", $user->id)
+            ->get();
+
+        return response()->json($sessionCheck);
     }
 
     public function DecrementCartItem (Request $request) {
-        // Under development
+        $user = $request->userData;
+
+        $sessionCheck = ShoppingSession::
+            where("User_id", $user->id)
+            ->orderBy("Id", "DESC")
+            ->first();
+
+        if ($sessionCheck == null) {
+            $session = [
+                "User_id" => $user->id,
+                "Total" => 0,
+                "Updated_at" => \Carbon\Cartbon::now(),
+                "Created_at" => \Carbon\Cartbon::now()
+            ];
+
+            ShoppingSession::insert($session);
+            $sessionCheck = ShoppingSession::
+            where("User_id", $user->id)
+            ->orderBy("Id", "DESC")
+            ->first();
+        }
+
+        if ($sessionCheck != null) {
+            $updateObj = CartItem::
+            with(["product", "product.productcategory", "product.productimages", "product.productinventory"])
+            ->where(["Session_id" => $sessionCheck->Id, "Id" => $request->cartItemId])
+            ->first();
+
+            if ($updateObj != null) {
+                if ($updateObj->Quantity - $request->amount <= 0)
+                    CartItem::where("Id", $updateObj->Id)->delete();
+                else $updateObj->Quantity -= $request->amount;
+
+                return GetSession();
+            }
+        }
+
+        return "NotFound";
     }
 
     public function GetCartItem (Request $request, $id) {
@@ -257,7 +300,7 @@ class CartController extends Controller
         // Under development
     }
 
-    public function DeleteCartItem (Request $request) {
+    public function DeleteCartItem (Request $request, $id) {
         // Under development
     }
 

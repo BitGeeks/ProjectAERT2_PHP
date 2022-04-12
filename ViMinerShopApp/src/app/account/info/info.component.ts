@@ -185,8 +185,8 @@ export class InfoComponent implements OnInit {
   onUserClickSetInformation() {
     if (!this.isInfoChanging) {
       this.userInfo.patchValue({
-        fname: this.userData.firstName,
-        lname: this.userData.lastName,
+        fname: this.userData.firstname,
+        lname: this.userData.lastname,
         username: this.userData.username,
         password: '',
         telephone: this.userData.telephone
@@ -197,8 +197,8 @@ export class InfoComponent implements OnInit {
 
   onUserClickSaveInformation() {
     this.accountService.updateUser({
-      FirstName: this.userInfo.value.fname,
-      LastName: this.userInfo.value.lname,
+      firstname: this.userInfo.value.fname,
+      lastname: this.userInfo.value.lname,
       Username: this.userInfo.value.username,
       Telephone: this.userInfo.value.telephone,
       Password: this.userInfo.value.password,

@@ -1,7 +1,7 @@
 export interface User {
   email: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   telephone: string;
   mobile: string;
   username: string;
@@ -67,7 +67,7 @@ export interface ProductDetail {
   notedesc: string;
   paymentdesc: string;
   warrantydesc: string;
-  isActive: boolean;
+  isactive: boolean;
 }
 
 export interface SlideImage {
@@ -146,7 +146,7 @@ export interface Cart {
 export interface ShoppingSession {
   id: number;
   total: number;
-  cartItems: Array<Cart>;
+  cartitems: Array<Cart>;
   coupon_id: number;
   coupon: Coupon;
   created_at: string;
@@ -537,9 +537,9 @@ export class UserAuthenticate {
   id: number;
   email: string;
   username: string;
-  firstName: string;
-  lastName: string;
-  roleVar_id: number;
-  isActive: boolean;
+  firstname: string;
+  lastname: string;
+  rolevar_id: number;
+  isactive: boolean;
   token: string;
 }

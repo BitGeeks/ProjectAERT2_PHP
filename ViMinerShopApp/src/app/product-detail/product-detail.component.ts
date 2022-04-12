@@ -243,10 +243,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.store.select('auth')
       .pipe(take(1))
       .subscribe(data => {
-        if (data.authenticated && data.isActive) {
+        if (data.authenticated && data.isactive) {
           this.store.dispatch(new CartActions.BuyNowBtn({ id: this.product.id, amount: parseInt(amount, 0) }));
         }
-        else if (!data.isActive) {
+        else if (!data.isactive) {
           this.notifierService.notify('error', this.translatePipe.transform('Bạn phải xác minh tài khoản trước đã!'));
           this.router.navigate(['/checkpoint']);
         }
@@ -268,10 +268,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.store.select('auth')
       .pipe(take(1))
       .subscribe(data => {
-        if (data.authenticated && data.isActive) {
+        if (data.authenticated && data.isactive) {
           this.store.dispatch(new CartActions.AddToCart({ id: this.product.id, amount: parseInt(amount, 0) }));
         }
-        else if (!data.isActive) {
+        else if (!data.isactive) {
           this.notifierService.notify('error', this.translatePipe.transform('Bạn phải xác minh tài khoản trước đã!'));
           this.router.navigate(['/checkpoint']);
         }

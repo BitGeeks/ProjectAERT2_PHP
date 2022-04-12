@@ -50,8 +50,8 @@ export class SigninComponent implements OnInit {
         this.store.dispatch(new AuthActions.SocialSignIn({
           email: user.email,
           id: user.id,
-          firstName: user.id,
-          lastName: user.id
+          firstname: user.id,
+          lastname: user.id
         }));
       }
     });

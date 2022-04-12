@@ -222,7 +222,7 @@ export class EditProductDialogComponent implements OnInit {
       ))
       .subscribe(() => {
         this.FormSubmittedEv.emit(true);
-        this.notifierService.notify('success', this.initialState.isActive ? 'Vô hiệu hóa sản phẩm thành công' : 'Kích hoạt sản phẩm thành công');
+        this.notifierService.notify('success', this.initialState.isactive ? 'Vô hiệu hóa sản phẩm thành công' : 'Kích hoạt sản phẩm thành công');
         this.onUserClickClose();
     });
   }

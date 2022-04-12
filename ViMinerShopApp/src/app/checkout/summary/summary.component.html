@@ -72,7 +72,7 @@
         </div>
         <div class="content" style="overflow-x: auto;">
             <table>
-                <tr *ngFor="let cartItem of (cartState | async).cart.cartItems">
+                <tr *ngFor="let cartItem of (cartState | async).cart.cartitems">
                     <td class="product">
                         <ng-container *ngIf="cartItem.productimages && cartItem.productimages.length !== 0">
                           <img

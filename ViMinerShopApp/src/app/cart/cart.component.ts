@@ -57,9 +57,9 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartState = this.store.select('cart');
     this.browseState = this.store.select('browse');
     this.cartItemCountSubscription = this.cartState.subscribe(data => {
-      if (data.cart && data.cart.cartItems.length) {
+      if (data.cart && data.cart.cartitems.length) {
         this.cartData = data.cart;
-        this.cartItemCount = data.cart.cartItems.reduce((total, cartItem) => {
+        this.cartItemCount = data.cart.cartitems.reduce((total, cartItem) => {
           this.onSelectItem[cartItem.id] = true;
           return total + cartItem.quantity;
         }, 0);
@@ -77,7 +77,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   onUserClickCheckerHF() {
     Object.keys(this.onSelectItem).map(s => {
-      const product = this.cartData.cartItems.filter(ci => ci.id === parseInt(s))[0];
+      const product = this.cartData.cartitems.filter(ci => ci.id === parseInt(s))[0];
       if (!this.onSelectItem[s]) {
         this.totalDisabledPrice += (product.product.pricepromotion === 0 ? product.product.price : product.product.pricepromotion) * product.quantity;
       } else {
@@ -90,7 +90,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   clearAllTxt() {
     Object.keys(this.onSelectItem).map(s => {
-      const product = this.cartData.cartItems.filter(ci => ci.id === parseInt(s))[0];
+      const product = this.cartData.cartitems.filter(ci => ci.id === parseInt(s))[0];
       if (!this.onSelectItem[s]) {
         this.totalDisabledPrice += (product.product.pricepromotion === 0 ? product.product.price : product.product.pricepromotion) * product.quantity;
       } else {
@@ -109,7 +109,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   onUserClickDeleteSelecting() {
     Object.keys(this.onSelectItem).map(s => {
-      const product = this.cartData.cartItems.filter(ci => ci.id === parseInt(s))[0];
+      const product = this.cartData.cartitems.filter(ci => ci.id === parseInt(s))[0];
       if (this.onSelectItem[s]) {
         this.removeFromCart(product.id);
       }
@@ -117,7 +117,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   onUserClickCheckerIvu(itemId: number) {
-    const product = this.cartData.cartItems.filter(ci => ci.id === itemId)[0];
+    const product = this.cartData.cartitems.filter(ci => ci.id === itemId)[0];
     if (!this.onSelectItem[itemId]) {
       this.totalDisabledPrice += (product.product.pricepromotion === 0 ? product.product.price : product.product.pricepromotion) * product.quantity;
     } else {
@@ -179,7 +179,7 @@ export class CartComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(data => {
         this.isLoading = false;
-        if (data.isActive) {
+        if (data.isactive) {
           this.store.dispatch(new OrderActions.IsCheckoutActive(true));
           this.router.navigate(['/checkout'], { relativeTo: this.route });
         } else {

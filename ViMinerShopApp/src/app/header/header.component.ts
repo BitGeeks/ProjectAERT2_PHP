@@ -80,19 +80,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.authStateSubscription = this.authState
       .subscribe((data) => {
-        if (data.authenticated && data.isActive) {
+        if (data.authenticated && data.isactive) {
           this.getUserInfo();
           this.store.dispatch(new CartActions.FetchCart());
           this.cartItemCountSubscription = this.cartState.subscribe(data => {
-            if (data.cart && data.cart.cartItems.length !== 0) {
-              this.cartItemCount = data.cart.cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
+            if (data.cart && data.cart.cartitems.length !== 0) {
+              this.cartItemCount = data.cart.cartitems.reduce((total, cartItem) => total + cartItem.quantity, 0);
             }
             else {
               this.cartItemCount = 0;
             }
           });
         }
-        else if (data.authenticated && this.currentRoute !== '' && !data.isActive && !this.currentRoute.includes('checkpoint') && !this.currentRoute.includes('verify')) { this.router.navigate([`/checkpoint`]); }
+        else if (data.authenticated && this.currentRoute !== '' && !data.isactive && !this.currentRoute.includes('checkpoint') && !this.currentRoute.includes('verify')) { this.router.navigate([`/checkpoint`]); }
         else {
           if (this.cartItemCountSubscription) {
             this.cartItemCountSubscription.unsubscribe();
@@ -188,11 +188,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.store.select('auth')
       .pipe(take(1))
       .subscribe(data => {
-        if (data.isActive) {
+        if (data.isactive) {
           this.store.dispatch(new OrderActions.IsCheckoutActive(true));
           this.router.navigate(['/cart'], { relativeTo: this.route });
           this.onUserClickTab(2);
-        } else if (!data.isActive) {
+        } else if (!data.isactive) {
           this.router.navigate(['/checkpoint']);
         }
       });

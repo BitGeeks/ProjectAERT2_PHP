@@ -24,7 +24,7 @@ export class CheckoutGuardService implements CanActivate, CanActivateChild, CanD
   canCheckoutCart() {
     return this.store.select('cart')
       .pipe(take(1),
-        map((cartState: fromCart.CartState) => cartState.cart && cartState.cart.cartItems.length !== 0));
+        map((cartState: fromCart.CartState) => cartState.cart && cartState.cart.cartitems.length !== 0));
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
