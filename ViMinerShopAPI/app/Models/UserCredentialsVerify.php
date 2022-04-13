@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class UserCredentialsVerify extends Model
 {
     use HasFactory;
+    protected $table = "usercredentialsverify";
     protected $primaryKey = "Id";
+    public $timestamps = false;
     protected $fillable = [
         'Id', 'User_id', 'EmailVerifyCode', 'ResendMailAt'
     ];

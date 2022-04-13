@@ -6,7 +6,8 @@ use App\Models\User;
 use App\Models\UserRecovery;
 use Illuminate\Http\Request;
 use App\Http\Helpers\MiscHelper;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MaxMinesCollabMailController;
 
 class RecoverController extends Controller
 {
@@ -26,56 +27,55 @@ class RecoverController extends Controller
         ];
         UserRecovery::insert($recovery);
 
-        // EmailModel template = new EmailModel()
-        // {
-        //     EmailFrom = "vi@maxmines.com",
-        //     EmailTo = model.email,
-        //     CustomerUsername = user.Username,
-        //     Subject = "[Vĩ Miner Shop - Collab] Mã đặt lại mật khẩu của bạn",
-        //     Body = "Xin chào, bạn nhận được mail từ Vĩ Miner Shop. Đây là mã đặt lại mật khẩu của bạn: " + recovery.recoveryCode + ". \n\nLưu ý: Mã này chỉ có hiệu lực trong vòng 15 phút!"
-        // };
+        $mailController = new MaxMinesCollabMailController();
 
-        // mail.Send(template);
+        $mailController->sendMail($request->email, "[Vĩ Miner Shop - Collab] Mã đặt lại mật khẩu của bạn", "Xin chào, bạn nhận được mail từ Vĩ Miner Shop. Đây là mã đặt lại mật khẩu của bạn: " . $recovery["recoveryCode"] . ". \n\nLưu ý: Mã này chỉ có hiệu lực trong vòng 15 phút!");
 
         return "";
     }
 
-    public function PostUserRecovery (Request $request, $id) {
-        $user = User::where("Email", $request->email)->first();
-        $vrc = UserRecovery::where("User_id", $user->Id)
+    public function PostUserRecovery (Request $request) {
+        $user = User::where("email", $request->email)->first();
+        $expTime = \Carbon\Carbon::now();
+        $expTime->subDays(15);
+        $vrc = UserRecovery::where("User_id", $user->id)
             ->where("recoveryCode", $request->verifyCode)
+            ->whereDate("Created_at", ">", $expTime)
             ->first();
 
         if (!$vrc) return "NotFound";
         else if ($vrc->IsUsed) return "NotFound";
         
-        $date = \Carbon\Carbon::parse($vrc->Created_at);
-        if ($date->diffInSeconds(\Carbon\Carbon::now()) > 600) return "NotFound";
+        // $date = \Carbon\Carbon::parse($vrc->Created_at);
+        // if ($date->diffInSeconds() > 600) return "NotFound";
 
         return "";
     }
 
-    public function PostUserRecovery2 (Request $request, $id) {
-        $user = User::where("Email", $request->email)->first();
-        $vrc = UserRecovery::where("User_id", $user->Id)
+    public function PostUserRecovery2 (Request $request) {
+        $user = User::where("email", $request->email)->first();
+        $expTime = \Carbon\Carbon::now();
+        $expTime->subDays(15);
+        $vrc = UserRecovery::where("User_id", $user->id)
             ->where("recoveryCode", $request->verifyCode)
+            ->whereDate("Created_at", ">", $expTime)
             ->first();
 
         if (!$vrc) return "NotFound";
         else if ($vrc->IsUsed) return "NotFound";
         
-        $date = \Carbon\Carbon::parse($vrc->Created_at);
-        if ($date->diffInSeconds(\Carbon\Carbon::now()) > 600) return "NotFound";
+        // $date = \Carbon\Carbon::parse($vrc->Created_at);
+        // if ($date->diffInSeconds(\Carbon\Carbon::now()) > 600) return "NotFound";
 
         $vrc->IsUsed = true;
-        UserRecovery::where("Id", $vrc->Id)->update($vrc);
+        $vrc->save();
 
-        $apiController = new ApiController();
+        $apiController = new UserController();
         $request->userData = [
             "id" => $user->id
         ];
         $request->password = $request->newPassword;
-        $apiController->update_user($request);
+        $apiController->update_user($request, true);
         
         return "";
     }
