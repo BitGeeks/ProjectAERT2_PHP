@@ -7,3 +7,5 @@ PHP Laravel với eloquent, artisan, MySQL, Angular, JWT
 - Nguyễn Duy Kha
 - Nguyễn Hoàng Việt
 - Nguyễn Linh Phú
+## Kết thúc
+- Kết thúc đồ án, cảm ơn mọi người, chúc mọi người thành công trong cuộc sống.
